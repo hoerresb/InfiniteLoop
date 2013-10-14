@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Monet Mall</title>
+		<link type="text/css" rel="stylesheet" href="stylesheet.css"/>
+	</head>
+	<body>
+		<div id="container">
+			<div id="banner">
+				<span class="title">Banner Image</span>
+			</div>
+			<div id="navbar">
+				<div class="nav"><a href="#">Page 1</a></div>
+				<div class="nav"><a href="#">Page 2</a></div>
+				<div class="nav"><a href="#">Page 3</a></div>
+				<div id="login" class="nav"><a href="login.html">Log In</a></div>
+			</div>
+			<div id="content">
+				<span class="error">Username/Password was invalid. Please try again.</span>
+				<form id="form-id" method="POST" action="http://webdevbasics.net/scripts/demo.php">
+					<label for="username-id">Username:</label>
+					<input id="username-id" class="text-input" type="text" name="username" autofocus="autofocus" /><br/><br/>
+				
+					<label for="password-id">Password:</label>
+					<input id="password-id" class="text-input" type="password" name="password" /><br/><br/>
+								
+					<label for="status-id">Select Status:</label>
+					<select id="status-id" name="status">
+						<optgroup label="Status">
+							<option value="student">Student</option>
+							<option value="teacher">Teacher</option>
+						</optgroup>
+					</select><br/><br/>
+					
+					<div id="button-area">
+						<button id="submit-id" type="submit">Submit</button><br/><br/>
+						<a class="button" href="login_success.html">Login Success</a>
+						<a class="button" href="login_fail.html">Login Fail</a><br/><br/>
+						<a class="button" href="register_student.html">Register (Student)</a><br/><br/>
+						<a class="button" href="register_teacher.html">Register (Teacher)</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>
