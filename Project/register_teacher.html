@@ -9,12 +9,6 @@
 			<div id="banner">
 				<span class="title">Banner Image</span>
 			</div>
-			<div id="navbar">
-				<div class="nav"><a href="#">Page 1</a></div>
-				<div class="nav"><a href="#">Page 2</a></div>
-				<div class="nav"><a href="#">Page 3</a></div>
-				<div id="login" class="nav"><a href="login.html">Log In</a></div>
-			</div>
 			<div id="content">
 				<span class="title">Register</span><br/>
 				<form id="form-id" method="POST" action="http://webdevbasics.net/scripts/demo.php">
@@ -30,11 +24,8 @@
 					<label for="verify-id">Teacher Verification Code:</label>
 					<input id="verify-id" class="text-input" type="text" name="verify" /><br/><br/>
 					
-					<label>Select Classes:</label><br/>
-					<input class="checkbox-input" type="checkbox" name="class-type" value="dog-trainer"><span class="checkbox-input">Dog Trainer</span><br/>
-					<input class="checkbox-input" type="checkbox" name="class-type" value="fitness-guru"><span class="checkbox-input">Fitness Guru</span><br/>
-					<input class="checkbox-input" type="checkbox" name="class-type" value="cake-decorator"><span class="checkbox-input">Cake Decorator</span><br/>
-					<input class="checkbox-input" type="checkbox" name="class-type" value="martial-arts"><span class="checkbox-input">Martial Arts Dojo</span><br/><br/>
+					<label for="instructor_type">Instructor Type:</label><br/>
+					<input id="instructor_type" class="text-input" type="text" name="verify" placeholder="Ex: Dog Trainer, Tutor ..."/><br/><br/>
 					
 					<label for="username-id">Username:</label>
 					<input id="username-id" class="text-input" type="text" name="username" /><br/><br/>
