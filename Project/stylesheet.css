@@ -128,3 +128,8 @@ li {
 	color:red;
 }
 
+
+.attendanceContainer{width: 50%; height: auto; margin: 0 auto; padding: 30px; color:#000;}
+.attendanceContainer table,td,th {border: 1px solid black;}
+.attendanceContainer table {width: 100%;}
+.attendanceContainer th {height: 50px;}
