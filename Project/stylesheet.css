@@ -65,7 +65,7 @@ a:link{
 	height: 100%;
 	width: 330px;
 	margin: auto;
-	padding: 20px 20px 20px 20px;
+	padding: 20px;
 	background-color: #526C85;
 	box-shadow: 0px 5px 20px 0px #404040;
 	text-align: center;
@@ -132,7 +132,7 @@ li {
 }
 
 
-.attendanceContainer{width: 50%; height: auto; margin: 0 auto; padding: 30px; color:#000;}
-.attendanceContainer table,td,th {border: 1px solid black;}
+.attendanceContainer{width: 80%; height: auto; margin: auto; padding: 30px; color:#526C85;}
+.attendanceContainer table,td,th {border: 1px solid black; border-collapse: collapse; background-color: #F0F0F0;}
 .attendanceContainer table {width: 100%;}
 .attendanceContainer th {height: 50px;}
