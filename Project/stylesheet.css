@@ -153,8 +153,6 @@ li {
 
 	box-shadow: 0px 5px 20px 0px #404040;
 
-	
-
 	}
 
 .listK
@@ -173,7 +171,14 @@ li {
 	{
 	margin-left:20%;
 	}
-
+.tableK table
+	{
+	color: #526C85;
+	}
+.tableK a
+	{
+	color: #6285C7;
+	}
 .text_box_K
 	{
 	background-color: #9CC7F2;
