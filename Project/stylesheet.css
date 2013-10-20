@@ -139,6 +139,22 @@ li {
 .attendanceContainer table {width: 100%;}
 .attendanceContainer th {height: 50px;}
 
+
+
+.classSelect nav ul ul {display: none; background: #5f6975; border-radius: 0px; padding: 0; position: absolute; top: 100%;}
+.classSelect nav ul li:hover > ul{display: block;}
+.classSelect nav ul { background: #efefef; padding: 0 20px; border-radius: 10px; list-style: none; position: relative; display: inline-table; box-shadow: 0px 0px 9px rgba(0,0,0,0.15);}
+.classSelect nav ul:after{content: ""; clear: both; display: block;}
+.classSelect nav ul li {float: left;}
+.classSelect ul li:hover{background: #4b545f; background: linear-gradient(top, #4f5964 0%, #5f6975 40%);}
+.classSelect nav ul li:hover a{color: #fff;}
+.classSelect nav ul li a{display: block; padding: 25px 40px; color: #757575; text-decoration: none;}
+.classSelect nav ul ul li {float: none; border-top: 1px solid #6b727c; border-bottom: 1px solid #575f6a; position: relative;}
+.classSelect nav ul ul li a{padding: 20px; color: #fff;}
+.classSelect nav ul ul li a:hover {background: #4b545f;}
+.classSelect nav ul ul ul {position: absolute; left: 100%; top:0;}
+
+
 ul {
 	text-align: left;
 }
