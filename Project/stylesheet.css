@@ -124,6 +124,10 @@ h3.subsection {
 .home_title {
 	text-align: left;
 }
+.home_title a {
+	padding: 0px;
+	color: #484E72;
+}
 
 li {
 	font-size: 12px;
@@ -138,6 +142,7 @@ li {
 .attendanceContainer table,td,th {border: 1px solid black; border-collapse: collapse; background-color: #F0F0F0;}
 .attendanceContainer table {width: 100%;}
 .attendanceContainer th {height: 50px;}
+.attendanceContainer a {color: #DD7900;}
 
 
 
@@ -162,6 +167,11 @@ ul {
 	{
 	list-style-type: none;
 	margin: 10px 10px 10px 10px;
+	}
+.listK a 
+	{
+	padding: 0px;
+	color: #DD7900;
 	}
 .tableK
 	{
