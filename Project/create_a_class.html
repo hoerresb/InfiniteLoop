@@ -22,8 +22,26 @@
 						<label for="class_name">Class name:</label>
 						<input id="class_name" class="text-input" type="text" name="classname" autofocus="autofocus" /><br/><br/>
 					
-						<label for="class_length">Class length (weeks):</label>
-						<input id="class_length" class="text-input" type="text" name="classlength" /><br/><br/>
+						<label for="class_start">Class Start Date:</label>
+						<input id="class_start" class="text-input" type="date" name="classstart" /><br/><br/>
+						
+						<label for="class_end">Class End Date:</label>
+						<input id="class_end" class="text-input" type="date" name="classend" /><br/><br/>
+						
+						<label for="meeting_times">Weekly Meeting Times:</label><br/>
+						<div id="meeting_times">
+							<label for="meeting_days">Days:</label><br/>
+							<label for="meeting_times_mon"><input class="meeting_time_op" type="checkbox" name="meeting_times_mon" value="M">M</label>
+							<label for="meeting_times_tue"><input class="meeting_time_op" type="checkbox" name="meeting_times_tue" value="T">T</label>
+							<label for="meeting_times_wed"><input class="meeting_time_op" type="checkbox" name="meeting_times_wed" value="W">W</label>
+							<label for="meeting_times_thur"><input class="meeting_time_op" type="checkbox" name="meeting_times_thur" value="Th">Th</label>
+							<label for="meeting_times_fri"><input class="meeting_time_op" type="checkbox" name="meeting_times_fri" value="F">F</label>
+							<label for="meeting_times_sat"><input class="meeting_time_op" type="checkbox" name="meeting_times_sat" value="S">S</label>
+							<label for="meeting_times_sun"><input class="meeting_time_op" type="checkbox" name="meeting_times_sun" value="Su">Su</label><br/><br/>
+						
+							<label for="time">Time:</label>
+							<input id="time" class="text-input" type="text" name="time" /><br/><br/>
+						</div>
 						
 						<label for="class_meeting_place">Meeting place:</label>
 						<input id="class_meeting_place" class="text-input" type="text" name="classmeetingplace" /><br/><br/>
