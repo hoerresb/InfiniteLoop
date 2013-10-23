@@ -187,6 +187,11 @@ ul {
 	background-color: #FFE15A;
 	color: #484E72;
 	}
+.edit_course_info_a
+	{
+	float: right;
+
+	}
 	
 #meeting_times{
 		margin-left: 1em;
