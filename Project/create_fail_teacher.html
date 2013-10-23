@@ -15,18 +15,19 @@
 				<div id="login" class="nav"><a href="login.html">Log Out</a></div>
 			</div>
 			<div id="content">
+				<span class="error">The class was not edit due to error with information. Please try again.</span>
 				<span class="title">Create a class:</span>
 				<form id="form-id" method="POST" action="http://webdevbasics.net/scripts/demo.php">
 					<h3>General Info:</h3>
 					<div id="general_info_div" class="subsection">
 						<label for="class_name">Class name:</label>
 						<input id="class_name" class="text-input" type="text" name="classname" autofocus="autofocus" /><br/><br/>
-					
+						
 						<label for="class_start">Class Start Date:</label>
-						<input id="class_start" class="text-input" type="text" name="classstart" /><br/><br/>
+						<input id="class_start" class="text-input" type="date" name="classstart" /><br/><br/>
 						
 						<label for="class_end">Class End Date:</label>
-						<input id="class_end" class="text-input" type="text" name="classend" /><br/><br/>
+						<input id="class_end" class="text-input" type="date" name="classend" /><br/><br/>
 						
 						<label for="meeting_times">Weekly Meeting Times:</label><br/>
 						<div id="meeting_times">
@@ -72,8 +73,8 @@
 					
 					<div id="button-area">
 						<button id="submit-id" type="submit">Submit</button><br/><br/>
-						<a class="button" href="create_success_teacher.html">Creation Success</a>
-						<a class="button" href="create_fail_teacher.html">Creation Fail</a><br/><br/>
+						<a class="button" href="create_success.html">Creation Success</a>
+						<a class="button" href="create_fail.html">Creation Fail</a><br/><br/>
 					</div>
 				</form>
 			</div>
