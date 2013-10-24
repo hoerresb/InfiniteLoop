@@ -15,12 +15,12 @@
 				<div id="login" class="nav"><a href="login.html">Log Out</a></div>
 			</div>
 			<div id="content">
-				<span class="title">Create a class:</span>
+				<span class="title">Edit Cooking For Dummies:</span>
 				<form id="form-id" method="POST" action="http://webdevbasics.net/scripts/demo.php">
 					<h3>General Info:</h3>
 					<div id="general_info_div" class="subsection">
 						<label for="class_name">Class name:</label>
-						<input id="class_name" class="text-input" type="text" name="classname" autofocus="autofocus" /><br/><br/>
+						<input id="class_name" class="text-input" type="text" name="classname" value="Cooking For Dummies" /><br/><br/>
 					
 						<label for="class_start">Class Start Date:</label>
 						<input id="class_start" class="text-input" type="text" name="classstart" /><br/><br/>
@@ -32,19 +32,19 @@
 						<div id="meeting_times">
 							<label for="meeting_days">Days:</label><br/>
 							<label for="meeting_times_mon"><input class="meeting_time_op" type="checkbox" name="meeting_times_mon" value="M">M</label>
-							<label for="meeting_times_tue"><input class="meeting_time_op" type="checkbox" name="meeting_times_tue" value="T">T</label>
+							<label for="meeting_times_tue"><input class="meeting_time_op" type="checkbox" name="meeting_times_tue" value="T" checked>T</label>
 							<label for="meeting_times_wed"><input class="meeting_time_op" type="checkbox" name="meeting_times_wed" value="W">W</label>
-							<label for="meeting_times_thur"><input class="meeting_time_op" type="checkbox" name="meeting_times_thur" value="Th">Th</label>
+							<label for="meeting_times_thur"><input class="meeting_time_op" type="checkbox" name="meeting_times_thur" value="Th" checked>Th</label>
 							<label for="meeting_times_fri"><input class="meeting_time_op" type="checkbox" name="meeting_times_fri" value="F">F</label>
 							<label for="meeting_times_sat"><input class="meeting_time_op" type="checkbox" name="meeting_times_sat" value="S">S</label>
 							<label for="meeting_times_sun"><input class="meeting_time_op" type="checkbox" name="meeting_times_sun" value="Su">Su</label><br/><br/>
 						
 							<label for="time">Time:</label>
-							<input id="time" class="text-input" type="text" name="time" /><br/><br/>
+							<input id="time" class="text-input" type="text" name="time" value="8:30pm" /><br/><br/>
 						</div>
 						
 						<label for="class_meeting_place">Meeting place:</label>
-						<input id="class_meeting_place" class="text-input" type="text" name="classmeetingplace" /><br/><br/>
+						<input id="class_meeting_place" class="text-input" type="text" name="classmeetingplace" value="EMS310" /><br/><br/>
 						
 						<label for="options-id">Payment options:</label>
 						<select id="options-id" name="options">
@@ -59,10 +59,10 @@
 					<h3>Contact Info:</h3>
 					<div id="contact_info_div" class="subsection">
 						<label for="teacher_phone">Phone Number:</label>
-						<input id="teacher_phone" class="text-input" type="text" name="teacherphone" /><br/><br/>
+						<input id="teacher_phone" class="text-input" type="text" name="teacherphone" value="1 (111) 111-1111" /><br/><br/>
 						
 						<label for="teacher_email">Email:</label>
-						<input id="teacher_email" class="text-input" type="text" name="teacheremail" /><br/><br/>
+						<input id="teacher_email" class="text-input" type="text" name="teacheremail" value="jbond@cooking.edu" /><br/><br/>
 					</div>
 					
 					<h3>Class Description:</h3>
