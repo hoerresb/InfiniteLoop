@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Monet Mall</title>
+		<link type="text/css" rel="stylesheet" href="stylesheet.css"/>
+	</head>
+	<body>
+		<div id="container">
+			<div id="banner"></div>
+			
+			<div id="navbar">
+                        	<div class="nav"><a href="teacher_home.html">Home</a></div>
+                        	<div class="nav"><a href="attendance.html">Attendance</a></div>
+                        	<div class="nav"><a href="awards.html">Awards</a></div>
+                        	<div class="nav"><a href="register_student.html">Register Student</a></div>
+                        	<div id="login" class="nav"><a href="login.html">Log Out</a></div>
+                	</div>			
+			
+			<div id="content">
+
+				<span class="success">Register Success!</span>
+				<form id="form-id" method="POST" action="http://webdevbasics.net/scripts/demo.php">
+					<label for="firstname-id">First Name:</label>
+					<input id="firstname-id" class="text-input" type="text" name="firstname" autofocus="autofocus" /><br/><br/>
+					
+					<label for="lastname-id">Last Name:</label>
+					<input id="lastname-id" class="text-input" type="text" name="lastname" /><br/><br/>
+					
+					<label for="lname-id">E-Mail:</label>
+					<input id="email-id" class="text-input" type="email" name="email" /><br/><br/><br/>
+					
+					<label for="username-id">Username:</label>
+					<input id="username-id" class="text-input" type="text" name="username" /><br/><br/>
+				
+					<label for="password1-id">Password:</label>
+					<input id="password1-id" class="text-input" type="password" name="password1" /><br/><br/>
+					
+					<label for="password2-id">Retype Password:</label>
+					<input id="password2-id" class="text-input" type="password" name="password2" /><br/><br/>
+					
+					<div id="button-area">
+						<button id="submit-id" type="submit">Submit</button>
+						<a class="button" id="back-id" href="register_student.html">Clear</a><br/><br/>
+						<a id="back-id" class="button" href="register_success.html">Register Success</a>
+						<a id="back-id" class="button" href="register_student_fail.html">Register Fail</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>
