@@ -21,7 +21,7 @@ public class InfiniteLoopGoogleAppServlet extends HttpServlet {
 					"<html>\r\n" + 
 					"	<head>\r\n" + 
 					"		<title>Monet Mall</title>\r\n" + 
-					"		<link type=\"text/css\" rel=\"stylesheet\" href=\"stylesheet.css\"/>\r\n" + 
+					"		<link type=\"text/css\" rel=\"stylesheet\" href=\"\\css\\stylesheet.css\"/>\r\n" + 
 					"	</head>\r\n" + 
 					"	<body>\r\n" + 
 					"		<div id=\"container\">\r\n" + 
