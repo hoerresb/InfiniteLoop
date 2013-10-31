@@ -8,11 +8,9 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 import com.google.appengine.api.datastore.Key;
-import com.google.appengine.datanucleus.annotations.Unowned;
 
 @PersistenceCapable
-public class User
-{
+public class User {
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private Key user_id;
@@ -35,8 +33,7 @@ public class User
 	@Persistent
 	private String email;
 	
-	public User(int user_type, String username, String password, String firstName, String lastName, String email)
-	{
+	public User(int user_type, String username, String password, String firstName, String lastName, String email) {
 		this.user_type = user_type;
 		this.username = username;
 		this.password = password;
@@ -45,43 +42,35 @@ public class User
 		this.email = email;
 	}
 
-	public Key getUser_id()
-	{
+	public Key getUser_id() {
 		return user_id;
 	}
 	
-	public int getUser_type()
-	{
+	public int getUser_type() {
 		return user_type;
 	}
 	
-	public String getUsername()
-	{
+	public String getUsername() {
 		return username;
 	}
 	
-	public String getPassword()
-	{
+	public String getPassword() {
 		return password;
 	}
 
-	public String getFirstName()
-	{
+	public String getFirstName() {
 		return firstName;
 	}
 
-	public String getLastName()
-	{
+	public String getLastName() {
 		return lastName;
 	}
 
-	public String getFullName()
-	{
+	public String getFullName() {
 		return firstName + " " + lastName;
 	}
 
-	public String getEmail()
-	{
+	public String getEmail() {
 		return email;
 	}
 }
