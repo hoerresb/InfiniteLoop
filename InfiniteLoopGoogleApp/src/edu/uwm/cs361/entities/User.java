@@ -33,13 +33,22 @@ public class User {
 	@Persistent
 	private String email;
 	
-	public User(int user_type, String username, String password, String firstName, String lastName, String email) {
+	@Persistent
+	private String phone_number;
+	
+	@Persistent
+	private String[] instructor_types;
+	
+	public User(int user_type, String username, String password, String firstName, String lastName, String email,
+			String phone_number, String[] instructor_types) {
 		this.user_type = user_type;
 		this.username = username;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
+		this.phone_number = phone_number;
+		this.instructor_types = instructor_types.clone();
 	}
 
 	public Key getUser_id() {
@@ -72,5 +81,13 @@ public class User {
 
 	public String getEmail() {
 		return email;
+	}
+	
+	public String getPhoneNumber() {
+		return phone_number;
+	}
+	
+	public String[] getInstructorTypes() {
+		return instructor_types;
 	}
 }

@@ -1,6 +1,8 @@
 package edu.uwm.cs361;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
@@ -9,66 +11,58 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.uwm.cs361.entities.User;
+import edu.uwm.cs361.util.PageTemplate;
 
 @SuppressWarnings("serial")
 public class CreateInstuctorServlet extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		resp.setContentType("text/html");
-
-		resp.getWriter().println("<!DOCTYPE html>" +
-				"<html>" +
-				"	<head>" +
-				"		<title>Monet Mall</title>" +
-				"		<link type='text/css' rel='stylesheet' href='/css/stylesheet.css'/>" +
-				"	</head>" +
-				"	<body>" +
-				"		<div id='container'>" +
-				"			<div id='banner'></div>" +
-				"			<div id='navbar'>" +
-				"				<div class='nav'><a href='admin_home.html'>Home</a></div>" +
-				"				<div class='nav'><a href='create_a_class.html'>Create Class</a></div>" +
-				"				<div class='nav'><a href='/createInstructor'>Create Instructor</a></div>" +
-				"				<div id='login' class='nav'><a href='/login'>Log Out</a></div>" +
-				"			</div>" +
-				"			<div id='content'>" +
-				"				<span class='title'>Create an Instructor:</span>" +
-				"				<form id=\"form-id\" method=\"POST\" action='/createInstructor'>" +
-				"					<label for=\"firstname-id\">First Name:</label>" +
-				"					<input id=\"firstname-id\" class=\"text-input\" type=\"text\" name=\"firstname\" autofocus=\"autofocus\" /><br/><br/>" +
-				"					<label for=\"lastname-id\">Last Name:</label>" +
-				"					<input id=\"lastname-id\" class=\"text-input\" type=\"text\" name=\"lastname\" /><br/><br/>" +
-				"					<label for=\"email-id\">E-Mail:</label>" +
-				"					<input id=\"email-id\" class=\"text-input\" type=\"email\" name=\"email\" /><br/><br/>" +
-				"					<label for=\"phone_num-id\">Phone number:</label>" +
-				"					<input id=\"phone_num-id\" class=\"text-input\" type=\"text\" name=\"phone_num\" /><br/><br/>" +
-				"					<label for=\"instructor_type\">Instructor Type:</label><br/>" +
-				"					<input id=\"instructor_type\" class=\"text-input\" type=\"text\" name=\"verify\" placeholder=\"Ex: Dog Trainer, Tutor ...\"/><br/><br/>" +
-				"					<label for=\"username-id\">Username:</label>" +
-				"					<input id=\"username-id\" class=\"text-input\" type=\"text\" name=\"username\" /><br/><br/>" + 
-				"					<label for=\"password1-id\">Password:</label>" +
-				"					<input id=\"password1-id\" class=\"text-input\" type=\"password\" name=\"password1\" /><br/><br/>" +
-				"					" +
-				"					<label for=\"password2-id\">Retype Password:</label>" +
-				"					<input id=\"password2-id\" class=\"text-input\" type=\"password\" name=\"password2\" /><br/><br/>" +
-				"					<div id=\"button-area\">" +
-				"						<button id=\"submit-id\" type=\"submit\">Submit</button><br/><br/>" + 
-				"					</div>" +
-				"				</form>" +
-				"			</div>" +
-				"		</div>" +
-				"	</body>" +
-				"</html>");
+		displayForm(req, resp, new ArrayList<String>());
 	}
+
 
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException	{
+		List<String> errors = new ArrayList<String>();
+		
+		String username = req.getParameter("username");
+		String password = req.getParameter("password");
+		String password_repeat = req.getParameter("password_repeat");
+		String firstname = req.getParameter("firstname");
+		String lastname = req.getParameter("lastname");
+		String email = req.getParameter("email");
+		String phonenumber = (req.getParameter("phonenumber")).equals("null") ? null : req.getParameter("phonenumber");
+		
+		String instructor_types = req.getParameter("instructor_types");
+		String[] instructor_types_array = null;
+		if(!req.getParameter("instructor_types").equals("null")) {
+			instructor_types_array = instructor_types.split(",");
+		}
+		
 		PersistenceManager pm = getPersistenceManager();
+		
+		if (username.isEmpty()) {
+			errors.add("Username is required.");
+		}
+		if (password.isEmpty()) {
+			errors.add("Password is required.");
+		} else if (!password.equals(password_repeat)) {
+			errors.add("Passwords do not match.");
+		}
+		if (phonenumber.isEmpty()) {
+			errors.add("Phone Number is required.");
+		}
+		if (email.isEmpty()) {
+			errors.add("Email is required.");
+		}
 
 		try {
-			pm.makePersistent(new User(Integer.parseInt(req.getParameter("1")),req.getParameter("username"),req.getParameter("password"),
-					req.getParameter("firstname"),req.getParameter("lastname"),req.getParameter("email")));
-			resp.sendRedirect("/display");
+			if (errors.size() > 0) {
+				displayForm(req, resp, errors);
+			} else {
+				pm.makePersistent(new User(1,username,password,firstname,lastname,email,phonenumber,instructor_types_array));
+				resp.sendRedirect("/display");
+			}
 		} finally {
 			pm.close();
 		}
@@ -76,5 +70,62 @@ public class CreateInstuctorServlet extends HttpServlet {
 
 	private PersistenceManager getPersistenceManager() {
 		return JDOHelper.getPersistenceManagerFactory("transactions-optional").getPersistenceManager();
+	}
+	private void displayForm(HttpServletRequest req, HttpServletResponse resp, List<String> errors) throws IOException {
+		resp.setContentType("text/html");
+		
+		String username = req.getParameter("username") != null ? req.getParameter("username") : "";
+		String password = req.getParameter("password") != null ? req.getParameter("password") : "";
+		String password_repeat = req.getParameter("password_repeat") != null ? req.getParameter("password_repeat") : "";
+		String firstname = req.getParameter("firstname") != null ? req.getParameter("firstname") : "";
+		String lastname = req.getParameter("lastname") != null ? req.getParameter("lastname") : "";
+		String email = req.getParameter("email") != null ? req.getParameter("email") : "";
+		String phonenumber = req.getParameter("phonenumber") != null ? req.getParameter("phonenumber") : "";
+		String instructor_types = req.getParameter("instructor_types");
+		if(req.getParameter("instructor_types") == null || req.getParameter("instructor_types").equals("null")) {
+			instructor_types = "";
+		} 
+		
+		
+
+		
+		String page = PageTemplate.printHeader();
+		page += PageTemplate.printErrors(errors);		
+				
+				
+		page +=       "<span class='title'>Create an Instructor:</span>" +
+		"				<form id='form-id' method='POST' action='/createInstructor'>" +
+		"					<label for='firstname-id'>First Name:</label>" +
+		"					<input id='firstname-id' class='text-input' type='text' name='firstname' autofocus='autofocus' value='" + firstname + "'/><br/><br/>" +
+		"					<label for='lastname-id'>Last Name:</label>" +
+		"					<input id='lastname-id' class='text-input' type='text' name='lastname' value='" + lastname + "'/><br/><br/>" +
+		"					<label for='email-id'>E-Mail:</label>" +
+		"					<input id='email-id' class='text-input' type='email' name='email' value='" + email + "'/><br/><br/>" +
+		"					<label for='phone_num-id'>Phone number:</label>" +
+		"					<input id='phone_num-id' class='text-input' type='text' name='phonenumber' value='" + phonenumber + "'/><br/><br/>" +
+		"					<label for='instructor_types'>Instructor Type:</label><br/>" +
+		"					<input id='instructor_types' class='text-input' type='text' name='instructor_types' ";
+				
+		if(instructor_types.equals("")) {
+			page += "placeholder='Ex: Dog Trainer, Tutor ...'";
+		} else {
+			page += "value='" + instructor_types + "'";
+		}
+		
+		page += "					/><br/><br/>" +
+		"					<label for='username-id'>Username:</label>" +
+		"					<input id='username-id' class='text-input' type='text' name='username' value='" + username + "'/><br/><br/>" + 
+		"					<label for='password'>Password:</label>" +
+		"					<input id='password' class='text-input' type='password' name='password' value='" + password + "'/><br/><br/>" +
+		"					<label for='password_repeat'>Retype Password:</label>" +
+		"					<input id='password_repeat' class='text-input' type='password' name='password_repeat' value='" + password_repeat + "'/><br/><br/>" +
+		"					<div id='button-area'>" +
+		"						<button id='submit-id' type='submit'>Create</button><br/><br/>" + 
+		"					</div>" +
+		"				</form>";
+		
+		page += PageTemplate.printFooter();
+		
+		resp.getWriter().println(page);
 	}
 }
