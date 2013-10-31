@@ -27,7 +27,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	
 	<servlet>
 		<servlet-name>CreateInstructor</servlet-name>
-		<servlet-class>edu.uwm.cs361.CreateInstructorServlet</servlet-class>
+		<servlet-class>edu.uwm.cs361.CreateInstuctorServlet</servlet-class>
 	</servlet>
 	
 	<servlet-mapping>

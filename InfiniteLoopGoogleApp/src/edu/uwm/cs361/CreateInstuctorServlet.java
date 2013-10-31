@@ -28,7 +28,7 @@ public class CreateInstuctorServlet extends HttpServlet {
 				"			<div id='navbar'>" +
 				"				<div class='nav'><a href='admin_home.html'>Home</a></div>" +
 				"				<div class='nav'><a href='create_a_class.html'>Create Class</a></div>" +
-				"				<div class='nav'><a href='create_instructor.html'>Create Instructor</a></div>" +
+				"				<div class='nav'><a href='/createInstructor'>Create Instructor</a></div>" +
 				"				<div id='login' class='nav'><a href='/login'>Log Out</a></div>" +
 				"			</div>" +
 				"			<div id='content'>" +
