@@ -25,6 +25,11 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-class>edu.uwm.cs361.ClearServlet</servlet-class>
 	</servlet>
 	
+	<servlet>
+		<servlet-name>CreateInstructor</servlet-name>
+		<servlet-class>edu.uwm.cs361.CreateInstructorServlet</servlet-class>
+	</servlet>
+	
 	<servlet-mapping>
 		<servlet-name>Login</servlet-name>
 		<url-pattern>/login</url-pattern>
@@ -43,6 +48,11 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<servlet-mapping>
 		<servlet-name>Clear</servlet-name>
 		<url-pattern>/clear</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>CreateInstructor</servlet-name>
+		<url-pattern>/createInstructor</url-pattern>
 	</servlet-mapping>
 	
 	<welcome-file-list>
