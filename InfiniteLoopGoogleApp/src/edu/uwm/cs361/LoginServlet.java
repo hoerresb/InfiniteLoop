@@ -7,7 +7,7 @@ import javax.jdo.PersistenceManager;
 import javax.servlet.http.*;
 
 @SuppressWarnings("serial")
-public class InfiniteLoopGoogleAppServlet extends HttpServlet {
+public class LoginServlet extends HttpServlet {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
