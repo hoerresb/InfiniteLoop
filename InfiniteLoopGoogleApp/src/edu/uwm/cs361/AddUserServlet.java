@@ -16,7 +16,7 @@ public class AddUserServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		resp.setContentType("text/html");
 
-		resp.getWriter().println("<form action='/customer' method='POST'>");
+		resp.getWriter().println("<form action='/addUser' method='POST'>");
 		
 			resp.getWriter().println("<select id='customer' name='userType' />");
 				resp.getWriter().println("<option value=\"0\">Admin</option>");

@@ -26,7 +26,7 @@ public class LoginServlet extends HttpServlet {
 					"			<div id=\"banner\"></div>\r\n" + 
 					"			<div id=\"content\">\r\n" + 
 					"				<span class=\"title\">Log In</span>\r\n" + 
-					"				<form id=\"form-id\" method=\"POST\" action=\"http://webdevbasics.net/scripts/demo.php\">\r\n" + 
+					"				<form id=\"form-id\" method=\"POST\" action='/login'>\r\n" + 
 					"					<label for=\"username-id\">Username:</label>\r\n" + 
 					"					<input id=\"username-id\" class=\"text-input\" type=\"text\" name=\"username\" autofocus=\"autofocus\" /><br/><br/>\r\n" + 
 					"					<label for=\"password-id\">Password:</label>\r\n" + 
