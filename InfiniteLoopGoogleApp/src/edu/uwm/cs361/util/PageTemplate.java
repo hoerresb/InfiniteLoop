@@ -4,7 +4,25 @@ import java.util.List;
 
 public class PageTemplate {
 
-	public static String printHeader() {
+	public static String printAdminHeader() {
+		return "<!DOCTYPE html>" +
+				"<html>" +
+				"	<head>" +
+				"		<title>Monet Mall</title>" +
+				"		<link type='text/css' rel='stylesheet' href='stylesheet.css'/>" +
+				"	</head>" +
+				"	<body>" +
+				"		<div id='container'>" +
+				"			<div id='banner'></div>" +
+				"			<div id='navbar'>" +
+				"				<div class='nav'><a href='admin_home.html'>Home</a></div>" +
+				"				<div class='nav'><a href='create_a_class.html'>Create Class</a></div>" +
+				"				<div class='nav'><a href='create_instructor.html'>Create Instructor</a></div>" +
+				"				<div id='login' class='nav'><a href='login.html'>Log Out</a></div>" +
+				"			</div>";
+	}
+	
+	public static String printTeacherHeader() {
 		return "<!DOCTYPE html>" +
 				"<html>" +
 				"	<head>" +
@@ -20,6 +38,23 @@ public class PageTemplate {
 				"				<div class='nav'><a href='/createInstructor'>Create Instructor</a></div>" +
 				"				<div class='nav'><a href='/studentCharges'>Student Charges</a></div>" +	
 				"				<div id='login' class='nav'><a href='/login'>Log Out</a></div>" +
+				"			</div>";
+	}
+	
+	public static String printStudentHeader() {
+		return "<!DOCTYPE html>" +
+				"<html>" +
+				"	<head>" +
+				"		<title>Monet Mall</title>" +
+				"		<link type='text/css' rel='stylesheet' href='stylesheet.css'/>" +
+				"	</head>" +
+				"	<body>" +
+				"		<div id='container'>" +
+				"			<div id='banner'></div>" +
+				"			<div id='navbar'>" +
+				"				<div class='nav'><a href='student_home.html'>Home</a></div>" +
+				"				<div class='nav'><a href='achievements.html'>Achievements</a></div>" +
+				"				<div id='login' class='nav'><a href='login.html'>Log Out</a></div>" +
 				"			</div>";
 	}
 	

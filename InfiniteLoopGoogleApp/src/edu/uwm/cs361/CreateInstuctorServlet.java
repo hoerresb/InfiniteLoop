@@ -89,7 +89,7 @@ public class CreateInstuctorServlet extends HttpServlet {
 		
 
 		
-		String page = PageTemplate.printHeader();
+		String page = PageTemplate.printTeacherHeader();
 		page += PageTemplate.printErrors(errors);		
 				
 				

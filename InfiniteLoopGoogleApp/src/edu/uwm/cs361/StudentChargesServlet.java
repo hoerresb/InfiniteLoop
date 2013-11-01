@@ -89,7 +89,7 @@ public class StudentChargesServlet extends HttpServlet {
 		String[] names = {Chris.getFullName()};
 		String[] emails = {Chris.getEmail()};	
 		
-		String page = PageTemplate.printHeader();
+		String page = PageTemplate.printTeacherHeader();
 		page += PageTemplate.printErrors(errors);		
 				
 				
