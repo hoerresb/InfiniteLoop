@@ -1,0 +1,49 @@
+package edu.uwm.cs361.entities;
+
+import java.util.Date;
+
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
+
+import com.google.appengine.api.datastore.Key;
+
+@PersistenceCapable
+public class Charge {
+	@PrimaryKey
+	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	private Key charge_id;
+	
+	@Persistent
+	private double amount;
+	
+	@Persistent
+	private Date deadline;
+	
+	@Persistent
+	private String reason;
+	
+	public Charge(double amount, Date deadline, String reason) {
+		this.amount = amount;
+		this.deadline = deadline;
+		this.reason = reason;
+	}
+	
+	public Key getCharge_id() {
+		return charge_id;
+	}
+
+	public double getAmount() {
+		return amount;
+	}
+
+	public Date getDeadline() {
+		return deadline;
+	}
+
+	public String getReason() {
+		return reason;
+	}
+
+}
