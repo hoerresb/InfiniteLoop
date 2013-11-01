@@ -1,5 +1,7 @@
 package edu.uwm.cs361.entities;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
@@ -37,7 +39,7 @@ public class User {
 	private String phone_number;
 	
 	@Persistent
-	private String[] instructor_types;
+	private Set<String> instructor_types;
 	
 	public User(int user_type, String username, String password, String firstName, String lastName, String email,
 			String phone_number, String[] instructor_types) {
@@ -48,7 +50,7 @@ public class User {
 		this.lastName = lastName;
 		this.email = email;
 		this.phone_number = phone_number;
-		this.instructor_types = instructor_types.clone();
+		this.instructor_types = new HashSet<String>(Arrays.asList(instructor_types));
 	}
 
 	public Key getUser_id() {
@@ -87,7 +89,7 @@ public class User {
 		return phone_number;
 	}
 	
-	public String[] getInstructorTypes() {
+	public Set<String> getInstructorTypes() {
 		return instructor_types;
 	}
 }
