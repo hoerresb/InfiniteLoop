@@ -9,15 +9,16 @@ public class PageTemplate {
 				"<html>" +
 				"	<head>" +
 				"		<title>Monet Mall</title>" +
-				"		<link type='text/css' rel='stylesheet' href='stylesheet.css'/>" +
+				"		<link type='text/css' rel='stylesheet' href='/css/stylesheet.css'/>" +
 				"	</head>" +
 				"	<body>" +
 				"		<div id='container'>" +
 				"			<div id='banner'></div>" +
 				"			<div id='navbar'>" +
-				"				<div class='nav'><a href='admin_home.html'>Home</a></div>" +
-				"				<div class='nav'><a href='create_a_class.html'>Create Class</a></div>" +
-				"				<div class='nav'><a href='create_instructor.html'>Create Instructor</a></div>" +
+				"				<div class='nav'><a href=''>Home</a></div>" +
+				"				<div class='nav'><a href=''>Create Class</a></div>" +
+				"				<div class='nav'><a href='/createInstructor'>Create Instructor</a></div>" +
+				"				<div class='nav'><a href='/studentCharges'>Student Charges</a></div>" +	
 				"				<div id='login' class='nav'><a href='login.html'>Log Out</a></div>" +
 				"			</div>";
 	}
@@ -34,9 +35,9 @@ public class PageTemplate {
 				"			<div id='banner'></div>" +
 				"			<div id='navbar'>" +
 				"				<div class='nav'><a href=''>Home</a></div>" +
-				"				<div class='nav'><a href=''>Create Class</a></div>" +
-				"				<div class='nav'><a href='/createInstructor'>Create Instructor</a></div>" +
-				"				<div class='nav'><a href='/studentCharges'>Student Charges</a></div>" +	
+				"				<div class='nav'><a href=''>Attendance</a></div>" +
+				"				<div class='nav'><a href=''>Awards</a></div>" +
+				"				<div class='nav'><a href=''>Register Student</a></div>" +
 				"				<div id='login' class='nav'><a href='/login'>Log Out</a></div>" +
 				"			</div>";
 	}
@@ -46,7 +47,7 @@ public class PageTemplate {
 				"<html>" +
 				"	<head>" +
 				"		<title>Monet Mall</title>" +
-				"		<link type='text/css' rel='stylesheet' href='stylesheet.css'/>" +
+				"		<link type='text/css' rel='stylesheet' href='/css/stylesheet.css'/>" +
 				"	</head>" +
 				"	<body>" +
 				"		<div id='container'>" +
