@@ -58,81 +58,94 @@ public class StudentChargesServlet extends HttpServlet {
 		return JDOHelper.getPersistenceManagerFactory("transactions-optional").getPersistenceManager();
 	}
 	
+	@SuppressWarnings("unchecked")
 	private void displayForm(HttpServletRequest req, HttpServletResponse resp, List<String> errors) throws IOException {
 		resp.setContentType("text/html");
-// TODO: retrieve data from the database 
-//		String[] names = new String[1];
-//		String[] emails = new String[1];
-//		String[] classlist = new String[1];
-//		String[] charges = new String[1];
-//		if (req.getParameterValues("names") != null)
-//			names = req.getParameterValues("names");
-//		else
-//			names[0] = " ";
-//		if (req.getParameterValues("emails") != null)
-//			emails = req.getParameterValues("emails");
-//		else
-//			emails[0] = " ";
-//		if (req.getParameterValues("classlist") != null)
-//			classlist = req.getParameterValues("classlist");
-//		else
-//			classlist[0] = " ";
-//		if (req.getParameterValues("charges") != null)
-//			charges = req.getParameterValues("charges");
-//		else
-//			charges[0] = " ";
 		
-		//hardcoded data
+		PersistenceManager pm = getPersistenceManager();
+		List<User> users = (List<User>) pm.newQuery(User.class).execute();		
+		
+		int numStudents = 0, count = 0;
+		try { 
+			for (User user : users) {
+				if (user.getUser_type()==UserConstants.STUDENT_NUM) {
+					numStudents++;			
+				}
+			}
+		} finally {
+			pm.close();
+		}
+		
+		User[] students = new User[numStudents];
+		try { 
+			for (User user : users) {
+				if (user.getUser_type()==UserConstants.STUDENT_NUM) {
+					students[count] = user;
+					++count;
+				}
+			}
+		} finally {
+			pm.close();
+		}
+		
+		
 		String[] classlist = {"Cooking For Dummies","Class 2","Class 3"};
 		String[] charges = {"12","15","0"};
-		User Chris = new User(UserConstants.ADMIN_NUM, "cjsampon", "1234", "Chris", "Sampon", "cjsampon@uwm.edu", "414-416-4881", classlist);
 		
-		String[] names = {Chris.getFullName()};
-		String[] emails = {Chris.getEmail()};	
+		String[] names = new String[students.length];
+		for (int i=0; i<students.length; i++) {
+			names[i] = students[i].getFullName();
+		}		
+		
+		String[] emails = new String[students.length];	
+		for (int i=0; i<students.length; i++) {
+			emails[i] = students[i].getEmail();
+		}
 		
 		String page = PageTemplate.printAdminHeader();
 		page += PageTemplate.printErrors(errors);		
 				
-				
-		page +=			"<form id='form-id' method='POST' action='/studentCharges'>" +
-		"					<div class='chargesContainer'>" + 
-		"						<table>" + 
-		"							<tr>" + 
-		"								<th>Student Name</th>" + 
-		"								<th>Classes</th>" +
-		"								<th>Charges</th>" + 
-		"								<th>E-mail</th>" + 
-		"							</tr>" + 
-		"							<tr>" + 
-		"								<td><a href=''>";
-		page += names[0];
-		page +=								"</a></td>" + 
-		"								<td>";
 		
-		for (int i=0; i<classlist.length && i<charges.length; i++) {
-			page += "<label for='"+classlist[i]+"'><a href=''>"+classlist[i]+"</a></label><br/>";
+		
+		page +=			"<form id='form-id' method='POST' action='/studentCharges'>\r\n" +
+							"<div class='chargesContainer'>\r\n";
+
+
+		
+		page +=					"<table>\r\n" + 
+									"<tr>\r\n" + 
+										"<th>Student Name</th>\r\n" + 
+										"<th>Classes</th>\r\n" +
+										"<th>Charges</th>\r\n" + 
+										"<th>E-mail</th>\r\n" + 
+									"</tr>\r\n"; 
+		for (int i=0; i<students.length; i++) {
+			page += 			    "<tr>\r\n" +
+										"<td>\r\n" +
+											"<a href=''>"+students[i].getFullName()+"</a>\r\n" +
+										"</td>\r\n" +
+										"<td>\r\n";
+			for (int j=0; j<classlist.length && j<charges.length; j++) {
+				page += "<label for='"+classlist[j]+"'><a href=''>"+classlist[j]+"</a></label><br/>\r\n";
+			}
+			page +=					    "</td>\r\n" +
+										"<td>\r\n";
+			for (int j=0; j<classlist.length && j<charges.length; j++) {
+				page += "<input id='"+classlist[j]+"' name='"+classlist[j]+"charges' type='text' value='"+charges[j]+"'/><br/>\r\n";
+			}
+			page +=					    "</td>\r\n" +
+										"<td>\r\n" +
+											"<a href='mailto:"+students[i].getEmail()+"'>"+students[i].getEmail()+"</a>\r\n" +
+										"</td>\r\n" +
+									"</tr>\r\n";
 		}
-		
-		page +=					       "</td>" +
-		"								<td>";
-		
-		for (int i=0; i<classlist.length && i<charges.length; i++) {				
-			page += "<input id='"+classlist[i]+"' name='"+classlist[i]+"charges' type='text' value='"+charges[i]+"'/><br/>";
-		}
-		
-		page +=					  	   "</td>" + 
-		"								<td>" +
-		"									<a href='mailto:";
-		page+= emails[0]+"'>"+emails[0]+"</a>";
-		
-		page +=						   "</td>" + 
-		"							</tr>" + 						
-		"						</table>" + 
-		"						<div id='button-area'>" + 
-		"							<button id='submit-id' type='submit'>Submit</button><br/><br/>" + 
-		"						</div>" + 
-		"					</form>" +
-		"				</div>";
+	
+		page +=					"</table>\r\n" + 
+								"<div id='button-area'>\r\n" + 
+									"<button id='submit-id' type='submit'>Submit</button><br/><br/>\r\n" + 
+								"</div>\r\n" + 
+							"</form>\r\n" +
+						"</div>\r\n";
 		
 		page += PageTemplate.printFooter();
 		
