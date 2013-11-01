@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.uwm.cs361.entities.User;
 import edu.uwm.cs361.util.PageTemplate;
+import edu.uwm.cs361.util.UserConstants;
 
 @SuppressWarnings("serial")
 public class StudentChargesServlet extends HttpServlet {
@@ -26,7 +27,7 @@ public class StudentChargesServlet extends HttpServlet {
 		
 		String[] classlist = {"Cooking For Dummies","Class 2","Class 3"};
 		String[] charges = {"12","15","0"};
-		User Chris = new User(0, "cjsampon", "1234", "Chris", "Sampon", "cjsampon@uwm.edu", "414-416-4881", classlist);
+		User Chris = new User(UserConstants.ADMIN_NUM, "cjsampon", "1234", "Chris", "Sampon", "cjsampon@uwm.edu", "414-416-4881", classlist);
 		
 		String[] names = {Chris.getFullName()};
 		String[] emails = {Chris.getEmail()};		
@@ -84,7 +85,7 @@ public class StudentChargesServlet extends HttpServlet {
 		//hardcoded data
 		String[] classlist = {"Cooking For Dummies","Class 2","Class 3"};
 		String[] charges = {"12","15","0"};
-		User Chris = new User(0, "cjsampon", "1234", "Chris", "Sampon", "cjsampon@uwm.edu", "414-416-4881", classlist);
+		User Chris = new User(UserConstants.ADMIN_NUM, "cjsampon", "1234", "Chris", "Sampon", "cjsampon@uwm.edu", "414-416-4881", classlist);
 		
 		String[] names = {Chris.getFullName()};
 		String[] emails = {Chris.getEmail()};	

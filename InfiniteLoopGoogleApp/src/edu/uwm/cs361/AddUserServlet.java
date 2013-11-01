@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.uwm.cs361.entities.User;
+import edu.uwm.cs361.util.UserConstants;
 
 @SuppressWarnings("serial")
 public class AddUserServlet extends HttpServlet {
@@ -19,9 +20,9 @@ public class AddUserServlet extends HttpServlet {
 		resp.getWriter().println("<form action='/addUser' method='POST'>");
 		
 			resp.getWriter().println("<select id='customer' name='userType' />");
-				resp.getWriter().println("<option value=\"0\">Admin</option>");
-				resp.getWriter().println("<option value=\"1\">Teacher</option>");
-				resp.getWriter().println("<option value=\"2\">Student</option>");
+				resp.getWriter().println("<option value='"+ UserConstants.ADMIN_NUM +"'>Admin</option>");
+				resp.getWriter().println("<option value='"+ UserConstants.TEACHER_NUM +"'>Teacher</option>");
+				resp.getWriter().println("<option value='"+ UserConstants.STUDENT_NUM +"'>Student</option>");
 			resp.getWriter().println("</select><br/><br/>");
 			
 			resp.getWriter().println("<label for='username'>Username: </label>");

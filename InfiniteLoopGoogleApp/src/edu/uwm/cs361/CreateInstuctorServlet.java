@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.uwm.cs361.entities.User;
 import edu.uwm.cs361.util.PageTemplate;
+import edu.uwm.cs361.util.UserConstants;
 
 @SuppressWarnings("serial")
 public class CreateInstuctorServlet extends HttpServlet {
@@ -60,7 +61,7 @@ public class CreateInstuctorServlet extends HttpServlet {
 			if (errors.size() > 0) {
 				displayForm(req, resp, errors);
 			} else {
-				pm.makePersistent(new User(1,username,password,firstname,lastname,email,phonenumber,instructor_types_array));
+				pm.makePersistent(new User(UserConstants.TEACHER_NUM,username,password,firstname,lastname,email,phonenumber,instructor_types_array));
 				resp.sendRedirect("/display");
 			}
 		} finally {
