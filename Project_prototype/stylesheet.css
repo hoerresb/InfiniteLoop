@@ -209,3 +209,9 @@ ul {
 	background-color: #C67E2A;
 }
 
+.chargesContainer{width: 80%; height: auto; margin: auto; padding: 30px; color:#484E72;}
+.chargesContainer table,td,th {border: 1px solid black; border-collapse: collapse; background-color: #F0F0F0; text-align: center;}
+.chargesContainer table {width: 100%;}
+.chargesContainer th {height: 50px;}
+.chargesContainer a {color: #DD7900;}
+.chargesContainer input {text-align: center;}

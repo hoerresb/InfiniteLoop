@@ -93,7 +93,8 @@ public class CreateInstuctorServlet extends HttpServlet {
 		page += PageTemplate.printErrors(errors);		
 				
 				
-		page +=       "<span class='title'>Create an Instructor:</span>" +
+		page +=		"<div id='content'>" +
+		"				<span class='title'>Create an Instructor:</span>" +
 		"				<form id='form-id' method='POST' action='/createInstructor'>" +
 		"					<label for='firstname-id'>First Name:</label>" +
 		"					<input id='firstname-id' class='text-input' type='text' name='firstname' autofocus='autofocus' value='" + firstname + "'/><br/><br/>" +
@@ -122,7 +123,8 @@ public class CreateInstuctorServlet extends HttpServlet {
 		"					<div id='button-area'>" +
 		"						<button id='submit-id' type='submit'>Create</button><br/><br/>" + 
 		"					</div>" +
-		"				</form>";
+		"				</form>" +
+		"			</div>";
 		
 		page += PageTemplate.printFooter();
 		

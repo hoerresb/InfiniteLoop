@@ -18,14 +18,13 @@ public class PageTemplate {
 				"				<div class='nav'><a href=''>Home</a></div>" +
 				"				<div class='nav'><a href=''>Create Class</a></div>" +
 				"				<div class='nav'><a href='/createInstructor'>Create Instructor</a></div>" +
+				"				<div class='nav'><a href='/studentCharges'>Student Charges</a></div>" +	
 				"				<div id='login' class='nav'><a href='/login'>Log Out</a></div>" +
-				"			</div>" +
-				"			<div id='content'>";
+				"			</div>";
 	}
 	
 	public static String printFooter() {
-		return "			</div>" +
-				"		</div>" +
+		return "		</div>" +
 				"	</body>" +
 				"</html>";
 	}
