@@ -59,26 +59,35 @@ public class StudentChargesServlet extends HttpServlet {
 	
 	private void displayForm(HttpServletRequest req, HttpServletResponse resp, List<String> errors) throws IOException {
 		resp.setContentType("text/html");
-		String[] names = new String[1];
-		String[] emails = new String[1];
-		String[] classlist = new String[1];
-		String[] charges = new String[1];
-		if (req.getParameterValues("names") != null)
-			names = req.getParameterValues("names");
-		else
-			names[0] = " ";
-		if (req.getParameterValues("emails") != null)
-			emails = req.getParameterValues("emails");
-		else
-			emails[0] = " ";
-		if (req.getParameterValues("classlist") != null)
-			classlist = req.getParameterValues("classlist");
-		else
-			classlist[0] = " ";
-		if (req.getParameterValues("charges") != null)
-			charges = req.getParameterValues("charges");
-		else
-			charges[0] = " ";
+// TODO: retrieve data from the database 
+//		String[] names = new String[1];
+//		String[] emails = new String[1];
+//		String[] classlist = new String[1];
+//		String[] charges = new String[1];
+//		if (req.getParameterValues("names") != null)
+//			names = req.getParameterValues("names");
+//		else
+//			names[0] = " ";
+//		if (req.getParameterValues("emails") != null)
+//			emails = req.getParameterValues("emails");
+//		else
+//			emails[0] = " ";
+//		if (req.getParameterValues("classlist") != null)
+//			classlist = req.getParameterValues("classlist");
+//		else
+//			classlist[0] = " ";
+//		if (req.getParameterValues("charges") != null)
+//			charges = req.getParameterValues("charges");
+//		else
+//			charges[0] = " ";
+		
+		//hardcoded data
+		String[] classlist = {"Cooking For Dummies","Class 2","Class 3"};
+		String[] charges = {"12","15","0"};
+		User Chris = new User(0, "cjsampon", "1234", "Chris", "Sampon", "cjsampon@uwm.edu", "414-416-4881", classlist);
+		
+		String[] names = {Chris.getFullName()};
+		String[] emails = {Chris.getEmail()};	
 		
 		String page = PageTemplate.printHeader();
 		page += PageTemplate.printErrors(errors);		
