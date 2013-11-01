@@ -214,5 +214,7 @@ ul {
 .chargesContainer table {width: 100%;}
 .chargesContainer th {height: 50px;}
 .chargesContainer a {color: #DD7900;}
-.chargesContainer input {text-align: center;}
+.chargesContainer input {text-align: center; height: 10px;}
+.chargesContainer .charge_input {width: 50px;}
+.chargesContainer .charge_due {width: 70px;}
 

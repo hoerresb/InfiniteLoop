@@ -2,6 +2,7 @@ package edu.uwm.cs361;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.jdo.JDOHelper;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import edu.uwm.cs361.entities.Charge;
 import edu.uwm.cs361.entities.User;
 import edu.uwm.cs361.util.PageTemplate;
 import edu.uwm.cs361.util.UserConstants;
@@ -58,7 +60,7 @@ public class StudentChargesServlet extends HttpServlet {
 		return JDOHelper.getPersistenceManagerFactory("transactions-optional").getPersistenceManager();
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "deprecation" })
 	private void displayForm(HttpServletRequest req, HttpServletResponse resp, List<String> errors) throws IOException {
 		resp.setContentType("text/html");
 		
@@ -89,8 +91,22 @@ public class StudentChargesServlet extends HttpServlet {
 		}
 		
 		
+		
 		String[] classlist = {"Cooking For Dummies","Class 2","Class 3"};
-		String[] charges = {"12","15","0"};
+		
+		
+		
+		Charge[] charges = {new Charge(12, new Date(2013,11,31), ""), new Charge(15, new Date(2013,11,31), "") , new Charge(18, new Date(2013,11,31), "")}; 
+		
+		double[] charge_amount = new double[charges.length];
+		for (int i=0; i<charge_amount.length; i++) {
+			charge_amount[i] = charges[i].getAmount();
+		}
+		
+		Date[] deadlines = new Date[charges.length];
+		for (int i=0; i<deadlines.length; i++) {
+			deadlines[i] = charges[i].getDeadline();
+		}
 		
 		String[] names = new String[students.length];
 		for (int i=0; i<students.length; i++) {
@@ -117,21 +133,27 @@ public class StudentChargesServlet extends HttpServlet {
 										"<th>Student Name</th>\r\n" + 
 										"<th>Classes</th>\r\n" +
 										"<th>Charges</th>\r\n" + 
+										"<th>Due</th>\r\n" +
 										"<th>E-mail</th>\r\n" + 
 									"</tr>\r\n"; 
 		for (int i=0; i<students.length; i++) {
 			page += 			    "<tr>\r\n" +
 										"<td>\r\n" +
-											"<a href=''>"+students[i].getFullName()+"</a>\r\n" +
+											"<a href=''>"+students[i].getFirstName()+" "+students[i].getLastName()+"</a>\r\n" +
 										"</td>\r\n" +
 										"<td>\r\n";
-			for (int j=0; j<classlist.length && j<charges.length; j++) {
+			for (int j=0; j<classlist.length && j<charge_amount.length; j++) {
 				page += "<label for='"+classlist[j]+"'><a href=''>"+classlist[j]+"</a></label><br/>\r\n";
 			}
 			page +=					    "</td>\r\n" +
 										"<td>\r\n";
-			for (int j=0; j<classlist.length && j<charges.length; j++) {
-				page += "<input id='"+classlist[j]+"' name='"+classlist[j]+"charges' type='text' value='"+charges[j]+"'/><br/>\r\n";
+			for (int j=0; j<classlist.length && j<charge_amount.length; j++) {
+				page += "<input class='charge_input' id='"+classlist[j]+"' name='"+classlist[j]+"_charges' type='text' value='"+charge_amount[j]+"'/><br/>\r\n";
+			}
+			page +=						"</td>\r\n" +
+										"<td>\r\n";
+			for (int j=0; j<deadlines.length && j<classlist.length; j++) {
+				page += "<input class='charge_due' id='"+classlist[j]+"_deadline' name='"+classlist[j]+"_charge_deadline' type='text' value='"+(deadlines[j].getMonth()+1)+"-"+deadlines[j].getDate()+"-"+deadlines[j].getYear()+"'/><br/>\r\n";
 			}
 			page +=					    "</td>\r\n" +
 										"<td>\r\n" +

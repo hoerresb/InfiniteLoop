@@ -101,4 +101,12 @@ public class User {
 	public Set<String> getInstructorTypes() {
 		return instructor_types;
 	}
+	
+	public void setCharges(Charge[] charge) {
+		this.charges = new HashSet<Charge>(Arrays.asList(charge));
+	}
+	
+	public Set<Charge> getCharges() {
+		return charges;
+	}
 }
