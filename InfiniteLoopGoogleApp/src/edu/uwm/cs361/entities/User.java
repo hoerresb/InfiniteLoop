@@ -10,6 +10,7 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.datanucleus.annotations.Unowned;
 
 @PersistenceCapable
 public class User {
@@ -40,6 +41,14 @@ public class User {
 	
 	@Persistent
 	private Set<String> instructor_types;
+	
+	@Persistent
+	@Unowned
+	private Set<Charge> charges;
+	
+	@Persistent
+	@Unowned
+	private Set<Course> courses;
 	
 	public User(int user_type, String username, String password, String firstName, String lastName, String email,
 			String phone_number, String[] instructor_types) {
