@@ -50,6 +50,12 @@ public class User {
 	@Unowned
 	private Set<Course> courses;
 	
+	
+	@Persistent
+	@Unowned
+	private Set<Award> awards;
+	
+	
 	public User(int user_type, String username, String password, String firstName, String lastName, String email,
 			String phone_number, String[] instructor_types) {
 		this.user_type = user_type;
@@ -60,6 +66,8 @@ public class User {
 		this.email = email;
 		this.phone_number = phone_number;
 		this.instructor_types = new HashSet<String>(Arrays.asList(instructor_types));
+		this.awards = new HashSet<Award>();
+
 	}
 
 	public Key getUser_id() {
@@ -108,5 +116,9 @@ public class User {
 	
 	public Set<Charge> getCharges() {
 		return charges;
+	}
+	
+	public Set<Award> getAwards() {
+		return awards;
 	}
 }
