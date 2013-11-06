@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import edu.uwm.cs361.entities.User;
 import edu.uwm.cs361.entities.Award;
 import edu.uwm.cs361.util.UserConstants;
-import edu.uwm.cs361.util.PageTemplate;
 
 @SuppressWarnings("serial")
 public class IssueAwardServlet extends HttpServlet {
@@ -58,7 +57,6 @@ public class IssueAwardServlet extends HttpServlet {
 
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException	{
-		String username = req.getParameter("username");
 		
 		PersistenceManager pm = getPersistenceManager();
 

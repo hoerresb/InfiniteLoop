@@ -1,11 +1,9 @@
 package edu.uwm.cs361.entities;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
-import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
