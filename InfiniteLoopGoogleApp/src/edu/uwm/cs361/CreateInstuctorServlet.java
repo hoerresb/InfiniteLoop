@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.uwm.cs361.entities.User;
-import edu.uwm.cs361.util.PageTemplate;
 import edu.uwm.cs361.util.UserConstants;
 
 @SuppressWarnings("serial")

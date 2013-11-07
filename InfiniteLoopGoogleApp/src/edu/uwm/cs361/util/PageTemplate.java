@@ -2,6 +2,7 @@ package edu.uwm.cs361.util;
 
 import java.util.List;
 
+//TODO: Delete this class no longer needed
 public class PageTemplate {
 
 	public static String printAdminHeader() {
