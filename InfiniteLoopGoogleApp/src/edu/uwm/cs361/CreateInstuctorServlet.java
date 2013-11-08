@@ -65,7 +65,8 @@ public class CreateInstuctorServlet extends HttpServlet {
 				req.setAttribute("errors", errors);
 				req.getRequestDispatcher("/createInstructor.jsp").forward(req, resp);
 			} else {
-				pm.makePersistent(new User(UserConstants.TEACHER_NUM,username,password,firstname,lastname,email,phonenumber,instructor_types_array));
+				createInstructor(username, password, firstname, lastname,
+						email, phonenumber, instructor_types_array, pm);
 				resp.sendRedirect("/display");
 			}
 		} catch (ServletException e) {
@@ -73,6 +74,13 @@ public class CreateInstuctorServlet extends HttpServlet {
 		} finally {
 			pm.close();
 		}
+	}
+
+	public void createInstructor(String username, String password,
+			String firstname, String lastname, String email,
+			String phonenumber, String[] instructor_types_array,
+			PersistenceManager pm) {
+		pm.makePersistent(new User(UserConstants.TEACHER_NUM,username,password,firstname,lastname,email,phonenumber,instructor_types_array));
 	}
 
 	private PersistenceManager getPersistenceManager() {
