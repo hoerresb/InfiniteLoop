@@ -24,6 +24,11 @@ public class Charge {
 	@Persistent
 	private String reason;
 	
+	//Constructor for test purposes for amounts
+	public Charge(double amount) {
+		this.amount = amount;
+	}
+	
 	public Charge(double amount, Date deadline, String reason) {
 		this.amount = amount;
 		this.deadline = deadline;
