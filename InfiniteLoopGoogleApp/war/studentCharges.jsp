@@ -37,6 +37,8 @@
 					<%! Charge[] charges = {new Charge(12, new Date(2013,11,31), ""), new Charge(15, new Date(2013,11,31), "") , new Charge(18, new Date(2013,11,31), "")};  %>
 					<% 
 						try {
+							numStudents = 0;
+							count = 0;
 							for (User user : users) {
 								if (user.getUser_type()==UserConstants.STUDENT_NUM) {
 									numStudents++;			
@@ -57,14 +59,14 @@
 							pm.close();
 						}
 					%>	
-					<% for (int i=0; i<students.length; i++) { %>
+					<% for (int i=0; i<students.length; ++i) { %>
 						<tr>
 							<td>
-								<a href='/studentCharges'><%=students[i].getFullName()%></a>
+								<a href='#'><%=students[i].getFullName()%></a>
 							</td>
 							<td>
 								<% for (int j=0; j<classlist.length; j++) { %>
-									<label for='<%=classlist[j]%>'><a href='/studentCharges'><%=classlist[j]%></a></label><br/>
+									<label for='<%=classlist[j]%>'><a href='#'><%=classlist[j]%></a></label><br/>
 								<% } %>
 							</td>
 							<td>

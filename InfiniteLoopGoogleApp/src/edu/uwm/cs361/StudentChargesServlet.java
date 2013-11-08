@@ -19,13 +19,14 @@ import edu.uwm.cs361.util.UserConstants;
 
 @SuppressWarnings("serial")
 public class StudentChargesServlet extends HttpServlet {	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException	{
 		List<String> errors = new ArrayList<String>();
 		
 		String amounts = req.getParameter("amounts");
 		String[] amounts_string_array = null;
-		if(!req.getParameter("amount").equals("null")) {
+		if(!req.getParameter("amounts").equals(null)) {
 			amounts_string_array = amounts.split(",");
 		}
 		double[] amounts_array = new double[amounts_string_array.length];
@@ -34,43 +35,16 @@ public class StudentChargesServlet extends HttpServlet {
 			amounts_array[i] = Double.parseDouble(amounts_string_array[i]);
 			charges[i] = new Charge(amounts_array[i]);
 		}
-		
 		PersistenceManager pm = getPersistenceManager();
-		
-		List<User> users = (List<User>) pm.newQuery(User.class).execute();		
-		
-		int numStudents = 0, count = 0;
-		try { 
-			for (User user : users) {
-				if (user.getUser_type()==UserConstants.STUDENT_NUM) {
-					numStudents++;			
-				}
-			}
-		} finally {
-			pm.close();
-		}
-		
-		User[] students = new User[numStudents];
-		try { 
-			for (User user : users) {
-				if (user.getUser_type()==UserConstants.STUDENT_NUM) {
-					students[count] = user;
-					++count;
-				}
-			}
-		} finally {
-			pm.close();
-		}
 		
 		try {
 			if (errors.size() > 0) {
-				req.setAttribute("students", students);
 				req.setAttribute("amounts_array", amounts_array);
 				req.setAttribute("errors", errors);
-				req.getRequestDispatcher("/studentCharges.jsp").forward(req, resp);
+				req.getRequestDispatcher("studentCharges.jsp").forward(req, resp);
 			} else {
 				pm.makePersistent(charges);
-				resp.sendRedirect("/studentCharges.jsp");
+				resp.sendRedirect("studentCharges.jsp");
 			}
 		} catch (ServletException e) {
 			e.printStackTrace();
