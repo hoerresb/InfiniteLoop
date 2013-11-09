@@ -23,23 +23,17 @@ public class StudentChargesServlet extends HttpServlet {
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException	{
 		List<String> errors = new ArrayList<String>();
-		
-		String amounts = req.getParameter("amounts");
-		String[] amounts_string_array = null;
-		if(!req.getParameter("amounts").equals(null)) {
-			amounts_string_array = amounts.split(",");
-		}
-		double[] amounts_array = new double[amounts_string_array.length];
-		Charge[] charges = new Charge[amounts_array.length];
-		for(int i=0; i<amounts_string_array.length; i++) {
-			amounts_array[i] = Double.parseDouble(amounts_string_array[i]);
-			charges[i] = new Charge(amounts_array[i]);
+
+		String[] classlist = {"Cooking For Dummies","Class 2","Class 3"}; 
+		Charge[] charges = new Charge[classlist.length];
+		for (int i=0; i<classlist.length; i++) {
+			charges[i] = new Charge(Double.parseDouble(req.getParameter(classlist[i]+"_charge")));
+			System.out.println(charges[i].getAmount());
 		}
 		PersistenceManager pm = getPersistenceManager();
 		
 		try {
 			if (errors.size() > 0) {
-				req.setAttribute("amounts_array", amounts_array);
 				req.setAttribute("errors", errors);
 				req.getRequestDispatcher("studentCharges.jsp").forward(req, resp);
 			} else {
