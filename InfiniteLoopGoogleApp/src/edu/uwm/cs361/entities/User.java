@@ -55,6 +55,20 @@ public class User {
 	@Unowned
 	private Set<Award> awards;
 	
+	//Constructor to create a student
+	public User(int user_type, String username, String password, String firstName, String lastName, String email,
+			String phone_number, Charge[] charges) {
+		this.user_type = user_type;
+		this.username = username;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.phone_number = phone_number;
+		this.charges = new HashSet<Charge>(Arrays.asList(charges));
+		this.awards = new HashSet<Award>();
+
+	}
 	
 	public User(int user_type, String username, String password, String firstName, String lastName, String email,
 			String phone_number, String[] instructor_types) {

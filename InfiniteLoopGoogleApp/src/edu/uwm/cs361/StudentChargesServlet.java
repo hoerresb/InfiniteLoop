@@ -26,18 +26,48 @@ public class StudentChargesServlet extends HttpServlet {
 
 		String[] classlist = {"Cooking For Dummies","Class 2","Class 3"}; 
 		Charge[] charges = new Charge[classlist.length];
-		for (int i=0; i<classlist.length; i++) {
-			charges[i] = new Charge(Double.parseDouble(req.getParameter(classlist[i]+"_charge")));
-			System.out.println(charges[i].getAmount());
-		}
+		
 		PersistenceManager pm = getPersistenceManager();
+		List<User> users = (List<User>) pm.newQuery(User.class).execute();
+		
+		int numStudents = 0, count = 0;
+		try {
+			numStudents = 0;
+			count = 0;
+			for (User user : users) {
+				if (user.getUser_type()==UserConstants.STUDENT_NUM) {
+					numStudents++;			
+				}
+			}
+		} finally {
+			pm.close();
+		}
+		User[] students = new User[numStudents];
+		try { 
+			for (User user : users) {
+				if (user.getUser_type()==UserConstants.STUDENT_NUM) {
+					students[count] = user;
+					++count;
+				}
+			}
+		} finally {
+			pm.close();
+		}
+		
+		for (int i=0; i<students.length; i++) {
+			for (int j=0; j<classlist.length; j++) {
+				charges[j] = new Charge(Double.parseDouble(req.getParameter(students[i].getUser_id()+"_"+classlist[j]+"_charge")));
+				students[i].setCharges(charges);
+				System.out.println(charges[j].getAmount());
+			}
+		}
 		
 		try {
 			if (errors.size() > 0) {
 				req.setAttribute("errors", errors);
 				req.getRequestDispatcher("studentCharges.jsp").forward(req, resp);
 			} else {
-				pm.makePersistent(charges);
+				pm.makePersistent(students);
 				resp.sendRedirect("studentCharges.jsp");
 			}
 		} catch (ServletException e) {
