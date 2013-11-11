@@ -34,6 +34,7 @@ public class IssueAwardServlet extends HttpServlet {
 				user.getAwards().add(award);
 				award.getUsers().add(user);
 			}
+			resp.sendRedirect("IssueAward.jsp");
 			
 		} finally {
 			pm.close();
