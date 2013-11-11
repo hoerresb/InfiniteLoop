@@ -71,7 +71,7 @@
 
 				<% } %>
 
-			<form action="/IssueAward" method="POST">
+			<form action="/issueAward" method="POST">
 
 				<label for="award">Award:</label>
 
