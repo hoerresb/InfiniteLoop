@@ -29,7 +29,7 @@ public class StudentChargesServlet extends HttpServlet {
 		
 		PersistenceManager pm = getPersistenceManager();
 		List<User> users = (List<User>) pm.newQuery(User.class).execute();
-		
+		User[] students;
 		int numStudents = 0, count = 0;
 		try {
 			numStudents = 0;
@@ -39,11 +39,7 @@ public class StudentChargesServlet extends HttpServlet {
 					numStudents++;			
 				}
 			}
-		} finally {
-			pm.close();
-		}
-		User[] students = new User[numStudents];
-		try { 
+			students = new User[numStudents];
 			for (User user : users) {
 				if (user.getUser_type()==UserConstants.STUDENT_NUM) {
 					students[count] = user;
