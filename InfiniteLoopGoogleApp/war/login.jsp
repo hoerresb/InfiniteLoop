@@ -4,13 +4,13 @@
 
 <%@ page import="javax.jdo.JDOHelper" %>
 <%@ page import="javax.jdo.PersistenceManager" %>
-<@% page import="edu.uwm.cs361.entities.User" %>
+<%@ page import="edu.uwm.cs361.entities.User" %>
 
 <!DOCTYPE html> 
 	<html>
 						<head>
 							<title>Monet Mall</title>
-							<link type=\"text/css\" rel=\"stylesheet\" href='/css/stylesheet.css'/> 
+							<link type='text/css' rel='stylesheet' href='/css/stylesheet.css'/> 
 						</head> 
 						<body>
 							<div id="container"> 

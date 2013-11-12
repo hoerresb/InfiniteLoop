@@ -35,6 +35,7 @@
 					<%! int numStudents = 0, count = 0; %>
 					<%! String[] classlist = {"Cooking For Dummies","Class 2","Class 3"}; %>
 					<%! Charge[] charges = {new Charge(12, new Date(2013,11,31), ""), new Charge(15, new Date(2013,11,31), "") , new Charge(18, new Date(2013,11,31), "")};  %>
+					<%! User[] students; %>
 					<% 
 						//User[] students_test = {new User(UserConstants.STUDENT_NUM, "student_u", "student_p", "student_fn", "student_ln", "student_e@uwm.edu", "111-111-1111", charges)};
 						//try {
@@ -50,11 +51,7 @@
 									numStudents++;			
 								}
 							}
-						} finally {
-							pm.close();
-						}
-						User[] students = new User[numStudents];
-						try { 
+							students = new User[numStudents];
 							for (User user : users) {
 								if (user.getUser_type()==UserConstants.STUDENT_NUM) {
 									students[count] = user;
@@ -82,7 +79,7 @@
 							</td>
 							<td>
 								<% for (int j=0; j<classlist.length; j++) { %>
-									<input class='charge_due' name='<%=classlist[j]%>_deadline' type='text' value='<%=(charges[j].getDeadline().getMonth()+1)+"-"+charges[j].getDeadline().getDate()+"-"+charges[j].getDeadline().getYear()%>'><br/>
+									<input class='charge_due' name='<%=students[i].getUser_id()%>_<%=classlist[j]%>_deadline' type='text' value='<%=(charges[j].getDeadline().getMonth()+1)+"-"+charges[j].getDeadline().getDate()+"-"+charges[j].getDeadline().getYear()%>'><br/>
 								<% } %>
 							</td>
 							<td>
