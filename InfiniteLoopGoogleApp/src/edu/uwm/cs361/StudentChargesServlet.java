@@ -19,7 +19,7 @@ import edu.uwm.cs361.util.UserConstants;
 
 @SuppressWarnings("serial")
 public class StudentChargesServlet extends HttpServlet {	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "deprecation" })
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException	{
 		List<String> errors = new ArrayList<String>();
@@ -29,7 +29,7 @@ public class StudentChargesServlet extends HttpServlet {
 		
 		PersistenceManager pm = getPersistenceManager();
 		List<User> users = (List<User>) pm.newQuery(User.class).execute();
-		
+		User[] students;
 		int numStudents = 0, count = 0;
 		try {
 			numStudents = 0;
@@ -39,11 +39,7 @@ public class StudentChargesServlet extends HttpServlet {
 					numStudents++;			
 				}
 			}
-		} finally {
-			pm.close();
-		}
-		User[] students = new User[numStudents];
-		try { 
+			students = new User[numStudents];
 			for (User user : users) {
 				if (user.getUser_type()==UserConstants.STUDENT_NUM) {
 					students[count] = user;
@@ -53,12 +49,24 @@ public class StudentChargesServlet extends HttpServlet {
 		} finally {
 			pm.close();
 		}
-		
+		pm = getPersistenceManager();
+		Charge charge;
 		for (int i=0; i<students.length; i++) {
 			for (int j=0; j<classlist.length; j++) {
-				charges[j] = new Charge(Double.parseDouble(req.getParameter(students[i].getUser_id()+"_"+classlist[j]+"_charge")));
+				String[] date_string = req.getParameter(students[i].getUser_id()+"_"+classlist[j]+"_deadline").split("-"); // String[month, day, year]
+				int[] date_int = new int[date_string.length]; // Int[3]
+				for (int k=0; k<date_string.length; k++) {
+					date_int[k] = Integer.parseInt(date_string[k]); // Int[month, day, year]
+				}
+				Date deadline = new Date(date_int[2],(date_int[0])-1,date_int[1]); // Date(year, month-1, day)
+				charge = new Charge(Double.parseDouble(req.getParameter(students[i].getUser_id()+"_"+classlist[j]+"_charge")), deadline ,""); // Charge(amount, deadline, reason)
+				charges[j] = charge;
 				students[i].setCharges(charges);
+				int day = charges[j].getDeadline().getDate();
+				int month = charges[j].getDeadline().getMonth()+1;
+				int year = charges[j].getDeadline().getYear();
 				System.out.println(charges[j].getAmount());
+				System.out.println(month+"-"+day+"-"+year);
 			}
 		}
 		

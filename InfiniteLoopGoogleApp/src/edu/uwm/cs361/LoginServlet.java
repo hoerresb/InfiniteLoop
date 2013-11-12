@@ -20,12 +20,6 @@ import java.util.List;
 
 @SuppressWarnings("serial")
 public class LoginServlet extends HttpServlet {
-	@SuppressWarnings("unchecked")
-	@Override
-	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		resp.sendRedirect("login.jsp");
-	}
-
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		List<String> errors = new ArrayList<String>();
