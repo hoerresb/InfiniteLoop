@@ -79,7 +79,7 @@
 							</td>
 							<td>
 								<% for (int j=0; j<classlist.length; j++) { %>
-									<input class='charge_due' name='<%=classlist[j]%>_deadline' type='text' value='<%=(charges[j].getDeadline().getMonth()+1)+"-"+charges[j].getDeadline().getDate()+"-"+charges[j].getDeadline().getYear()%>'><br/>
+									<input class='charge_due' name='<%=students[i].getUser_id()%>_<%=classlist[j]%>_deadline' type='text' value='<%=(charges[j].getDeadline().getMonth()+1)+"-"+charges[j].getDeadline().getDate()+"-"+charges[j].getDeadline().getYear()%>'><br/>
 								<% } %>
 							</td>
 							<td>
