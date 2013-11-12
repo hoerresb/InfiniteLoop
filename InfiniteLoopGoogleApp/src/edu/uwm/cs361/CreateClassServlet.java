@@ -17,7 +17,6 @@ import edu.uwm.cs361.entities.Course;
 @SuppressWarnings("serial")
 public class CreateClassServlet extends HttpServlet {
 	@Override
-	d
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException	{
 		List<String> errors = new ArrayList<String>();
 		

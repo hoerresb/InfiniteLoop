@@ -9,6 +9,7 @@ import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestC
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
 import edu.uwm.cs361.entities.User;
+import factories.InstructorFactory;
 
 import java.util.List;
 
@@ -48,14 +49,14 @@ public class InstructorFactoryTest {
 	}
 
 	@Test
-	public void testErrorOnBlankName() {
-//		InstructorFactory instr_fact = new InstructorFactory();
-//		User e = instr_fact.create("", "some text");
-//
-//		assertNull(e);
-//		assertTrue(instr_fact.hasErrors());
-//		assertEquals(1, instr_fact.getErrors().size());
-//		assertTrue(instr_fact.getErrors().get(0).contains("name"));
+	public void testErrorOnBlankUsername() {
+		InstructorFactory instr_fact = new InstructorFactory();
+		User u = instr_fact.createInstructor("","password","password","fname","lname", "email", "number", new String[] {"teacher1","teacher2"});
+
+		assertNull(u);
+		assertTrue(instr_fact.hasErrors());
+		assertEquals(1, instr_fact.getErrors().size());
+		assertTrue(instr_fact.getErrors().get(0).equals("Username is required."));
 	}
 
 //	@Test
