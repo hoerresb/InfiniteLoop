@@ -26,7 +26,7 @@ public class Course {
 	private Date endDate;
 
 	@Persistent
-	private String meetingDays;
+	private String[] meetingDays;
 	
 	@Persistent
 	private String time;
@@ -41,10 +41,9 @@ public class Course {
 	private String description;
 
 	public Course(String name, Date startDate, Date endDate,
-			String meetingDays, String time, String place,
+			String[] meetingDays, String time, String place,
 			Set<String> payment_options, String description) {
 		super();
-		this.name = name;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.meetingDays = meetingDays;
@@ -70,7 +69,7 @@ public class Course {
 		return endDate;
 	}
 
-	public String getMeetingDays() {
+	public String[] getMeetingDays() {
 		return meetingDays;
 	}
 
