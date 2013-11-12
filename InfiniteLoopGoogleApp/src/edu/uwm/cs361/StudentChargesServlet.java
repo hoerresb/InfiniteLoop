@@ -49,7 +49,7 @@ public class StudentChargesServlet extends HttpServlet {
 		} finally {
 			pm.close();
 		}
-		
+		pm = getPersistenceManager();
 		for (int i=0; i<students.length; i++) {
 			for (int j=0; j<classlist.length; j++) {
 				charges[j] = new Charge(Double.parseDouble(req.getParameter(students[i].getUser_id()+"_"+classlist[j]+"_charge")));
