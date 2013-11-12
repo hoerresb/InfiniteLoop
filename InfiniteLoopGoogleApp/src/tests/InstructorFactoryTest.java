@@ -106,7 +106,6 @@ public class InstructorFactoryTest {
 		assertTrue(instr_fact.getErrors().get(0).equals("Email is required."));
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Test
 	public void testSuccess() {
 		InstructorFactory instr_fact = new InstructorFactory();
