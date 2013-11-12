@@ -13,12 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.uwm.cs361.entities.User;
 import edu.uwm.cs361.util.UserConstants;
+import factories.InstructorFactory;
 
 @SuppressWarnings("serial")
 public class CreateInstuctorServlet extends HttpServlet {
 
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException	{
+		PersistenceManager pm = getPersistenceManager();
 		List<String> errors = new ArrayList<String>();
 		
 		String username = req.getParameter("username");
@@ -35,25 +37,11 @@ public class CreateInstuctorServlet extends HttpServlet {
 			instructor_types_array = instructor_types.split(",");
 		}
 		
-		PersistenceManager pm = getPersistenceManager();
-		
-		if (username.isEmpty()) {
-			errors.add("Username is required.");
-		}
-		if (password.isEmpty()) {
-			errors.add("Password is required.");
-		} else if (!password.equals(password_repeat)) {
-			errors.add("Passwords do not match.");
-		}
-		if (phonenumber.isEmpty()) {
-			errors.add("Phone Number is required.");
-		}
-		if (email.isEmpty()) {
-			errors.add("Email is required.");
-		}
+		InstructorFactory instr_fact = new InstructorFactory();
+		User instructor = instr_fact.createInstructor(username, password, password_repeat, firstname, lastname, email, phonenumber, instructor_types_array);
 
 		try {
-			if (errors.size() > 0) {
+			if (instr_fact.hasErrors()) {
 				req.setAttribute("firstname", firstname);
 				req.setAttribute("lastname", lastname);
 				req.setAttribute("email", email);
@@ -65,8 +53,7 @@ public class CreateInstuctorServlet extends HttpServlet {
 				req.setAttribute("errors", errors);
 				req.getRequestDispatcher("/createInstructor.jsp").forward(req, resp);
 			} else {
-				createInstructor(username, password, firstname, lastname,
-						email, phonenumber, instructor_types_array, pm);
+				pm.makePersistent(instructor);
 				resp.sendRedirect("/display");
 			}
 		} catch (ServletException e) {
@@ -74,13 +61,6 @@ public class CreateInstuctorServlet extends HttpServlet {
 		} finally {
 			pm.close();
 		}
-	}
-
-	public void createInstructor(String username, String password,
-			String firstname, String lastname, String email,
-			String phonenumber, String[] instructor_types_array,
-			PersistenceManager pm) {
-		pm.makePersistent(new User(UserConstants.TEACHER_NUM,username,password,firstname,lastname,email,phonenumber,instructor_types_array));
 	}
 
 	private PersistenceManager getPersistenceManager() {
