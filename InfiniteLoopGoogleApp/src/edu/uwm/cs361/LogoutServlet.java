@@ -1,30 +1,43 @@
 package edu.uwm.cs361;
 
+
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.servlet.ServletException;
-import javax.servlet.http.*;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.Query;
-import com.google.appengine.api.datastore.Entity;
 
-import edu.uwm.cs361.entities.*;
-
-import java.util.ArrayList;
-import java.util.List;
+import edu.uwm.cs361.entities.User;
 
 @SuppressWarnings("serial")
-public class LoginServlet extends HttpServlet {
+public class LogoutServlet extends HttpServlet
+{
+	@Override
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException
+	{
+		Cookie c = new Cookie("Adminname", null);
+		c.setMaxAge(0);
+
+		resp.addCookie(c);
+		resp.sendRedirect("/login.jsp");
+	}
+	
+	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-		
-		
-		
 		List<String> errors = new ArrayList<String>();
 		PersistenceManager pm = getPersistenceManager();
 		String username = req.getParameter("username");
@@ -36,7 +49,6 @@ public class LoginServlet extends HttpServlet {
 		if (password.isEmpty()) {
 			errors.add("Password is required.");
 		}
-		
 		
 		
 		try{
@@ -58,8 +70,6 @@ public class LoginServlet extends HttpServlet {
 		if(us.size()>0){
 			for(int i = 0; i < us.size(); i++){
 				if(us.get(i).getPassword().equals(password) && us.get(i).getUsername().equals(username) && us.get(i).getUser_type() == 0){
-					Cookie c = new Cookie("Adminname", req.getParameter("username"));
-					resp.addCookie(c);
 					resp.sendRedirect("/AdminHome");
 				}
 				if(us.get(i).getPassword().equals(password) && us.get(i).getUsername().equals(username) && us.get(i).getUser_type() == 1){
@@ -89,3 +99,4 @@ public class LoginServlet extends HttpServlet {
 		return JDOHelper.getPersistenceManagerFactory("transactions-optional").getPersistenceManager();
 	}
 }
+

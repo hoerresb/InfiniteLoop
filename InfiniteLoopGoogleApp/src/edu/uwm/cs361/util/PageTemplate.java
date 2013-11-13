@@ -20,7 +20,7 @@ public class PageTemplate {
 				"				<div class='nav'><a href=''>Create Class</a></div>" +
 				"				<div class='nav'><a href='/createInstructor'>Create Instructor</a></div>" +
 				"				<div class='nav'><a href='/studentCharges'>Student Charges</a></div>" +	
-				"				<div id='login' class='nav'><a href='/login'>Log Out</a></div>" +
+				"				<div id='login' class='nav'><a href='/logout'>Log Out</a></div>" +
 				"			</div>";
 	}
 	
