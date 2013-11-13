@@ -19,9 +19,9 @@
 
 		List<User> users = (List<User>) pm.newQuery(User.class).execute();
 		if(users.size() == 0){
-			pm.makePersistent(new User(UserConstants.STUDENT_NUM, "michaelds", "1234", "Michael", "DeSanta", "michaelds@uwm.edu", "111-111-1111", new String[0]));
-			pm.makePersistent(new User(UserConstants.STUDENT_NUM, "trevorp", "5678", "Trevor", "Philips", "trevorp@uwm.edu", "111-111-1112", new String[0]));
-			pm.makePersistent(new User(UserConstants.STUDENT_NUM, "frankc", "9011", "Franklin", "Clinton", "frankc@uwm.edu", "111-111-1113", new String[0]));
+			pm.makePersistent(new User(UserConstants.STUDENT_NUM, "michaelds", "1234", "Michael", "DeSanta", "michaelds@uwm.edu", "111-111-1111", new Charge[0]));
+			pm.makePersistent(new User(UserConstants.STUDENT_NUM, "trevorp", "5678", "Trevor", "Philips", "trevorp@uwm.edu", "111-111-1112", new Charge[0]));
+			pm.makePersistent(new User(UserConstants.STUDENT_NUM, "frankc", "9011", "Franklin", "Clinton", "frankc@uwm.edu", "111-111-1113", new Charge[0]));
 		}
 		List<Award> awards = (List<Award>) pm.newQuery(Award.class).execute();
 		if(awards.size() == 0){
