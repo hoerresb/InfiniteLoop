@@ -97,7 +97,7 @@
 
 						<% for (User user : (List<User>) pm.newQuery(User.class).execute()) { %>
 
-							<option value="<%=user.getUser_id()%>"><%=user.getFullName()%></option>
+							<option value="<%=user.getUser_id().getid()%>"><%=user.getFullName()%></option>
 						<% } %>
 
 					</select><br/><br/>
