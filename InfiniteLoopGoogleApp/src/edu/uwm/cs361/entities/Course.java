@@ -1,6 +1,8 @@
 package edu.uwm.cs361.entities;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
@@ -20,10 +22,10 @@ public class Course {
 	private String name;
 	
 	@Persistent
-	private Date startDate;
+	private String startDate;
 
 	@Persistent
-	private Date endDate;
+	private String endDate;
 
 	@Persistent
 	private String[] meetingDays;
@@ -40,16 +42,16 @@ public class Course {
 	@Persistent
 	private String description;
 
-	public Course(String name, Date startDate, Date endDate,
+	public Course(String name, String classstart, String classend,
 			String[] meetingDays, String time, String place,
-			Set<String> payment_options, String description) {
+			String[] options_array, String description) {
 		super();
-		this.startDate = startDate;
-		this.endDate = endDate;
+		this.startDate = classstart;
+		this.endDate = classend;
 		this.meetingDays = meetingDays;
 		this.time = time;
 		this.place = place;
-		this.payment_options = payment_options;
+		this.payment_options = new HashSet<String>(Arrays.asList(options_array));;
 		this.description = description;
 	}
 
@@ -61,11 +63,11 @@ public class Course {
 		return name;
 	}
 
-	public Date getStartDate() {
+	public String getStartDate() {
 		return startDate;
 	}
 
-	public Date getEndDate() {
+	public String getEndDate() {
 		return endDate;
 	}
 

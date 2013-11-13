@@ -2,7 +2,9 @@ package edu.uwm.cs361;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.servlet.RequestDispatcher;
@@ -55,7 +57,7 @@ public class CreateClassServlet extends HttpServlet {
 		if (classend.isEmpty()) {
 			errors.add("Please enter a Class End Time.");
 		}
-		if (meeting_times.isEmpty()) {
+		if (meeting_times.length == 0) {
 			errors.add("Please enter Class Meeting Days.");
 		}
 		if (time.isEmpty()) {

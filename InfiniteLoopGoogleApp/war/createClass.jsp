@@ -1,19 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
-<%@ page import="java.util.*" %>
-<%@ page import="javax.jdo.JDOHelper" %>
-<%@ page import="javax.jdo.PersistenceManager" %>
-<%@ page import="javax.servlet.ServletException" %>
-<%@ page import="javax.servlet.http.HttpServlet" %>
-<%@ page import="javax.servlet.http.HttpServletRequest" %>
-<%@ page import="javax.servlet.http.HttpServletResponse" %>
-<%@ page import="edu.uwm.cs361.CreateClassServlet" %>
-<%@ page import="edu.uwm.cs361.entities.*" %>
-<%@ page import="edu.uwm.cs361.util.*" %>
-<%@ page import="edu.uwm.cs361.util.PageTemplate" %>
-<%@ page import="java.util.List" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 				
 <%@include file='/templates/admin_header.html'%>
@@ -31,12 +18,12 @@
 		
 		<label for='meeting_times'>Meeting Times:</label>
 		<input id='meeting_times' class='text-input' type='text' name='meeting_times'
-			<c:forEach begin="0" end="${fn:length(meeting_times) - 1}" var="index">
+			<c:forEach begin="0" end="${fn:length(meeting_times)}" var="index">
 				<tr>
-      				<td><c: day="${meeting_times[index]}"/></td>
+      				<td><c:out value="${meeting_times[index]}"/></td>
 				</tr>
 			</c:forEach>
-			
+		<br/><br/>	
 		<label for='time'>Time:</label>
 		<input id='time' class='text-input' type='text' name='time' value='${time}'/><br/><br/> 
 		<label for='place'>Place:</label>
