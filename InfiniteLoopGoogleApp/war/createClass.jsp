@@ -2,48 +2,60 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-				
+		
 <%@include file='/templates/admin_header.html'%>
 <%@include file='/templates/error.html'%>
-
 <div id='content'>
 	<span class='title'>Create a Class:</span>
 	<form id='form-id' method='POST' action='/createClass'>
-		<label for='classname'>Class Name:</label>
-		<input id='classname' class='text-input' type='text' name='classname' autofocus ='autofocus' value='${classname}'/><br/><br/>
-		<label for='classstart'>Class Start:</label>
-		<input id='classstart' class='text-input' type='text' name='classstart' value='${classstart}'/><br/><br/>
-		<label for='classend'>Class End:</label>
-		<input id='classend' class='text-input' type='text' name='classend' value='${classend}'/><br/><br/>
+		<h3>General Info:</h3>
+		<div id="general_info_div" class="subsection">
+			<label for="classname">Class name:</label>
+			<input id="classname" class="text-input" type="text" name="classname" autofocus="autofocus"  value='${classname}'/><br/><br/>
 		
-		<label for='meeting_times'>Meeting Times:</label>
-		<input id='meeting_times' class='text-input' type='text' name='meeting_times'
-			<c:forEach begin="0" end="${fn:length(meeting_times)}" var="index">
-				<tr>
-      				<td><c:out value="${meeting_times[index]}"/></td>
-				</tr>
-			</c:forEach>
-		<br/><br/>	
-		<label for='time'>Time:</label>
-		<input id='time' class='text-input' type='text' name='time' value='${time}'/><br/><br/> 
-		<label for='place'>Place:</label>
-		<input id='place' class='text-input' type='text' name='place' value='${place}'/><br/><br/>
-		<label for='options'>Payment Options:</label><br/>
-		<input id='options' class='text-input' type='text' name='options' 
-			<c:choose>
-			      <c:when test="${options == ''}">
-			      		placeholder='Ex: $30/month, $150 for 6 months'/><br/><br/>
-			      </c:when>
-			      <c:otherwise>
-			      		value='${options}'/><br/><br/>
-			      </c:otherwise>
-			</c:choose>
+			<label for="classstart">Class Start Date:</label>
+			<input id="classstart" class="text-input" type="text" name="classstart" value='${classstart}'/><br/><br/>
+			
+			<label for="classend">Class End Date:</label>
+			<input id="classend" class="text-input" type="text" name="classend" value='${classend}'/><br/><br/>
+			
+			<label for="meeting_times">Weekly Meeting Times:</label><br/>
+			<div id="meeting_times">
+				<label for="meeting_days">Days:</label><br/>
+				<label for="meeting_times_mon"><input class="meeting_time_op" type="checkbox" name="meeting_times" value="M">M</label>
+				<label for="meeting_times_tue"><input class="meeting_time_op" type="checkbox" name="meeting_times" value="T">T</label>
+				<label for="meeting_times_wed"><input class="meeting_time_op" type="checkbox" name="meeting_times" value="W">W</label>
+				<label for="meeting_times_thur"><input class="meeting_time_op" type="checkbox" name="meeting_times" value="Th">Th</label>
+				<label for="meeting_times_fri"><input class="meeting_time_op" type="checkbox" name="meeting_times" value="F">F</label>
+				<label for="meeting_times_sat"><input class="meeting_time_op" type="checkbox" name="meeting_times" value="S">S</label>
+				<label for="meeting_times_sun"><input class="meeting_time_op" type="checkbox" name="meeting_times" value="Su">Su</label><br/><br/>
+			
+				<label for="time">Time:</label>
+				<input id="time" class="text-input" type="text" name="time"  value='${time}'/><br/><br/>
+			</div>
+			
+			<label for="place">Meeting place:</label>
+			<input id="place" class="text-input" type="text" name="place" value='${place}'/><br/><br/>
+			
+			<label for="options">Payment options:</label>
+			<input id="options" class="text-input" type="text" name="options" placeholder="Ex: $30/month, $150 for 6 months"/><br/><br/>
+		</div>
 		
-		<label for='description'>Description:</label>
-		<input id='description' class='text-input' type='text' name='description' value='${description}'/><br/><br/>
-		
-		<div id='button-area'>
-			<button id='submit-id' type='submit'>Create</button><br/><br/> 
+		<label for="instr">Instructor:</label>
+        <select id="instr" name="instr_options">
+            <optgroup>
+               <c:forEach items="${teachers}" var="teacher">
+		     	 <option value="${teacher.user_id.id}">${teacher.fullName}</option>
+			   </c:forEach> 
+            </optgroup>
+        </select><br/><br/>
+                 
+		<h3>Class Description:</h3>
+		<p>	
+			<textarea id="class_description" class="text-input" form="form-id" name="class_description" rows="5" cols="35"  value='${class_description}'></textarea><br/><br/><br/><br/>	
+		</p>
+		<div id="button-area">
+			<button id="submit-id" type="submit">Create</button><br/><br/>
 		</div>
 	</form>
 </div>	

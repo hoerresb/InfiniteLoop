@@ -11,6 +11,11 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet>
 	
 	<servlet>
+		<servlet-name>createClass</servlet-name>
+		<servlet-class>edu.uwm.cs361.CreateClassServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
 		<servlet-name>AdminHome</servlet-name>
 		<servlet-class>edu.uwm.cs361.AdminHome</servlet-class>
 	</servlet>
@@ -54,6 +59,11 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<servlet-mapping>
 		<servlet-name>Login</servlet-name>
 		<url-pattern>/login</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>createClass</servlet-name>
+		<url-pattern>/createClass</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>

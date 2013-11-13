@@ -20,13 +20,13 @@ public class Course {
 	private String name;
 	
 	@Persistent
-	private Date startDate;
+	private String startDate;
 
 	@Persistent
-	private Date endDate;
+	private String endDate;
 
 	@Persistent
-	private String[] meetingDays;
+	private Set<String> meetingDays;
 	
 	@Persistent
 	private String time;
@@ -40,8 +40,8 @@ public class Course {
 	@Persistent
 	private String description;
 
-	public Course(String name, Date startDate, Date endDate,
-			String[] meetingDays, String time, String place,
+	public Course(String name, String startDate, String endDate,
+			Set<String> meetingDays, String time, String place,
 			Set<String> payment_options, String description) {
 		super();
 		this.startDate = startDate;
@@ -61,15 +61,15 @@ public class Course {
 		return name;
 	}
 
-	public Date getStartDate() {
+	public String getStartDate() {
 		return startDate;
 	}
 
-	public Date getEndDate() {
+	public String getEndDate() {
 		return endDate;
 	}
 
-	public String[] getMeetingDays() {
+	public Set<String> getMeetingDays() {
 		return meetingDays;
 	}
 
