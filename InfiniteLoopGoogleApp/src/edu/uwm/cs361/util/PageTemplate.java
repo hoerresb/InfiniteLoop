@@ -16,7 +16,7 @@ public class PageTemplate {
 				"		<div id='container'>" +
 				"			<div id='banner'></div>" +
 				"			<div id='navbar'>" +
-				"				<div class='nav'><a href=''>Home</a></div>" +
+				"				<div class='nav'><a href='/AdminHome'>Home</a></div>" +
 				"				<div class='nav'><a href=''>Create Class</a></div>" +
 				"				<div class='nav'><a href='/createInstructor'>Create Instructor</a></div>" +
 				"				<div class='nav'><a href='/studentCharges'>Student Charges</a></div>" +	
