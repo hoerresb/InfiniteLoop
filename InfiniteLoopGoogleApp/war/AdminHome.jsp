@@ -14,7 +14,7 @@
 
 
 <%
-String username = null;
+	String username = null;
 
 		Cookie[] cookies = req.getCookies();
 
@@ -28,20 +28,10 @@ String username = null;
 %>
 
 
-<!DOCTYPE html> 
-	<html>
-						<head>
-							<title>Monet Mall</title>
-							<link type='text/css' rel='stylesheet' href='/css/stylesheet.css'/> 
-						</head> 
-						<body>
-							<div id="container"> 
-								<div id="banner"></div> 
-								<div id="content">
-									<h2> Welcome, <%=username%> </h2>
-								</div>
-							</div>
-						</body>
-	</html>	
+<%@include file='/templates/admin_header.html'%>	
+	<div id="content">
+		<h2> Welcome, <%=username%> </h2>
+	</div>
+<%@include file='/templates/footer.html'%>
 							
 									
