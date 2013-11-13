@@ -23,7 +23,7 @@ public class StudentChargesServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException	{
 		List<String> errors = new ArrayList<String>();
 
-		String[] classlist = {"Cooking For Dummies","Class 2","Class 3"}; 
+		String[] classlist = {"Cooking For Dummies","Kung Fu","Dog Training"}; 
 		Charge[] charges = new Charge[classlist.length];
 		
 		PersistenceManager pm = getPersistenceManager();

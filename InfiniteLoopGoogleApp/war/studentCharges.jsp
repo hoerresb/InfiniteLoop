@@ -33,7 +33,7 @@
 					<%! PersistenceManager pm = getPersistenceManager(); %>
 					<%! List<User> users = (List<User>) pm.newQuery(User.class).execute(); %>
 					<%! int numStudents = 0, count = 0; %>
-					<%! String[] classlist = {"Cooking For Dummies","Class 2","Class 3"}; %>
+					<%! String[] classlist = {"Cooking For Dummies","Kung Fu","Dog Training"}; %>
 					<%! Charge[] charges = {new Charge(12, new Date(2013,11,31), ""), new Charge(15, new Date(2013,11,31), "") , new Charge(18, new Date(2013,11,31), "")};  %>
 					<%! User[] students; %>
 					<% 
@@ -101,4 +101,3 @@
 		</form>
 	</div>
 <%@include file='/templates/footer.html'%>
-

@@ -70,6 +70,20 @@ public class User {
 
 	}
 	
+	public User(Course[] student_courses, int user_type, String username, String password, String firstName, String lastName, String email,
+			String phone_number) {
+		this.user_type = user_type;
+		this.username = username;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.phone_number = phone_number;
+		this.courses = new HashSet<Course>(Arrays.asList(student_courses));
+		this.awards = new HashSet<Award>();
+
+	}
+	
 	public User(int user_type, String username, String password, String firstName, String lastName, String email,
 			String phone_number, String[] instructor_types) {
 		this.user_type = user_type;
