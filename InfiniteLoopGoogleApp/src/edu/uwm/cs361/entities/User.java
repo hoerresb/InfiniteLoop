@@ -124,6 +124,14 @@ public class User {
 		return instructor_types;
 	}
 	
+	public void setCourses(Course[] course) {
+		this.courses = new HashSet<Course>(Arrays.asList(course));
+	}
+	
+	public Set<Course> getCourses() {
+		return courses;
+	}
+	
 	public void setCharges(Charge[] charge) {
 		this.charges = new HashSet<Charge>(Arrays.asList(charge));
 	}
