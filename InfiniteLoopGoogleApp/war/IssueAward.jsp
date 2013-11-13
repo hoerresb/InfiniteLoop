@@ -85,7 +85,7 @@
 		
 						<% for (Award award : (List<Award>) pm.newQuery(Award.class).execute()) { %>
 
-							<option value="<%=award.getAward_id()%>"><%=award.getAwardName()%></option>
+							<option value="<%=award.getAward_id().getid()%>"><%=award.getAwardName()%></option>
 
 						<% } %>
 					</select><br/><br/>
