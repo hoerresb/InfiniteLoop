@@ -20,7 +20,6 @@ public class CreateInstuctorServlet extends HttpServlet {
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException	{
 		PersistenceManager pm = getPersistenceManager();
-		List<String> errors = new ArrayList<String>();
 		
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");
@@ -49,7 +48,7 @@ public class CreateInstuctorServlet extends HttpServlet {
 				req.setAttribute("password", password);
 				req.setAttribute("password_repeat", password_repeat);
 				req.setAttribute("instructor_types", instructor_types);
-				req.setAttribute("errors", errors);
+				req.setAttribute("errors", instr_fact.getErrors());
 				req.getRequestDispatcher("/createInstructor.jsp").forward(req, resp);
 			} else {
 				pm.makePersistent(instructor);

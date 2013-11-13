@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ page import="edu.uwm.cs361.util.PageTemplate" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 				
 <%@include file='/templates/admin_header.html'%>	
 	<div id='content'>
@@ -16,15 +17,8 @@
 			<label for='phone_num-id'>Phone number:</label>
 			<input id='phone_num-id' class='text-input' type='text' name='phonenumber' value='${phonenumber}'/><br/><br/>
 			<label for='instructor_types'>Instructor Type:</label><br/>
-			<input id='instructor_types' class='text-input' type='text' name='instructor_types' 
-				<c:choose>
-				      <c:when test="${instructor_types == ''}">
-				      		placeholder='Ex: Dog Trainer, Tutor ...'/><br/><br/>
-				      </c:when>
-				      <c:otherwise>
-				      		value='${instructor_types}'/><br/><br/>
-				      </c:otherwise>
-				</c:choose>
+			<input id='instructor_types' class='text-input' type='text' name='instructor_types'
+						 placeholder='Ex: Dog Trainer, Tutor ...' value='${instructor_types}'/><br/><br/>
 			<label for='username-id'>Username:</label>
 			<input id='username-id' class='text-input' type='text' name='username' value='${username}'/><br/><br/> 
 			<label for='password'>Password:</label>
