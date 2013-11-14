@@ -61,6 +61,7 @@ public class StudentChargesServlet extends HttpServlet {
 				charge = new Charge(Double.parseDouble(req.getParameter(students[i].getUser_id()+"_"+classlist[j]+"_charge")), deadline ,""); // Charge(amount, deadline, reason)
 				charges[j] = charge;
 				students[i].setCharges(charges);
+				
 				int day = charges[j].getDeadline().getDate();
 				int month = charges[j].getDeadline().getMonth()+1;
 				int year = charges[j].getDeadline().getYear();
@@ -75,7 +76,11 @@ public class StudentChargesServlet extends HttpServlet {
 				req.getRequestDispatcher("studentCharges.jsp").forward(req, resp);
 			} else {
 				for(User student : students) {
-					pm.makePersistent(student);					
+					pm.makePersistent(student);	
+					System.out.println(student.getFullName()+": ");
+					for(Charge c: student.getCharges()) {
+						System.out.println("    "+c.getAmount()+" due: "+c.getDeadline());
+					}
 				}
 				resp.sendRedirect("studentCharges.jsp");
 			}
