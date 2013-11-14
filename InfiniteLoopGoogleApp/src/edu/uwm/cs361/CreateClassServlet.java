@@ -39,7 +39,11 @@ public class CreateClassServlet extends HttpServlet {
 		String classname = req.getParameter("classname");
 		String startDate = req.getParameter("classstart");
 		String endDate = req.getParameter("classend");
-		Set<String> meetingDays = new HashSet<String>(Arrays.asList(req.getParameterValues("meeting_times"))); 
+		String[] meeting_time_days = req.getParameterValues("meeting_times");
+		Set<String> meetingDays = null;
+		if(meeting_time_days != null) {
+			meetingDays = new HashSet<String>(Arrays.asList(meeting_time_days)); 
+		}
 		String time = req.getParameter("time");
 		String place = req.getParameter("place");
 		String description = req.getParameter("class_description");
@@ -64,13 +68,14 @@ public class CreateClassServlet extends HttpServlet {
 				req.setAttribute("meeting_times", meetingDays);
 				req.setAttribute("class_description", description);
 				req.setAttribute("payment_options", payment_options);
-				//req.setAttribute("meeting_times", teacher); can do?
+				//req.setAttribute("teacher", teacher); can do?
 				req.setAttribute("errors", course_fact.getErrors());
-				req.getRequestDispatcher("/createClass").forward(req, resp);
+				req.setAttribute("teachers", getTeachers());
+				req.getRequestDispatcher("createClass.jsp").forward(req, resp);
 			} else {
 				pm.makePersistent(course);
 				teacher.getCourses().add(course);
-				pm.makePersistent(teacher);
+//				pm.makePersistent(teacher);
 				resp.sendRedirect("/display");
 			}
 		} catch (ServletException e) {

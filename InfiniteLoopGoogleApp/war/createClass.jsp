@@ -4,8 +4,8 @@
 
 		
 <%@include file='/templates/admin_header.html'%>
-<%@include file='/templates/error.html'%>
 <div id='content'>
+<%@include file='/templates/error.html'%>
 	<span class='title'>Create a Class:</span>
 	<form id='form-id' method='POST' action='/createClass'>
 		<h3>General Info:</h3>
@@ -52,7 +52,7 @@
                  
 		<h3>Class Description:</h3>
 		<p>	
-			<textarea id="class_description" class="text-input" form="form-id" name="class_description" rows="5" cols="35"  value='${class_description}'></textarea><br/><br/><br/><br/>	
+			<textarea id="class_description" class="text-input" form="form-id" name="class_description" rows="5" cols="35">${class_description}</textarea><br/><br/><br/><br/>	
 		</p>
 		<div id="button-area">
 			<button id="submit-id" type="submit">Create</button><br/><br/>

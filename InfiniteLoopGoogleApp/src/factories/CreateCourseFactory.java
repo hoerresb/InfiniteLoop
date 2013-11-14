@@ -22,8 +22,8 @@ public class CreateCourseFactory {
 		if (endDate.isEmpty()) {
 			errors.add("Please enter a class end Time.");
 		}
-		if (meetingDays.isEmpty()) {
-			errors.add("Please select meeting days.");
+		if (meetingDays == null) {
+			errors.add("Must select a meeting day.");
 		}
 		if (time.isEmpty()) {
 			errors.add("Please enter a meeting time.");
@@ -32,7 +32,7 @@ public class CreateCourseFactory {
 			errors.add("Please enter a class meeting place.");
 		}
 		if (description.isEmpty()) {
-			errors.add("Please enter a class description..");
+			errors.add("Please enter a class description.");
 		}
 		
 		if(hasErrors()) {
