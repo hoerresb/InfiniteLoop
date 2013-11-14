@@ -1,5 +1,6 @@
 package edu.uwm.cs361.entities;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -48,8 +49,7 @@ public class User {
 	
 	@Persistent
 	@Unowned
-	private Set<Course> courses;
-	
+	private Set<Course> courses = new HashSet<Course>();
 	
 	@Persistent
 	@Unowned

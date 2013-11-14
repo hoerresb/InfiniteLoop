@@ -5,13 +5,14 @@ import java.util.List;
 import java.util.Set;
 
 import edu.uwm.cs361.entities.Course;
+import edu.uwm.cs361.entities.User;
 import edu.uwm.cs361.util.UserConstants;
 
 public class CreateCourseFactory {
 	private List<String> errors = new ArrayList<String>();
 	
 	public Course createCourse(String classname, String startDate, String endDate, 
-			Set<String> meetingDays, String time, String place, Set<String> payment_options, String description) {
+			Set<String> meetingDays, String time, String place, Set<String> payment_options, String description, User teacher) {
 		
 		if (classname.isEmpty()) {
 			errors.add("Please enter a class name.");
@@ -20,10 +21,13 @@ public class CreateCourseFactory {
 			errors.add("Please enter a class start date.");
 		}
 		if (endDate.isEmpty()) {
-			errors.add("Please enter a class end Time.");
+			errors.add("Please enter a class end date.");
 		}
 		if (meetingDays == null) {
 			errors.add("Must select a meeting day.");
+		}
+		if(payment_options == null) {
+			errors.add("Please enter payment options.");
 		}
 		if (time.isEmpty()) {
 			errors.add("Please enter a meeting time.");
@@ -38,7 +42,9 @@ public class CreateCourseFactory {
 		if(hasErrors()) {
 			return null;
 		} else {
-			return new Course(classname, startDate, endDate, meetingDays, time, place, payment_options, description);
+			Course c = new Course(classname, startDate, endDate, meetingDays, time, place, payment_options, description);
+			teacher.getCourses().add(c);
+			return c;
 		}
 	}
 	

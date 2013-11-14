@@ -57,7 +57,7 @@ public class CreateClassServlet extends HttpServlet {
 		User teacher = (User) pm.getObjectById(User.class,Long.parseLong(req.getParameter("instr_options"))); //update teacher
 
 		CreateCourseFactory course_fact = new CreateCourseFactory();
-		Course course = course_fact.createCourse(classname, startDate, endDate, meetingDays, time, place, new HashSet<String>(Arrays.asList(payment_options_array)), description);
+		Course course = course_fact.createCourse(classname, startDate, endDate, meetingDays, time, place, new HashSet<String>(Arrays.asList(payment_options_array)), description,teacher);
 		try {
 			if (course_fact.hasErrors()) {
 				req.setAttribute("classname", classname);
@@ -74,7 +74,7 @@ public class CreateClassServlet extends HttpServlet {
 				req.getRequestDispatcher("createClass.jsp").forward(req, resp);
 			} else {
 				pm.makePersistent(course);
-				teacher.getCourses().add(course);
+//				teacher.getCourses().add(course);
 //				pm.makePersistent(teacher);
 				resp.sendRedirect("/display");
 			}
