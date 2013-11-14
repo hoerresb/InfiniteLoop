@@ -34,8 +34,6 @@ public class StudentChargesFactoryTest {
 
 	private PersistenceManager pm;
 	private List<User> students = new ArrayList<User>();
-	
-	private int numStudents;
 
 	@Before
 	@SuppressWarnings({ "unchecked", "deprecation" })

@@ -37,12 +37,6 @@
 					<%! Charge[] charges = {new Charge(12, new Date(2013,11,31), ""), new Charge(15, new Date(2013,11,31), "") , new Charge(18, new Date(2013,11,31), "")};  %>
 					<%! User[] students; %>
 					<% 
-						//User[] students_test = {new User(UserConstants.STUDENT_NUM, "student_u", "student_p", "student_fn", "student_ln", "student_e@uwm.edu", "111-111-1111", charges)};
-						//try {
-						//	pm.makePersistent(students_test[0]);
-						//} finally {
-						//	pm.close();
-						//}
 						try {
 							numStudents = 0;
 							count = 0;
@@ -88,13 +82,6 @@
 						</tr>
 					<% } %>
 			</table>
-			<%
-				//try {
-				//	pm.deletePersistent(students_test[0]);
-				//} finally {
-				//	pm.close();
-				//}
-			%>
 			<div id='button-area'>
 				<button id='submit-id' type='submit'>Submit</button><br/><br/> 
 			</div>
