@@ -17,6 +17,7 @@ import factories.CreateInstructorFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -216,7 +217,17 @@ public class CreateCourseFactoryTest {
 		assertEquals(c.getDescription(), "its a good class");
 		
 		//add test for meeting days
+		Iterator<String> iterator = c.getMeetingDays().iterator();
+		Iterator<String> iterator2 = meetingDays.iterator();
+		while(iterator.hasNext() && iterator2.hasNext()) {
+			assertEquals(iterator.next(),iterator2.next());
+		}
 		//add test for payment options
+		Iterator<String> iterator3 = payment_options.iterator();
+		Iterator<String> iterator4 = c.getPayment_options().iterator();
+		while(iterator3.hasNext() && iterator4.hasNext()) {
+			assertEquals(iterator4.next(),iterator3.next());
+		}
 		
 		Set<Course> courses2 = teacher.getCourses();
 		assertEquals(courses2.size(),1);
