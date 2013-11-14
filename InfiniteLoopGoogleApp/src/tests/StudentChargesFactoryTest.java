@@ -65,29 +65,24 @@ public class StudentChargesFactoryTest {
 	
 	@Test
 	public void testAddCharges () {
-		Charge[] charges = {new Charge(12, new Date(2013,9,12), ""), new Charge(15, new Date(2013,10,12), "") , new Charge(18, new Date(2013,11,12), "")};
+		double amount = 0;
+		Date deadline = new Date();
+		Charge[] charges = {};
 		User user = new User(UserConstants.STUDENT_NUM, "student", "student", "Student_fn", "Student_ln", "student@student.com", "111-111-1111", charges);
-		if(user.getUser_type() == UserConstants.STUDENT_NUM);
+		if(user.getUser_type() == UserConstants.STUDENT_NUM) {
 			students.add(user);
+		}
+		
 		user.getCharges().add(new Charge(6, new Date(2013,8,12), ""));
-		Query q = pm.newQuery(Charge.class);
-		q.setOrdering("deadline desc");
-		try {
-			List<Charge> results = (List<Charge>) q.execute();
-			if (!results.isEmpty()) {
-				for(Charge charge: results) {
-					System.out.println(charge.getAmount()+" is due on "+charge.getDeadline());					
-				}
-			}
-		} finally {
-			q.closeAll();
-		}
+		
 		for(User student: students) {
-			System.out.println(student.getFullName()+"'s charges: ");
 			for(Charge charge: student.getCharges()) {
-				System.out.println(charge.getAmount()+" is due on "+charge.getDeadline());
+				amount = charge.getAmount();
+				deadline = charge.getDeadline();
 			}
 		}
+		assertTrue(amount == 6);
+		assertTrue(deadline.equals(new Date(2013,8,12)));
 	}
 
 	private PersistenceManager getPersistenceManager() {
