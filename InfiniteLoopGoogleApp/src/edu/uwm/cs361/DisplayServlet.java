@@ -3,6 +3,7 @@ package edu.uwm.cs361;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
@@ -30,6 +31,7 @@ public class DisplayServlet extends HttpServlet
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	private void displayCourses(HttpServletRequest req,
 			HttpServletResponse resp, PersistenceManager pm) throws IOException {
 		resp.getWriter().println("<h1>Courses</h1>");
@@ -63,8 +65,15 @@ public class DisplayServlet extends HttpServlet
 			resp.getWriter().println("<ul>");
 
 			for (User user : users) {
-				resp.getWriter().println("<li>(" + user.getUser_id().getId() + "): " + user.getFullName() + 
-						 "<br/>Courses: " + Arrays.toString(user.getCourses().toArray()) +"</li>");
+				String row = "";
+				row += "<li>(" + user.getUser_id().getId() + "): " + user.getFullName() + 
+						 "<br/>Courses: "; 
+				Set<Course> courses = user.getCourses();
+				for(Course c : courses) {
+					row += "Name: " + c.getName() + " Days: " + c.getMeetingDays();
+				}
+				row += "</li>";
+				resp.getWriter().println(row);
 			}
 
 			resp.getWriter().println("</ul>");
