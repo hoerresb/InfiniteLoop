@@ -66,7 +66,16 @@ public class DisplayServlet extends HttpServlet
 
 			for (User user : users) {
 				String row = "";
-				row += "<li>(" + user.getUser_id().getId() + "): " + user.getFullName() + 
+				String userType = "";
+				switch(user.getUser_type()) {
+					case 0: userType = "admin";
+							break;
+					case 1: userType = "teacher";
+							break;
+					case 2: userType = "student";
+							break;
+				}
+				row += "<li>(" + user.getUser_id().getId() + "):"+ userType +":"+ user.getFullName() + 
 						 "<br/>Courses: "; 
 				Set<Course> courses = user.getCourses();
 				for(Course c : courses) {
