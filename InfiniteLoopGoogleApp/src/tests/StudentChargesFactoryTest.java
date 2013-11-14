@@ -22,6 +22,7 @@ import java.util.Set;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
+import javax.jdo.Query;
 
 import org.junit.After;
 import org.junit.Before;
@@ -41,20 +42,6 @@ public class StudentChargesFactoryTest {
 	public void setUp() {
 		helper.setUp();
 		pm = getPersistenceManager();
-		List<User> users = (List<User>) pm.newQuery(User.class).execute();
-		try {
-			numStudents = 0;
-			for (User user : users) {
-				System.out.print("User found.");
-				if (user.getUser_type() == UserConstants.STUDENT_NUM) {
-					students.add(user);
-					numStudents++;
-					System.out.print("Student found: "+ user.getFullName());
-				}
-			}
-		} finally {
-			pm.close();
-		}
 	}
 
 	@After
@@ -74,6 +61,33 @@ public class StudentChargesFactoryTest {
 		if(user.getUser_type() == UserConstants.STUDENT_NUM);
 			students.add(user);
 		assertEquals(1, students.size());
+	}
+	
+	@Test
+	public void testAddCharges () {
+		Charge[] charges = {new Charge(12, new Date(2013,9,12), ""), new Charge(15, new Date(2013,10,12), "") , new Charge(18, new Date(2013,11,12), "")};
+		User user = new User(UserConstants.STUDENT_NUM, "student", "student", "Student_fn", "Student_ln", "student@student.com", "111-111-1111", charges);
+		if(user.getUser_type() == UserConstants.STUDENT_NUM);
+			students.add(user);
+		user.getCharges().add(new Charge(6, new Date(2013,8,12), ""));
+		Query q = pm.newQuery(Charge.class);
+		q.setOrdering("deadline desc");
+		try {
+			List<Charge> results = (List<Charge>) q.execute();
+			if (!results.isEmpty()) {
+				for(Charge charge: results) {
+					System.out.println(charge.getAmount()+" is due on "+charge.getDeadline());					
+				}
+			}
+		} finally {
+			q.closeAll();
+		}
+		for(User student: students) {
+			System.out.println(student.getFullName()+"'s charges: ");
+			for(Charge charge: student.getCharges()) {
+				System.out.println(charge.getAmount()+" is due on "+charge.getDeadline());
+			}
+		}
 	}
 
 	private PersistenceManager getPersistenceManager() {
