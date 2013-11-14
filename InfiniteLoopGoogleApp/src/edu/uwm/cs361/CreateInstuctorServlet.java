@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.uwm.cs361.entities.User;
-import factories.InstructorFactory;
+import factories.CreateInstructorFactory;
 
 @SuppressWarnings("serial")
 public class CreateInstuctorServlet extends HttpServlet {
@@ -35,7 +35,7 @@ public class CreateInstuctorServlet extends HttpServlet {
 			instructor_types_array = instructor_types.split(",");
 		}
 		
-		InstructorFactory instr_fact = new InstructorFactory();
+		CreateInstructorFactory instr_fact = new CreateInstructorFactory();
 		User instructor = instr_fact.createInstructor(username, password, password_repeat, firstname, lastname, email, phonenumber, instructor_types_array);
 
 		try {

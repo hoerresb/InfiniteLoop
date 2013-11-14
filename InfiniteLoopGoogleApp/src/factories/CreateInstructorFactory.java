@@ -6,7 +6,7 @@ import java.util.List;
 import edu.uwm.cs361.entities.User;
 import edu.uwm.cs361.util.UserConstants;
 
-public class InstructorFactory {
+public class CreateInstructorFactory {
 	private List<String> errors = new ArrayList<String>();
 	
 	public User createInstructor(String username, String password, String password_repeat,

@@ -38,7 +38,7 @@
 			<input id="place" class="text-input" type="text" name="place" value='${place}'/><br/><br/>
 			
 			<label for="options">Payment options:</label>
-			<input id="options" class="text-input" type="text" name="options" placeholder="Ex: $30/month, $150 for 6 months"/><br/><br/>
+			<input id="options" class="text-input" type="text" name="payment_options" placeholder="Ex: $30/month, $150 for 6 months" value='${payment_options}'/><br/><br/>
 		</div>
 		
 		<label for="instr">Instructor:</label>

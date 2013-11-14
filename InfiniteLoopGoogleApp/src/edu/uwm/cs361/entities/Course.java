@@ -43,7 +43,7 @@ public class Course {
 	public Course(String name, String startDate, String endDate,
 			Set<String> meetingDays, String time, String place,
 			Set<String> payment_options, String description) {
-		super();
+		this.name = name;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.meetingDays = meetingDays;

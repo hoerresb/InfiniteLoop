@@ -7,7 +7,7 @@ import java.util.Set;
 import edu.uwm.cs361.entities.Course;
 import edu.uwm.cs361.util.UserConstants;
 
-public class CourseFactory {
+public class CreateCourseFactory {
 	private List<String> errors = new ArrayList<String>();
 	
 	public Course createCourse(String classname, String startDate, String endDate, 

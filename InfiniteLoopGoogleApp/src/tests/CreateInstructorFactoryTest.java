@@ -9,7 +9,7 @@ import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestC
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
 import edu.uwm.cs361.entities.User;
-import factories.InstructorFactory;
+import factories.CreateInstructorFactory;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -23,7 +23,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class InstructorFactoryTest {
+public class CreateInstructorFactoryTest {
 	private final LocalServiceTestHelper helper = new LocalServiceTestHelper(
 			new LocalDatastoreServiceTestConfig());
 
@@ -53,7 +53,7 @@ public class InstructorFactoryTest {
 
 	@Test
 	public void testErrorOnBlankUsername() {
-		InstructorFactory instr_fact = new InstructorFactory();
+		CreateInstructorFactory instr_fact = new CreateInstructorFactory();
 		User u = instr_fact.createInstructor("","password","password","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
 
 		assertNull(u);
@@ -64,7 +64,7 @@ public class InstructorFactoryTest {
 
 	@Test
 	public void testErrorOnBlankPassword() {
-		InstructorFactory instr_fact = new InstructorFactory();
+		CreateInstructorFactory instr_fact = new CreateInstructorFactory();
 		User u = instr_fact.createInstructor("username","","password","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
 	
 		assertNull(u);
@@ -75,7 +75,7 @@ public class InstructorFactoryTest {
 	
 	@Test
 	public void testErrorOnNonMatchingPasswords() {
-		InstructorFactory instr_fact = new InstructorFactory();
+		CreateInstructorFactory instr_fact = new CreateInstructorFactory();
 		User u = instr_fact.createInstructor("username","password1","password2","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
 	
 		assertNull(u);
@@ -86,7 +86,7 @@ public class InstructorFactoryTest {
 	
 	@Test
 	public void testErrorOnBlankPhoneNumber() {
-		InstructorFactory instr_fact = new InstructorFactory();
+		CreateInstructorFactory instr_fact = new CreateInstructorFactory();
 		User u = instr_fact.createInstructor("username","password1","password1","fname","lname", "email", "", new String[] {"teacher1","teacher2"});
 	
 		assertNull(u);
@@ -97,7 +97,7 @@ public class InstructorFactoryTest {
 	
 	@Test
 	public void testErrorOnBlankEmail() {
-		InstructorFactory instr_fact = new InstructorFactory();
+		CreateInstructorFactory instr_fact = new CreateInstructorFactory();
 		User u = instr_fact.createInstructor("username","password1","password1","fname","lname", "", "8478478478", new String[] {"teacher1","teacher2"});
 	
 		assertNull(u);
@@ -108,7 +108,7 @@ public class InstructorFactoryTest {
 	
 	@Test
 	public void testSuccess() {
-		InstructorFactory instr_fact = new InstructorFactory();
+		CreateInstructorFactory instr_fact = new CreateInstructorFactory();
 		List<String> expectedInstr_types = Arrays.asList("teacher1", "teacher2");
 		
 		User u = instr_fact.createInstructor("jSmith","jsmith","jsmith","John","Smith",

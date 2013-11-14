@@ -20,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
 import edu.uwm.cs361.entities.Course; 
 import edu.uwm.cs361.entities.User;
 import edu.uwm.cs361.util.UserConstants;
-import factories.CourseFactory;
-import factories.InstructorFactory;
+import factories.CreateCourseFactory;
+import factories.CreateInstructorFactory;
 
 
 @SuppressWarnings("serial")
@@ -43,15 +43,17 @@ public class CreateClassServlet extends HttpServlet {
 		String time = req.getParameter("time");
 		String place = req.getParameter("place");
 		String description = req.getParameter("class_description");
-		//TODO: payment options
-		
-		
-		//@SuppressWarnings("unused")
-		//User teacher = (User) pm.getObjectById(req.getParameter("instr_options")); //update teacher
 
-		CourseFactory course_fact = new CourseFactory();
-		//Course course = course_fact.createCourse(classname, startDate, endDate, meetingDays, time, place, payment_options, description);
-		Course course = course_fact.createCourse(classname, startDate, endDate, meetingDays, time, place, null, description);
+		String payment_options = req.getParameter("payment_options");
+		String[] payment_options_array = null;
+		if(!req.getParameter("payment_options").equals("null")) {
+			payment_options_array = payment_options.split(",");
+		}
+		
+		User teacher = (User) pm.getObjectById(User.class,Long.parseLong(req.getParameter("instr_options"))); //update teacher
+
+		CreateCourseFactory course_fact = new CreateCourseFactory();
+		Course course = course_fact.createCourse(classname, startDate, endDate, meetingDays, time, place, new HashSet<String>(Arrays.asList(payment_options_array)), description);
 		try {
 			if (course_fact.hasErrors()) {
 				req.setAttribute("classname", classname);
@@ -61,13 +63,15 @@ public class CreateClassServlet extends HttpServlet {
 				req.setAttribute("place", place);
 				req.setAttribute("meeting_times", meetingDays);
 				req.setAttribute("class_description", description);
-				//req.setAttribute("meeting_times", payment_options);
+				req.setAttribute("payment_options", payment_options);
 				//req.setAttribute("meeting_times", teacher); can do?
 				req.setAttribute("errors", course_fact.getErrors());
-				req.getRequestDispatcher("/createCourse.jsp").forward(req, resp);
+				req.getRequestDispatcher("/createClass").forward(req, resp);
 			} else {
 				pm.makePersistent(course);
-				resp.sendRedirect("/displayCourses");
+				teacher.getCourses().add(course);
+				pm.makePersistent(teacher);
+				resp.sendRedirect("/display");
 			}
 		} catch (ServletException e) {
 			e.printStackTrace();

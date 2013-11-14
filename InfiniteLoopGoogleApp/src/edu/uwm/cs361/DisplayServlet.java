@@ -1,6 +1,7 @@
 package edu.uwm.cs361;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.jdo.JDOHelper;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import edu.uwm.cs361.entities.Course;
 import edu.uwm.cs361.entities.User;
 
 @SuppressWarnings("serial")
@@ -22,9 +24,31 @@ public class DisplayServlet extends HttpServlet
 
 		try {
 			displayUsers(req, resp, pm);
+			displayCourses(req, resp, pm);
 		} finally {
 			pm.close();
 		}
+	}
+
+	private void displayCourses(HttpServletRequest req,
+			HttpServletResponse resp, PersistenceManager pm) throws IOException {
+		resp.getWriter().println("<h1>Courses</h1>");
+
+		List<Course> courses = (List<Course>) pm.newQuery(Course.class).execute();
+
+		if (courses.size() == 0) {
+			resp.getWriter().println("<p>There are no courses.</p>");
+		} else {
+			resp.getWriter().println("<ul>");
+
+			for (Course course : courses) {
+				resp.getWriter().println("<li>(" + course.getCourse_id().getId() + "): " + course.getName() +
+						 "<br/>Meeting days: " + course.getMeetingDays() + "</li>");
+			}
+
+			resp.getWriter().println("</ul>");
+		}
+		
 	}
 
 	@SuppressWarnings("unchecked")
@@ -39,7 +63,8 @@ public class DisplayServlet extends HttpServlet
 			resp.getWriter().println("<ul>");
 
 			for (User user : users) {
-				resp.getWriter().println("<li>(" + user.getUser_id() + "): " + user.getFullName() + "</li>");
+				resp.getWriter().println("<li>(" + user.getUser_id().getId() + "): " + user.getFullName() + 
+						 "<br/>Courses: " + Arrays.toString(user.getCourses().toArray()) +"</li>");
 			}
 
 			resp.getWriter().println("</ul>");
