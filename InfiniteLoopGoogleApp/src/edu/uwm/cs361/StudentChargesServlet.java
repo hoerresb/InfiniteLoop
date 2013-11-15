@@ -1,9 +1,7 @@
 package edu.uwm.cs361;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
@@ -22,7 +20,8 @@ import edu.uwm.cs361.util.UserConstants;
 public class StudentChargesServlet extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-		req.setAttribute("students", getStudents());
+		
+		req.setAttribute("students", setAllStudentCourses());
 		req.getRequestDispatcher("studentCharges.jsp").forward(req, resp);
 	}
 
@@ -97,15 +96,29 @@ public class StudentChargesServlet extends HttpServlet {
 	}
 	
 	@SuppressWarnings("unchecked")
-	private void setStudents()
+	private List<User> setAllStudentCourses()
 	{
 		PersistenceManager pm = getPersistenceManager();
 		List<User> students = new ArrayList<User>();
+		Set<String> meetingDays = new HashSet<String>();
+		Course course = new Course("Kung Fu", "9-3-2013", "12-25-2013", meetingDays, "5:30PM", "Kung-Shi's Dojo", meetingDays, "Kick stuff");
 		try {
 			Query query = pm.newQuery(User.class);
 			query.setFilter("user_type == " + UserConstants.STUDENT_NUM);
 			students = (List<User>) query.execute();
-			pm.makePersistent(students);
+			for (User student : students) {
+				if (student.getCourses().size() == 0) {
+					student.getCourses().add(course);
+				}
+				for (Course current : student.getCourses()) {
+					if (current == course) {
+						break;
+					} else {
+						student.getCourses().add(course);						
+					}
+				}
+			}
+			return students;
 		} finally {
 			pm.close();
 		}
