@@ -25,89 +25,31 @@
 					<th>Due</th>
 					<th>E-mail</th>
 				</tr>					
-					<c:forEach items="${students}" var="student">
-						<tr>
-							<td>
-								<a href='#'>${student.fullName}</a>
-							</td>
-							<td>
-								<c:forEach items='${student.courses}' var='course'>
-									<label><a href='#'>${course.name}</a></label><br/>
-								</c:forEach>
-							</td>
-							<td>
-								<c:forEach items='${charges}' var='charge'>
-									<input class='charge_input' name='${student.user_id}_${course.name}_charge' type='text' value='${charge.amount}'><br/>
-								</c:forEach>
-							</td>
-							<td>
-								<c:forEach items='${deadlines}' var='deadline'>
-									<input class='charge_due' name='${student.user_id}_${course.name}_deadline' type='text' value='${charge.deadline.month+1}-${charge.deadline.date}-${charge.deadline.year}'><br/>
-								</c:forEach>
-							</td>
-							<td>
-								<a href='mailto:${student.email}'>${student.email}</a>
-							</td>
-						</tr>
-					</c:forEach>
-					
-					<!-- old code -->
-					<%! 
-						private PersistenceManager getPersistenceManager() {
-							return JDOHelper.getPersistenceManagerFactory("transactions-optional").getPersistenceManager();
-						} 
-					%>
-					<%! PersistenceManager pm = getPersistenceManager(); %>
-					<%! List<User> users = (List<User>) pm.newQuery(User.class).execute(); %>
-					<%! int numStudents = 0, count = 0; %>
-					<%! String[] classlist = {"Cooking For Dummies","Kung Fu","Dog Training"}; %>
-					<%! Charge[] charges = {new Charge(12, new Date(2013,11,31), ""), new Charge(15, new Date(2013,11,31), "") , new Charge(18, new Date(2013,11,31), "")};  %>
-					<%! User[] students; %>
-					<% 
-						try {
-							numStudents = 0;
-							count = 0;
-							for (User user : users) {
-								if (user.getUser_type()==UserConstants.STUDENT_NUM) {
-									numStudents++;			
-								}
-							}
-							students = new User[numStudents];
-							for (User user : users) {
-								if (user.getUser_type()==UserConstants.STUDENT_NUM) {
-									students[count] = user;
-									++count;
-								}
-							}
-						} finally {
-							pm.close();
-						}
-					%>	
-					<% for (int i=0; i<students.length; ++i) { %>
-						<tr>
-							<td>
-								<a href='#'><%=students[i].getFullName()%></a>
-							</td>
-							<td>
-								<% for (int j=0; j<classlist.length; j++) { %>
-									<label for='<%=classlist[j]%>'><a href='#'><%=classlist[j]%></a></label><br/>
-								<% } %>
-							</td>
-							<td>
-								<% for (int j=0; j<classlist.length; j++) { %>
-									<input class='charge_input' name='<%=students[i].getUser_id()%>_<%=classlist[j]%>_charge' type='text' value='<%=charges[j].getAmount()%>'><br/>
-								<% } %>
-							</td>
-							<td>
-								<% for (int j=0; j<classlist.length; j++) { %>
-									<input class='charge_due' name='<%=students[i].getUser_id()%>_<%=classlist[j]%>_deadline' type='text' value='<%=(charges[j].getDeadline().getMonth()+1)+"-"+charges[j].getDeadline().getDate()+"-"+charges[j].getDeadline().getYear()%>'><br/>
-								<% } %>
-							</td>
-							<td>
-								<a href='mailto:<%=students[i].getEmail()%>'><%=students[i].getEmail()%></a>
-							</td>
-						</tr>
-					<% } %>
+			<c:forEach items='${students}' var='student'>
+				<tr>
+					<td>
+						<a href='#'>${student.fullName}</a>
+					</td>
+					<td>
+						<c:forEach items='${student.courses}' var='course'>
+							<label><a href='#'>${course.name}</a></label><br/>
+						</c:forEach>
+					</td>
+					<td>
+						<c:forEach items='${charges}' var='charge'>
+							<input class='charge_input' name='${student.user_id}_${course.name}_charge' type='text' value='${charge.amount}'><br/>
+						</c:forEach>
+					</td>
+					<td>
+						<c:forEach items='${deadlines}' var='deadline'>
+							<input class='charge_due' name='${student.user_id}_${course.name}_deadline' type='text' value='${charge.deadline.month+1}-${charge.deadline.date}-${charge.deadline.year}'><br/>
+						</c:forEach>
+					</td>
+					<td>
+						<a href='mailto:${student.email}'>${student.email}</a>
+					</td>
+				</tr>
+			</c:forEach>					
 			</table>
 			<div id='button-area'>
 				<button id='submit-id' type='submit'>Submit</button><br/><br/> 

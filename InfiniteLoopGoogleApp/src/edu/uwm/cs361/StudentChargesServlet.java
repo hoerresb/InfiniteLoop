@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.uwm.cs361.entities.Charge;
+import edu.uwm.cs361.entities.Course;
 import edu.uwm.cs361.entities.User;
 import edu.uwm.cs361.util.UserConstants;
 
@@ -21,7 +22,6 @@ import edu.uwm.cs361.util.UserConstants;
 public class StudentChargesServlet extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-		System.out.println("In doGet");		
 		req.setAttribute("students", getStudents());
 		req.getRequestDispatcher("studentCharges.jsp").forward(req, resp);
 	}
@@ -91,6 +91,21 @@ public class StudentChargesServlet extends HttpServlet {
 			query.setFilter("user_type == " + UserConstants.STUDENT_NUM);
 			students = (List<User>) query.execute();
 			return students;
+		} finally {
+			pm.close();
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	private void setStudents()
+	{
+		PersistenceManager pm = getPersistenceManager();
+		List<User> students = new ArrayList<User>();
+		try {
+			Query query = pm.newQuery(User.class);
+			query.setFilter("user_type == " + UserConstants.STUDENT_NUM);
+			students = (List<User>) query.execute();
+			pm.makePersistent(students);
 		} finally {
 			pm.close();
 		}
