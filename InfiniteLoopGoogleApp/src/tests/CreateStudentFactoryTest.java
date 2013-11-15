@@ -66,7 +66,7 @@ public class CreateStudentFactoryTest {
 	@Test
 	public void testErrorOnBlankPassword() {
 		CreateStudentFactory stud_fact = new CreateStudentFactory();
-		User u = stud_fact.createStudent("","password","password","fname","lname", "email", "8478478478", new String[] {"class1","class2"});
+		User u = stud_fact.createStudent("username","","password","fname","lname", "email", "8478478478", new String[] {"class1","class2"});
 	
 		assertNull(u);
 		assertTrue(stud_fact.hasErrors());
@@ -77,7 +77,7 @@ public class CreateStudentFactoryTest {
 	@Test
 	public void testErrorOnNonMatchingPasswords() {
 		CreateStudentFactory stud_fact = new CreateStudentFactory();
-		User u = stud_fact.createStudent("","password","password","fname","lname", "email", "8478478478", new String[] {"class1","class2"});
+		User u = stud_fact.createStudent("username","password1","password2","fname","lname", "email", "8478478478", new String[] {"class1","class2"});
 	
 		assertNull(u);
 		assertTrue(stud_fact.hasErrors());
@@ -88,7 +88,7 @@ public class CreateStudentFactoryTest {
 	@Test
 	public void testErrorOnBlankPhoneNumber() {
 		CreateStudentFactory stud_fact = new CreateStudentFactory();
-		User u = stud_fact.createStudent("","password","password","fname","lname", "email", "8478478478", new String[] {"class1","class2"});
+		User u = stud_fact.createStudent("username","password1","password1","fname","lname", "email", "", new String[] {"class1","class2"});
 	
 		assertNull(u);
 		assertTrue(stud_fact.hasErrors());
@@ -99,7 +99,7 @@ public class CreateStudentFactoryTest {
 	@Test
 	public void testErrorOnBlankEmail() {
 		CreateStudentFactory stud_fact = new CreateStudentFactory();
-		User u = stud_fact.createStudent("","password","password","fname","lname", "email", "8478478478", new String[] {"class1","class2"});
+		User u = stud_fact.createStudent("username","password1","password1","fname","lname", "", "8478478478", new String[] {"class1","class2"});
 	
 		assertNull(u);
 		assertTrue(stud_fact.hasErrors());
