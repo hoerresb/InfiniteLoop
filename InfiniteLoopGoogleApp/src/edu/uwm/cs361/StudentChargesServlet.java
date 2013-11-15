@@ -30,33 +30,26 @@ public class StudentChargesServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		List<String> errors = new ArrayList<String>();
-
+	
 		String[] classlist = { "Cooking For Dummies", "Kung Fu", "Dog Training" };
 		Charge[] charges = new Charge[classlist.length];
 
 		PersistenceManager pm = getPersistenceManager();
 		List<User> students = getStudents();
-		Charge charge;
+		
 		for (User student : students) {
-			for (int i = 0; i < classlist.length; i++) {
-				String[] date_string = req.getParameter(student.getUser_id() + "_" + classlist[i] + "_deadline").split("-"); // String[month, day, year]
+			for (Charge charge : student.getCharges()) {
+				double amount = Double.parseDouble(req.getParameter(student.getUser_id() + "_charge"));
+				String[] date_string = req.getParameter(student.getUser_id() + "_deadline").split("-");
 				int[] date_int = new int[date_string.length]; // Int[3]
-				for (int k = 0; k < date_string.length; k++) {
-					date_int[k] = Integer.parseInt(date_string[k]); // Int[month, day, year]
+				for (int i=0; i<date_string.length; i++) {
+					date_int[i] = Integer.parseInt(date_string[i]); // Int[month, day, year]
 				}
 				Date deadline = new Date(date_int[2], (date_int[0]) - 1, date_int[1]); // Date(year, month-1, day)
-				charge = new Charge(Double.parseDouble(req.getParameter(student.getUser_id() + "_"+ classlist[i] + "_charge")), deadline, ""); // Charge(amount, deadline, reason)
-				charges[i] = charge;
-				student.setCharges(charges);
-
-				int day = charges[i].getDeadline().getDate();
-				int month = charges[i].getDeadline().getMonth() + 1;
-				int year = charges[i].getDeadline().getYear();
-				System.out.println(charges[i].getAmount());
-				System.out.println(month + "-" + day + "-" + year);
+				charge = new Charge (amount,deadline,"");
 			}
 		}
-
+		
 		try {
 			if (errors.size() > 0) {
 				req.setAttribute("errors", errors);
@@ -80,8 +73,7 @@ public class StudentChargesServlet extends HttpServlet {
 	}
 
 	@SuppressWarnings("unchecked")
-	private List<User> getStudents()
-	{
+	private List<User> getStudents() {
 		PersistenceManager pm = getPersistenceManager();
 		List<User> students = new ArrayList<User>();
 		
@@ -96,8 +88,7 @@ public class StudentChargesServlet extends HttpServlet {
 	}
 	
 	@SuppressWarnings("unchecked")
-	private List<User> setAllStudentCourses()
-	{
+	private List<User> setAllStudentCourses() {
 		PersistenceManager pm = getPersistenceManager();
 		List<User> students = new ArrayList<User>();
 		Set<String> meetingDays = new HashSet<String>();
