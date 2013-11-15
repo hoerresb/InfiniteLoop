@@ -101,7 +101,16 @@ public class StudentChargesServlet extends HttpServlet {
 		PersistenceManager pm = getPersistenceManager();
 		List<User> students = new ArrayList<User>();
 		Set<String> meetingDays = new HashSet<String>();
-		Course course = new Course("Kung Fu", "9-3-2013", "12-25-2013", meetingDays, "5:30PM", "Kung-Shi's Dojo", meetingDays, "Kick stuff");
+		Set<String> payment_options = new HashSet<String>();
+		double[] amount = new double[1];
+		meetingDays.add("M");
+		meetingDays.add("W");
+		payment_options.add("30");
+		for (String s_amount : payment_options) {
+			amount[0] = Double.parseDouble(s_amount);
+		}
+		Course course = new Course("Kung Fu", "9-3-2013", "12-25-2013", meetingDays, "5:30PM", "Kung-Shi's Dojo", payment_options, "Kick stuff");
+		Charge charge = new Charge(amount[0],new Date(2013,11,31),"");
 		try {
 			Query query = pm.newQuery(User.class);
 			query.setFilter("user_type == " + UserConstants.STUDENT_NUM);
@@ -109,12 +118,14 @@ public class StudentChargesServlet extends HttpServlet {
 			for (User student : students) {
 				if (student.getCourses().size() == 0) {
 					student.getCourses().add(course);
+					student.getCharges().add(charge);
 				}
 				for (Course current : student.getCourses()) {
 					if (current == course) {
 						break;
 					} else {
-						student.getCourses().add(course);						
+						student.getCourses().add(course);
+						student.getCharges().add(charge);						
 					}
 				}
 			}

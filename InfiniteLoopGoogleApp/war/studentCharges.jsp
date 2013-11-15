@@ -16,7 +16,7 @@
 <%@include file='/templates/admin_header.html'%>	
 	<%@include file='/templates/error.html'%>
 	<div class='chargesContainer'>
-		<form id='form-id' method='POST' action='/studentCharges'>
+		<form id='form-id' method='POST' action='/StudentChargesServlet'>
 			<table>
 				<tr>
 					<th>Student Name</th>
@@ -36,13 +36,14 @@
 						</c:forEach>
 					</td>
 					<td>
-						<c:forEach items='${charges}' var='charge'>
+						<c:forEach items='${student.charges}' var='charge'>
 							<input class='charge_input' name='${student.user_id}_${course.name}_charge' type='text' value='${charge.amount}'><br/>
 						</c:forEach>
 					</td>
 					<td>
-						<c:forEach items='${deadlines}' var='deadline'>
-							<input class='charge_due' name='${student.user_id}_${course.name}_deadline' type='text' value='${charge.deadline.month+1}-${charge.deadline.date}-${charge.deadline.year}'><br/>
+						<c:forEach items='${student.charges}' var='charge'>
+							<c:set value='${charge.deadline}' var='deadline'/>
+								<input class='charge_due' name='${student.user_id}_${course.name}_deadline' type='text' value='${charge.deadline.month+1}-${charge.deadline.date}-${charge.deadline.year}'><br/>
 						</c:forEach>
 					</td>
 					<td>
