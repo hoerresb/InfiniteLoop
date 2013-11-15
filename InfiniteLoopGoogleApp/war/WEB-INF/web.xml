@@ -98,7 +98,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>StudentCharges</servlet-name>
-		<url-pattern>/studentCharges</url-pattern>
+		<url-pattern>/StudentChargesServlet</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>
