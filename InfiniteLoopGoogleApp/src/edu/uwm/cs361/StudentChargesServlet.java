@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
+import javax.jdo.Query;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,17 +20,10 @@ import edu.uwm.cs361.util.UserConstants;
 @SuppressWarnings("serial")
 public class StudentChargesServlet extends HttpServlet {
 	@Override
-	public void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException {
-		Charge[] charges = { new Charge(12, new Date(2013, 11, 31), ""),
-				new Charge(15, new Date(2013, 11, 31), ""),
-				new Charge(18, new Date(2013, 11, 31), "") };
-		User user = new User(UserConstants.STUDENT_NUM, "student", "student",
-				"Student_fn", "Student_ln", "student@student.com",
-				"111-111-1111", charges);
-		
-		//req.setAttribute("user", user);
-
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+		System.out.println("In doGet");		
+		req.setAttribute("students", getStudents());
+		req.getRequestDispatcher("studentCharges.jsp").forward(req, resp);
 	}
 
 	@SuppressWarnings({ "unchecked", "deprecation" })
@@ -42,55 +36,24 @@ public class StudentChargesServlet extends HttpServlet {
 		Charge[] charges = new Charge[classlist.length];
 
 		PersistenceManager pm = getPersistenceManager();
-		List<User> users = (List<User>) pm.newQuery(User.class).execute();
-		User[] students;
-		int numStudents = 0, count = 0;
-		try {
-			numStudents = 0;
-			count = 0;
-			for (User user : users) {
-				if (user.getUser_type() == UserConstants.STUDENT_NUM) {
-					numStudents++;
-				}
-			}
-			students = new User[numStudents];
-			for (User user : users) {
-				if (user.getUser_type() == UserConstants.STUDENT_NUM) {
-					students[count] = user;
-					++count;
-				}
-			}
-		} finally {
-			pm.close();
-		}
-		pm = getPersistenceManager();
+		List<User> students = getStudents();
 		Charge charge;
-		for (int i = 0; i < students.length; i++) {
-			for (int j = 0; j < classlist.length; j++) {
-				String[] date_string = req.getParameter(
-						students[i].getUser_id() + "_" + classlist[j]
-								+ "_deadline").split("-"); // String[month, day,
-															// year]
+		for (User student : students) {
+			for (int i = 0; i < classlist.length; i++) {
+				String[] date_string = req.getParameter(student.getUser_id() + "_" + classlist[i] + "_deadline").split("-"); // String[month, day, year]
 				int[] date_int = new int[date_string.length]; // Int[3]
 				for (int k = 0; k < date_string.length; k++) {
-					date_int[k] = Integer.parseInt(date_string[k]); // Int[month,
-																	// day,
-																	// year]
+					date_int[k] = Integer.parseInt(date_string[k]); // Int[month, day, year]
 				}
-				Date deadline = new Date(date_int[2], (date_int[0]) - 1,
-						date_int[1]); // Date(year, month-1, day)
-				charge = new Charge(Double.parseDouble(req
-						.getParameter(students[i].getUser_id() + "_"
-								+ classlist[j] + "_charge")), deadline, ""); // Charge(amount,
-																				// deadline,
-																				// reason)
-				charges[j] = charge;
-				students[i].setCharges(charges);
+				Date deadline = new Date(date_int[2], (date_int[0]) - 1, date_int[1]); // Date(year, month-1, day)
+				charge = new Charge(Double.parseDouble(req.getParameter(student.getUser_id() + "_"+ classlist[i] + "_charge")), deadline, ""); // Charge(amount, deadline, reason)
+				charges[i] = charge;
+				student.setCharges(charges);
 
-				int day = charges[j].getDeadline().getDate();
-				int month = charges[j].getDeadline().getMonth() + 1;
-				int year = charges[j].getDeadline().getYear();
-				System.out.println(charges[j].getAmount());
+				int day = charges[i].getDeadline().getDate();
+				int month = charges[i].getDeadline().getMonth() + 1;
+				int year = charges[i].getDeadline().getYear();
+				System.out.println(charges[i].getAmount());
 				System.out.println(month + "-" + day + "-" + year);
 			}
 		}
@@ -98,8 +61,7 @@ public class StudentChargesServlet extends HttpServlet {
 		try {
 			if (errors.size() > 0) {
 				req.setAttribute("errors", errors);
-				req.getRequestDispatcher("studentCharges.jsp").forward(req,
-						resp);
+				req.getRequestDispatcher("studentCharges.jsp").forward(req,resp);
 			} else {
 				for (User student : students) {
 					pm.makePersistent(student);
@@ -118,6 +80,22 @@ public class StudentChargesServlet extends HttpServlet {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	private List<User> getStudents()
+	{
+		PersistenceManager pm = getPersistenceManager();
+		List<User> students = new ArrayList<User>();
+		
+		try {
+			Query query = pm.newQuery(User.class);
+			query.setFilter("user_type == " + UserConstants.STUDENT_NUM);
+			students = (List<User>) query.execute();
+			return students;
+		} finally {
+			pm.close();
+		}
+	}
+	
 	private PersistenceManager getPersistenceManager() {
 		return JDOHelper.getPersistenceManagerFactory("transactions-optional")
 				.getPersistenceManager();

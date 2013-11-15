@@ -24,7 +24,34 @@
 					<th>Charges</th>
 					<th>Due</th>
 					<th>E-mail</th>
-				</tr>
+				</tr>					
+					<c:forEach items="${students}" var="student">
+						<tr>
+							<td>
+								<a href='#'>${student.fullName}</a>
+							</td>
+							<td>
+								<c:forEach items='${student.courses}' var='course'>
+									<label><a href='#'>${course.name}</a></label><br/>
+								</c:forEach>
+							</td>
+							<td>
+								<c:forEach items='${charges}' var='charge'>
+									<input class='charge_input' name='${student.user_id}_${course.name}_charge' type='text' value='${charge.amount}'><br/>
+								</c:forEach>
+							</td>
+							<td>
+								<c:forEach items='${deadlines}' var='deadline'>
+									<input class='charge_due' name='${student.user_id}_${course.name}_deadline' type='text' value='${charge.deadline.month+1}-${charge.deadline.date}-${charge.deadline.year}'><br/>
+								</c:forEach>
+							</td>
+							<td>
+								<a href='mailto:${student.email}'>${student.email}</a>
+							</td>
+						</tr>
+					</c:forEach>
+					
+					<!-- old code -->
 					<%! 
 						private PersistenceManager getPersistenceManager() {
 							return JDOHelper.getPersistenceManagerFactory("transactions-optional").getPersistenceManager();
