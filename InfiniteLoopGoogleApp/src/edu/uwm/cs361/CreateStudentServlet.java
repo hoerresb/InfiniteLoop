@@ -1,18 +1,17 @@
 package edu.uwm.cs361;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
+import javax.jdo.Query;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import edu.uwm.cs361.entities.User;
-import factories.CreateInstructorFactory;
+import edu.uwm.cs361.entities.*;
 import factories.CreateStudentFactory;
 
 @SuppressWarnings("serial")
@@ -35,9 +34,17 @@ public class CreateStudentServlet extends HttpServlet {
 		if(!req.getParameter("student_courses").equals("null")) {
 			student_courses_array = student_courses.split(",");
 		}
+		Set<Course> courses = new HashSet<Course>();
+		for (int i=0; i<student_courses_array.length; i++) {
+			for (Course existing_course : getExistingCourses()) {
+				if (existing_course.getName().equals(student_courses_array[i])) {
+					courses.add(existing_course);
+				}
+			}
+		}
 		
 		CreateStudentFactory stud_fact = new CreateStudentFactory();
-		User student = stud_fact.createStudent(username, password, password_repeat, firstname, lastname, email, phonenumber,student_courses_array);
+		User student = stud_fact.createStudent(username, password, password_repeat, firstname, lastname, email, phonenumber, courses);
 
 		try {
 			if (stud_fact.hasErrors()) {
@@ -57,6 +64,19 @@ public class CreateStudentServlet extends HttpServlet {
 			}
 		} catch (ServletException e) {
 			e.printStackTrace();
+		} finally {
+			pm.close();
+		}
+	}
+	
+	private Set<Course> getExistingCourses() {
+		PersistenceManager pm = getPersistenceManager();
+		Set<Course> existing_courses = new HashSet<Course>();
+		
+		try {
+			Query query = pm.newQuery(Course.class);
+			existing_courses = (Set<Course>) query.execute();
+			return existing_courses;
 		} finally {
 			pm.close();
 		}

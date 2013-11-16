@@ -8,14 +8,13 @@ import static org.junit.Assert.assertTrue;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
-import edu.uwm.cs361.entities.User;
+import edu.uwm.cs361.entities.*;
+import edu.uwm.cs361.util.UserConstants;
+import factories.CreateCourseFactory;
 import factories.CreateInstructorFactory;
 import factories.CreateStudentFactory;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
@@ -55,7 +54,7 @@ public class CreateStudentFactoryTest {
 	@Test
 	public void testErrorOnBlankUsername() {
 		CreateStudentFactory stud_fact = new CreateStudentFactory();
-		User u = stud_fact.createStudent("","password","password","fname","lname", "email", "8478478478", new String[] {"class1","class2"});
+		User u = stud_fact.createStudent("","password","password","fname","lname", "email", "8478478478", null);
 
 		assertNull(u);
 		assertTrue(stud_fact.hasErrors());
@@ -66,7 +65,7 @@ public class CreateStudentFactoryTest {
 	@Test
 	public void testErrorOnBlankPassword() {
 		CreateStudentFactory stud_fact = new CreateStudentFactory();
-		User u = stud_fact.createStudent("username","","password","fname","lname", "email", "8478478478", new String[] {"class1","class2"});
+		User u = stud_fact.createStudent("username","","password","fname","lname", "email", "8478478478", null);
 	
 		assertNull(u);
 		assertTrue(stud_fact.hasErrors());
@@ -77,7 +76,7 @@ public class CreateStudentFactoryTest {
 	@Test
 	public void testErrorOnNonMatchingPasswords() {
 		CreateStudentFactory stud_fact = new CreateStudentFactory();
-		User u = stud_fact.createStudent("username","password1","password2","fname","lname", "email", "8478478478", new String[] {"class1","class2"});
+		User u = stud_fact.createStudent("username","password1","password2","fname","lname", "email", "8478478478", null);
 	
 		assertNull(u);
 		assertTrue(stud_fact.hasErrors());
@@ -88,7 +87,7 @@ public class CreateStudentFactoryTest {
 	@Test
 	public void testErrorOnBlankPhoneNumber() {
 		CreateStudentFactory stud_fact = new CreateStudentFactory();
-		User u = stud_fact.createStudent("username","password1","password1","fname","lname", "email", "", new String[] {"class1","class2"});
+		User u = stud_fact.createStudent("username","password1","password1","fname","lname", "email", "", null);
 	
 		assertNull(u);
 		assertTrue(stud_fact.hasErrors());
@@ -99,7 +98,7 @@ public class CreateStudentFactoryTest {
 	@Test
 	public void testErrorOnBlankEmail() {
 		CreateStudentFactory stud_fact = new CreateStudentFactory();
-		User u = stud_fact.createStudent("username","password1","password1","fname","lname", "", "8478478478", new String[] {"class1","class2"});
+		User u = stud_fact.createStudent("username","password1","password1","fname","lname", "", "8478478478", null);
 	
 		assertNull(u);
 		assertTrue(stud_fact.hasErrors());
@@ -110,10 +109,19 @@ public class CreateStudentFactoryTest {
 	@Test
 	public void testSuccess() {
 		CreateStudentFactory stud_fact = new CreateStudentFactory();
-		List<String> expectedStud_courses = Arrays.asList("class1", "class2");
+		CreateCourseFactory course_fact = new CreateCourseFactory();
+		
+		Set<String> meetingDays = new HashSet<String>(Arrays.asList(new String[] { "M", "T", "W" }));
+		Set<String> payment_options = new HashSet<String>(Arrays.asList(new String[] { "Pay now", "Pay then", "Give me your arm" }));
+		User teacher = new User(UserConstants.TEACHER_NUM, "john", "pw", "john", "john", "email", "8478478474", new String[] {"teacher1","teacher2"});
+		
+		Course c = course_fact.createCourse("learning101", "10/15/2013", "10/16/2013", meetingDays, "10:45","EMS203", payment_options,"its a good class", teacher);
+
+		Set<Course> expectedStud_courses = new HashSet<Course>();
+		expectedStud_courses.add(c);
 		
 		User u = stud_fact.createStudent("jSmith","jsmith","jsmith","John","Smith",
-				"jSmith@email.com", "8478478478",(String[])expectedStud_courses.toArray());
+				"jSmith@email.com", "8478478478",expectedStud_courses);
 	
 		assertFalse(stud_fact.hasErrors());
 		assertEquals(0, stud_fact.getErrors().size());
@@ -123,9 +131,9 @@ public class CreateStudentFactoryTest {
 		assertEquals(u.getEmail(), "jSmith@email.com");
 		assertEquals(u.getPhoneNumber(), "8478478478");
 		
-		Set<String> studentCourses = u.getInstructorTypes(); // courses should be a list of courses not strings
-		Iterator<String> iterator = studentCourses.iterator();
-		Iterator<String> expected_iterator = expectedStud_courses.iterator();
+		Set<Course> studentCourses = u.getCourses(); 
+		Iterator<Course> iterator = studentCourses.iterator();
+		Iterator<Course> expected_iterator = expectedStud_courses.iterator();
 		while(iterator.hasNext() && expected_iterator.hasNext()) {
 			assertEquals(iterator.next(), expected_iterator.next());
 		}
