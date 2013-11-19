@@ -8,7 +8,7 @@
 		<title>Create Student</title>
 	</head>
 	<body>
-		<form action='/addStudent' method='POST'>
+		<form action='createStudent' method='POST'>
 			<label for='username'>Username: </label>
 			<input type='text' id='username' name='username' /><br/><br/>
 			<label for='password'>Password: </label>
@@ -35,7 +35,7 @@
 	        <select id="teacher_opts" name="teacher_opts" multiple>
 	            <optgroup>
 	               <c:forEach items="${teacher_list}" var="teacher">
-			     	 <option value="${teacher.user_id.id}">${teacher.name}</option>
+			     	 <option value="${teacher.user_id.id}">${teacher.fullName}</option>
 				   </c:forEach> 
 	            </optgroup>
 	        </select><br/><br/>

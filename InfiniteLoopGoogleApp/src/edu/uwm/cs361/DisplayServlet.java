@@ -47,7 +47,7 @@ public class DisplayServlet extends HttpServlet
 				String row = "";
 				row += "<li>(" + student.getUser_id().getId() + ")<br/>Name: "+ student.getFullName() + "<br/>Username: " + student.getUsername() +
 						"<br/>password: " + student.getPassword() + "<br/>email: " + student.getEmail() + "<br/>";
-				row +=	"<br/>Courses: "; 
+				row +=	"Courses: "; 
 				Set<Course> courses = student.getCourses();
 				for(Course c : courses) {
 					row += "Name: " + c.getName() + " Days: " + c.getMeetingDays();

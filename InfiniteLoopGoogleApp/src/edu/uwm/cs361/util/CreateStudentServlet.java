@@ -49,40 +49,56 @@ public class CreateStudentServlet  extends HttpServlet {
 	private Set<Course> getSelectedCourses(HttpServletRequest req) {
 		PersistenceManager pm = getPersistenceManager();
 		String[] course_ids_str = req.getParameterValues("course_opts");
+		if(course_ids_str == null) {
+			return null;
+		}
 		Set<Course> courses  =  new HashSet<Course>();
 		for (String s : course_ids_str) {
 			courses.add(pm.getObjectById(Course.class, Long.parseLong(s)));
 		}
+		pm.close();
 		return courses;
 	}
 	
 	private Set<Teacher> getSelectedTeachers(HttpServletRequest req) {
 		PersistenceManager pm = getPersistenceManager();
 		String[] teacher_ids_str = req.getParameterValues("teacher_opts");
+		if(teacher_ids_str == null) {
+			return null;
+		}
 		Set<Teacher> teachers  =  new HashSet<Teacher>();
 		for (String s : teacher_ids_str) {
 			teachers.add(pm.getObjectById(Teacher.class, Long.parseLong(s)));
 		}
+		pm.close();
 		return teachers;
 	}
 	
 	private Set<Award> getSelectedAwards(HttpServletRequest req) {
 		PersistenceManager pm = getPersistenceManager();
 		String[] award_ids_str = req.getParameterValues("award_opts");
+		if(award_ids_str == null) {
+			return null;
+		}
 		Set<Award> awards  =  new HashSet<Award>();
 		for (String s : award_ids_str) {
 			awards.add(pm.getObjectById(Award.class, Long.parseLong(s)));
 		}
+		pm.close();
 		return awards;
 	}
 	
 	private Set<Charge> getSelectedCharges(HttpServletRequest req) {
 		PersistenceManager pm = getPersistenceManager();
 		String[] charge_ids_str = req.getParameterValues("charge_opts");
+		if(charge_ids_str == null) {
+			return null;
+		}
 		Set<Charge> charges  =  new HashSet<Charge>();
 		for (String s : charge_ids_str) {
 			charges.add(pm.getObjectById(Charge.class, Long.parseLong(s)));
 		}
+		pm.close();
 		return charges;
 	}
 

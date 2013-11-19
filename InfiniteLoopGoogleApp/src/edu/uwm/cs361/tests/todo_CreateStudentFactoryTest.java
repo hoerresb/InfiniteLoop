@@ -12,7 +12,7 @@ import edu.uwm.cs361.entities.Course;
 import edu.uwm.cs361.entities.Student;
 import edu.uwm.cs361.entities.Teacher;
 import edu.uwm.cs361.factories.CreateCourseFactory;
-import edu.uwm.cs361.factories.CreateStudentFactory;
+import edu.uwm.cs361.factories.todo_CreateStudentFactory;
 
 import java.util.*;
 
@@ -23,7 +23,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class CreateStudentFactoryTest {
+public class todo_CreateStudentFactoryTest {
 	private final LocalServiceTestHelper helper = new LocalServiceTestHelper(
 			new LocalDatastoreServiceTestConfig());
 
@@ -53,7 +53,7 @@ public class CreateStudentFactoryTest {
 
 	@Test
 	public void testErrorOnBlankUsername() {
-		CreateStudentFactory stud_fact = new CreateStudentFactory();
+		todo_CreateStudentFactory stud_fact = new todo_CreateStudentFactory();
 		Student u = stud_fact.createStudent("","password","password","fname","lname", "email", "8478478478", null);
 
 		assertNull(u);
@@ -64,7 +64,7 @@ public class CreateStudentFactoryTest {
 
 	@Test
 	public void testErrorOnBlankPassword() {
-		CreateStudentFactory stud_fact = new CreateStudentFactory();
+		todo_CreateStudentFactory stud_fact = new todo_CreateStudentFactory();
 		Student u = stud_fact.createStudent("username","","password","fname","lname", "email", "8478478478", null);
 	
 		assertNull(u);
@@ -75,7 +75,7 @@ public class CreateStudentFactoryTest {
 	
 	@Test
 	public void testErrorOnNonMatchingPasswords() {
-		CreateStudentFactory stud_fact = new CreateStudentFactory();
+		todo_CreateStudentFactory stud_fact = new todo_CreateStudentFactory();
 		Student u = stud_fact.createStudent("username","password1","password2","fname","lname", "email", "8478478478", null);
 	
 		assertNull(u);
@@ -86,7 +86,7 @@ public class CreateStudentFactoryTest {
 	
 	@Test
 	public void testErrorOnBlankPhoneNumber() {
-		CreateStudentFactory stud_fact = new CreateStudentFactory();
+		todo_CreateStudentFactory stud_fact = new todo_CreateStudentFactory();
 		Student u = stud_fact.createStudent("username","password1","password1","fname","lname", "email", "", null);
 	
 		assertNull(u);
@@ -97,7 +97,7 @@ public class CreateStudentFactoryTest {
 	
 	@Test
 	public void testErrorOnBlankEmail() {
-		CreateStudentFactory stud_fact = new CreateStudentFactory();
+		todo_CreateStudentFactory stud_fact = new todo_CreateStudentFactory();
 		Student u = stud_fact.createStudent("username","password1","password1","fname","lname", "", "8478478478", null);
 	
 		assertNull(u);
@@ -108,7 +108,7 @@ public class CreateStudentFactoryTest {
 	
 	@Test
 	public void testSuccess() {
-		CreateStudentFactory stud_fact = new CreateStudentFactory();
+		todo_CreateStudentFactory stud_fact = new todo_CreateStudentFactory();
 		CreateCourseFactory course_fact = new CreateCourseFactory();
 		
 		Set<String> meetingDays = new HashSet<String>(Arrays.asList(new String[] { "M", "T", "W" }));

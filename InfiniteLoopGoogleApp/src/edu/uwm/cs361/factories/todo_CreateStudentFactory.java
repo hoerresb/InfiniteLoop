@@ -4,7 +4,7 @@ import java.util.*;
 
 import edu.uwm.cs361.entities.*;
 
-public class CreateStudentFactory {
+public class todo_CreateStudentFactory {
 	private List<String> errors = new ArrayList<String>();
 	
 	public Student createStudent(String username, String password, String password_repeat,
