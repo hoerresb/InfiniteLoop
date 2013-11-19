@@ -1,4 +1,4 @@
-package tests;
+package edu.uwm.cs361.tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -8,8 +8,9 @@ import static org.junit.Assert.assertTrue;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
-import edu.uwm.cs361.entities.User;
-import factories.CreateInstructorFactory;
+import edu.uwm.cs361.entities.Teacher;
+import edu.uwm.cs361.entities.old_User;
+import edu.uwm.cs361.factories.CreateInstructorFactory;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -36,9 +37,9 @@ public class CreateInstructorFactoryTest {
 		pm = getPersistenceManager();
 
 		try {
-			List<User> instructors = (List<User>) pm.newQuery(User.class).execute();
+			List<old_User> instructors = (List<old_User>) pm.newQuery(old_User.class).execute();
 
-			for (User user : instructors) {
+			for (old_User user : instructors) {
 				pm.deletePersistent(user);
 			}
 		} finally {
@@ -54,7 +55,7 @@ public class CreateInstructorFactoryTest {
 	@Test
 	public void testErrorOnBlankUsername() {
 		CreateInstructorFactory instr_fact = new CreateInstructorFactory();
-		User u = instr_fact.createInstructor("","password","password","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
+		Teacher u = instr_fact.createInstructor("","password","password","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
 
 		assertNull(u);
 		assertTrue(instr_fact.hasErrors());
@@ -65,7 +66,7 @@ public class CreateInstructorFactoryTest {
 	@Test
 	public void testErrorOnBlankPassword() {
 		CreateInstructorFactory instr_fact = new CreateInstructorFactory();
-		User u = instr_fact.createInstructor("username","","password","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
+		Teacher u = instr_fact.createInstructor("username","","password","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
 	
 		assertNull(u);
 		assertTrue(instr_fact.hasErrors());
@@ -76,7 +77,7 @@ public class CreateInstructorFactoryTest {
 	@Test
 	public void testErrorOnNonMatchingPasswords() {
 		CreateInstructorFactory instr_fact = new CreateInstructorFactory();
-		User u = instr_fact.createInstructor("username","password1","password2","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
+		Teacher u = instr_fact.createInstructor("username","password1","password2","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
 	
 		assertNull(u);
 		assertTrue(instr_fact.hasErrors());
@@ -87,7 +88,7 @@ public class CreateInstructorFactoryTest {
 	@Test
 	public void testErrorOnBlankPhoneNumber() {
 		CreateInstructorFactory instr_fact = new CreateInstructorFactory();
-		User u = instr_fact.createInstructor("username","password1","password1","fname","lname", "email", "", new String[] {"teacher1","teacher2"});
+		Teacher u = instr_fact.createInstructor("username","password1","password1","fname","lname", "email", "", new String[] {"teacher1","teacher2"});
 	
 		assertNull(u);
 		assertTrue(instr_fact.hasErrors());
@@ -98,7 +99,7 @@ public class CreateInstructorFactoryTest {
 	@Test
 	public void testErrorOnBlankEmail() {
 		CreateInstructorFactory instr_fact = new CreateInstructorFactory();
-		User u = instr_fact.createInstructor("username","password1","password1","fname","lname", "", "8478478478", new String[] {"teacher1","teacher2"});
+		Teacher u = instr_fact.createInstructor("username","password1","password1","fname","lname", "", "8478478478", new String[] {"teacher1","teacher2"});
 	
 		assertNull(u);
 		assertTrue(instr_fact.hasErrors());
@@ -111,7 +112,7 @@ public class CreateInstructorFactoryTest {
 		CreateInstructorFactory instr_fact = new CreateInstructorFactory();
 		List<String> expectedInstr_types = Arrays.asList("teacher1", "teacher2");
 		
-		User u = instr_fact.createInstructor("jSmith","jsmith","jsmith","John","Smith",
+		Teacher u = instr_fact.createInstructor("jSmith","jsmith","jsmith","John","Smith",
 				"jSmith@email.com", "8478478478",(String[])expectedInstr_types.toArray());
 	
 		assertFalse(instr_fact.hasErrors());
@@ -122,7 +123,7 @@ public class CreateInstructorFactoryTest {
 		assertEquals(u.getEmail(), "jSmith@email.com");
 		assertEquals(u.getPhoneNumber(), "8478478478");
 		
-		Set<String> instructorTypes = u.getInstructorTypes();
+		Set<String> instructorTypes = u.getInstructor_types();
 		Iterator<String> iterator = instructorTypes.iterator();
 		Iterator<String> expected_iterator = expectedInstr_types.iterator();
 		while(iterator.hasNext() && expected_iterator.hasNext()) {

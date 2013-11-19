@@ -8,7 +8,7 @@
 
 <%@ page import="javax.jdo.JDOHelper" %>
 <%@ page import="javax.jdo.PersistenceManager" %>
-<%@ page import="edu.uwm.cs361.entities.User" %>
+<%@ page import="edu.uwm.cs361.entities.old_User" %>
 <%@ page import="javax.servlet.http.Cookie" %>
 
 

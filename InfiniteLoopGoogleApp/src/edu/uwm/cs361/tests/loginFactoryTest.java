@@ -1,7 +1,6 @@
-package tests;
+package edu.uwm.cs361.tests;
 
 import static org.junit.Assert.assertEquals;
-
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -9,8 +8,8 @@ import static org.junit.Assert.assertTrue;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
-import edu.uwm.cs361.entities.User;
-import factories.loginFactory;
+import edu.uwm.cs361.entities.old_User;
+import edu.uwm.cs361.factories.loginFactory;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -37,9 +36,9 @@ public class loginFactoryTest {
 		pm = getPersistenceManager();
 
 		try {
-			List<User> users = (List<User>) pm.newQuery(User.class).execute();
+			List<old_User> users = (List<old_User>) pm.newQuery(old_User.class).execute();
 
-			for (User user : users) {
+			for (old_User user : users) {
 				pm.deletePersistent(user);
 			}
 		} finally {
@@ -57,7 +56,7 @@ public class loginFactoryTest {
 	public void testBlankUsername() {
 		loginFactory login_fact = new loginFactory();
 		int i= 0;
-		User u = login_fact.createUser(i,"","password","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
+		old_User u = login_fact.createUser(i,"","password","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
 		
 		assertTrue(login_fact.hasErrors());
 		assertEquals(1 ,login_fact.getErrors().size());
@@ -68,7 +67,7 @@ public class loginFactoryTest {
 	public void testBlankPassword(){
 		loginFactory login_fact = new loginFactory();
 		int i = 0; 
-		User u = login_fact.createUser(i,"username","","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
+		old_User u = login_fact.createUser(i,"username","","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
 		
 		assertTrue(login_fact.hasErrors());
 		assertEquals(1, login_fact.getErrors().size());
@@ -79,7 +78,7 @@ public class loginFactoryTest {
 	public void testBlankUserandPass(){
 		loginFactory login_fact = new loginFactory();
 		int i = 0;
-		User u = login_fact.createUser(i,"","","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
+		old_User u = login_fact.createUser(i,"","","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
 		
 		assertTrue(login_fact.hasErrors());
 		assertEquals(2, login_fact.getErrors().size());
@@ -92,8 +91,8 @@ public class loginFactoryTest {
 	public void testPassNotMatchPassword(){
 		loginFactory login_fact = new loginFactory();
 		int i = 0;
-		User u = login_fact.createUser(i,"username","password","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
-		User u2 = login_fact.createUser(i,"noUser","noPass","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
+		old_User u = login_fact.createUser(i,"username","password","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
+		old_User u2 = login_fact.createUser(i,"noUser","noPass","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
 		login_fact.getUsers().add(u);
 		login_fact.getUsers().add(u2);
 		assertFalse(login_fact.hasErrors());
@@ -109,8 +108,8 @@ public class loginFactoryTest {
 	public void testPassNotMatchUsername(){
 		loginFactory login_fact = new loginFactory();
 		int i = 0;
-		User u = login_fact.createUser(i,"username","password","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
-		User u2 = login_fact.createUser(i,"noUser","noPass","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
+		old_User u = login_fact.createUser(i,"username","password","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
+		old_User u2 = login_fact.createUser(i,"noUser","noPass","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
 		login_fact.getUsers().add(u);
 		login_fact.getUsers().add(u2);
 		assertFalse(login_fact.hasErrors());
@@ -126,8 +125,8 @@ public class loginFactoryTest {
 	public void testSuccess(){
 		loginFactory login_fact = new loginFactory();
 		int i = 0;
-		User u = login_fact.createUser(i,"username","password","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
-		User u2 = login_fact.createUser(i,"noUser","noPass","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
+		old_User u = login_fact.createUser(i,"username","password","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
+		old_User u2 = login_fact.createUser(i,"noUser","noPass","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
 		login_fact.getUsers().add(u);
 		login_fact.getUsers().add(u2);
 		assertFalse(login_fact.hasErrors());

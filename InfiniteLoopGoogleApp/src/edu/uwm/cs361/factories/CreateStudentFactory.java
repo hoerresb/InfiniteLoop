@@ -1,14 +1,13 @@
-package factories;
+package edu.uwm.cs361.factories;
 
 import java.util.*;
 
 import edu.uwm.cs361.entities.*;
-import edu.uwm.cs361.util.UserConstants;
 
 public class CreateStudentFactory {
 	private List<String> errors = new ArrayList<String>();
 	
-	public User createStudent(String username, String password, String password_repeat,
+	public Student createStudent(String username, String password, String password_repeat,
 			String firstname, String lastname, String email,
 			String phonenumber, Set<Course> student_courses) {
 		if (username.isEmpty()) {
@@ -29,7 +28,7 @@ public class CreateStudentFactory {
 		if(hasErrors()) {
 			return null;
 		} else {
-			return new User(UserConstants.STUDENT_NUM,username,password,firstname,lastname,email,phonenumber,student_courses);
+			return new Student(username,password,firstname,lastname,email,student_courses);
 		}
 	}
 	

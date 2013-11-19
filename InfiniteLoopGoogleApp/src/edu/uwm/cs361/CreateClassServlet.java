@@ -18,10 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.uwm.cs361.entities.Course; 
-import edu.uwm.cs361.entities.User;
-import edu.uwm.cs361.util.UserConstants;
-import factories.CreateCourseFactory;
-import factories.CreateInstructorFactory;
+import edu.uwm.cs361.entities.Teacher;
+import edu.uwm.cs361.factories.CreateCourseFactory;
 
 
 @SuppressWarnings("serial")
@@ -54,7 +52,7 @@ public class CreateClassServlet extends HttpServlet {
 			payment_options_array = payment_options.split(",");
 		}
 		
-		User teacher = (User) pm.getObjectById(User.class,Long.parseLong(req.getParameter("instr_options"))); //update teacher
+		Teacher teacher = (Teacher) pm.getObjectById(Teacher.class,Long.parseLong(req.getParameter("instr_options"))); //update teacher
 
 		CreateCourseFactory course_fact = new CreateCourseFactory();
 		Course course = course_fact.createCourse(classname, startDate, endDate, meetingDays, time, place, new HashSet<String>(Arrays.asList(payment_options_array)), description,teacher);
@@ -86,16 +84,10 @@ public class CreateClassServlet extends HttpServlet {
 	}
 
 	@SuppressWarnings("unchecked")
-	private List<User> getTeachers()
-	{
+	private List<Teacher> getTeachers() {
 		PersistenceManager pm = getPersistenceManager();
-		List<User> teachers = new ArrayList<User>();
-		
 		try {
-			Query query = pm.newQuery(User.class);
-			query.setFilter("user_type == " + UserConstants.TEACHER_NUM);
-			teachers = (List<User>) query.execute();
-			return teachers;
+			return (List<Teacher>) pm.newQuery(Teacher.class).execute();
 		} finally {
 			pm.close();
 		}

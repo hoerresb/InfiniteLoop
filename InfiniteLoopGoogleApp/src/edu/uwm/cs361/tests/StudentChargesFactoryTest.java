@@ -1,4 +1,4 @@
-package tests;
+package edu.uwm.cs361.tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -9,9 +9,7 @@ import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestC
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
 import edu.uwm.cs361.entities.Charge;
-import edu.uwm.cs361.entities.User;
-import edu.uwm.cs361.util.UserConstants;
-import factories.CreateInstructorFactory;
+import edu.uwm.cs361.entities.Student;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,7 +31,7 @@ public class StudentChargesFactoryTest {
 			new LocalDatastoreServiceTestConfig());
 
 	private PersistenceManager pm;
-	private List<User> students = new ArrayList<User>();
+	private List<Student> students = new ArrayList<Student>();
 
 	@Before
 	@SuppressWarnings({ "unchecked", "deprecation" })
@@ -55,9 +53,8 @@ public class StudentChargesFactoryTest {
 	@Test
 	public void testOneStudents() {
 		Charge[] charges = {new Charge(12, new Date(2013,11,31), ""), new Charge(15, new Date(2013,11,31), "") , new Charge(18, new Date(2013,11,31), "")};
-		User user = new User(UserConstants.STUDENT_NUM, "student", "student", "Student_fn", "Student_ln", "student@student.com", "111-111-1111", charges);
-		if(user.getUser_type() == UserConstants.STUDENT_NUM);
-			students.add(user);
+		Student user = new Student("student", "student", "Student_fn", "Student_ln", "student@student.com", "111-111-1111", charges);
+		students.add(user);
 		assertEquals(1, students.size());
 	}
 	
@@ -66,15 +63,13 @@ public class StudentChargesFactoryTest {
 		double amount = 0;
 		Date deadline = new Date();
 		Charge[] charges = {};
-		User user = new User(UserConstants.STUDENT_NUM, "student", "student", "Student_fn", "Student_ln", "student@student.com", "111-111-1111", charges);
-		if(user.getUser_type() == UserConstants.STUDENT_NUM) {
-			students.add(user);
-		}
+		Student student = new Student("student", "student", "Student_fn", "Student_ln", "student@student.com", "111-111-1111", charges);
+		students.add(student);
 		
-		user.getCharges().add(new Charge(6, new Date(2013,8,12), ""));
+		student.getCharges().add(new Charge(6, new Date(2013,8,12), ""));
 		
-		for(User student: students) {
-			for(Charge charge: student.getCharges()) {
+		for(Student student1: students) {
+			for(Charge charge: student1.getCharges()) {
 				amount = charge.getAmount();
 				deadline = charge.getDeadline();
 			}

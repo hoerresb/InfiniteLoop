@@ -1,17 +1,16 @@
-package factories;
+package edu.uwm.cs361.factories;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.uwm.cs361.entities.User;
-import edu.uwm.cs361.util.UserConstants;
+import edu.uwm.cs361.entities.old_User;
 
 public class StudentChargesFactory {
 	private List<String> errors = new ArrayList<String>();
-	private List<User> students = new ArrayList<User>();
+	private List<old_User> students = new ArrayList<old_User>();
 	
-	public List<User> getStudents() {
-		return new ArrayList<User>(students);
+	public List<old_User> getStudents() {
+		return new ArrayList<old_User>(students);
 	}
 	
 	public boolean hasStudents() {

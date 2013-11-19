@@ -16,6 +16,7 @@
   <resource-files>
   	<include path="/css/**.css" />
   	<include path="/images/**.png" />
+  	<include path="/util/**.jsp" />
   </resource-files>
   <!--
     HTTP Sessions are disabled by default. To enable HTTP sessions specify:

@@ -11,8 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import edu.uwm.cs361.entities.*;
-import factories.CreateStudentFactory;
+import edu.uwm.cs361.entities.Course;
+import edu.uwm.cs361.entities.Student;
+import edu.uwm.cs361.factories.CreateStudentFactory;
 
 @SuppressWarnings("serial")
 public class CreateStudentServlet extends HttpServlet {
@@ -44,7 +45,7 @@ public class CreateStudentServlet extends HttpServlet {
 		}
 		
 		CreateStudentFactory stud_fact = new CreateStudentFactory();
-		User student = stud_fact.createStudent(username, password, password_repeat, firstname, lastname, email, phonenumber, courses);
+		Student student = stud_fact.createStudent(username, password, password_repeat, firstname, lastname, email, phonenumber, courses);
 
 		try {
 			if (stud_fact.hasErrors()) {
@@ -72,7 +73,6 @@ public class CreateStudentServlet extends HttpServlet {
 	private Set<Course> getExistingCourses() {
 		PersistenceManager pm = getPersistenceManager();
 		Set<Course> existing_courses = new HashSet<Course>();
-		
 		try {
 			Query query = pm.newQuery(Course.class);
 			existing_courses = (Set<Course>) query.execute();

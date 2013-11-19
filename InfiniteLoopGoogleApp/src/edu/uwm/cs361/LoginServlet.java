@@ -41,7 +41,7 @@ public class LoginServlet extends HttpServlet {
 		
 		try{
 			req.setAttribute("errors", errors);
-	List<User> us = (List<User>) pm.newQuery(User.class).execute();
+	List<old_User> us = (List<old_User>) pm.newQuery(old_User.class).execute();
 	
 		resp.setContentType("text/html");
 		

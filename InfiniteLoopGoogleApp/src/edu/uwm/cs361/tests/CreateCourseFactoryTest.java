@@ -1,4 +1,4 @@
-package tests;
+package edu.uwm.cs361.tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -9,10 +9,8 @@ import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestC
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
 import edu.uwm.cs361.entities.Course;
-import edu.uwm.cs361.entities.User;
-import edu.uwm.cs361.util.UserConstants;
-import factories.CreateCourseFactory;
-import factories.CreateInstructorFactory;
+import edu.uwm.cs361.entities.Teacher;
+import edu.uwm.cs361.factories.CreateCourseFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,9 +39,9 @@ public class CreateCourseFactoryTest {
 		pm = getPersistenceManager();
 
 		try {
-			List<User> instructors = (List<User>) pm.newQuery(User.class).execute();
-			for (User user : instructors) {
-				pm.deletePersistent(user);
+			List<Teacher> teachers = (List<Teacher>) pm.newQuery(Teacher.class).execute();
+			for (Teacher teacher : teachers) {
+				pm.deletePersistent(teacher);
 			}
 			
 			List<Course> courses = (List<Course>) pm.newQuery(Course.class).execute();
@@ -64,11 +62,10 @@ public class CreateCourseFactoryTest {
 	@Test
 	public void testErrorOnBlankClassname() {
 		CreateCourseFactory course_fact = new CreateCourseFactory();
+		Teacher teacher = new Teacher("username","password1","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
 		Set<String> meetingDays = new HashSet<String>(Arrays.asList(new String[] { "M", "T", "W" }));
 		Set<String> payment_options = new HashSet<String>(Arrays.asList(new String[] { "Pay now", "Pay then", "Give me your arm" }));
 		
-		CreateInstructorFactory instr_fact = new CreateInstructorFactory();
-		User teacher = instr_fact.createInstructor("username","password1","password1","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
 		
 		Course c = course_fact.createCourse("", "10/14/2013", "10/15/2013", meetingDays, "10:30", "EMS145", payment_options, "its a class", teacher);
 
@@ -83,9 +80,7 @@ public class CreateCourseFactoryTest {
 		CreateCourseFactory course_fact = new CreateCourseFactory();
 		Set<String> meetingDays = new HashSet<String>(Arrays.asList(new String[] { "M", "T", "W" }));
 		Set<String> payment_options = new HashSet<String>(Arrays.asList(new String[] { "Pay now", "Pay then", "Give me your arm" }));
-		
-		CreateInstructorFactory instr_fact = new CreateInstructorFactory();
-		User teacher = instr_fact.createInstructor("username","password1","password1","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
+		Teacher teacher = new Teacher("username","password1","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
 		
 		Course c = course_fact.createCourse("learning101", "", "10/15/2013", meetingDays, "10:30", "EMS145", payment_options, "its a class", teacher);
 
@@ -100,9 +95,7 @@ public class CreateCourseFactoryTest {
 		CreateCourseFactory course_fact = new CreateCourseFactory();
 		Set<String> meetingDays = new HashSet<String>(Arrays.asList(new String[] { "M", "T", "W" }));
 		Set<String> payment_options = new HashSet<String>(Arrays.asList(new String[] { "Pay now", "Pay then", "Give me your arm" }));
-		
-		CreateInstructorFactory instr_fact = new CreateInstructorFactory();
-		User teacher = instr_fact.createInstructor("username","password1","password1","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
+		Teacher teacher = new Teacher("username","password1","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
 		
 		Course c = course_fact.createCourse("learning101", "10/15/2013", "", meetingDays, "10:30", "EMS145", payment_options, "its a class", teacher);
 
@@ -117,9 +110,7 @@ public class CreateCourseFactoryTest {
 		CreateCourseFactory course_fact = new CreateCourseFactory();
 		Set<String> meetingDays = null;
 		Set<String> payment_options = new HashSet<String>(Arrays.asList(new String[] { "Pay now", "Pay then", "Give me your arm" }));
-		
-		CreateInstructorFactory instr_fact = new CreateInstructorFactory();
-		User teacher = instr_fact.createInstructor("username","password1","password1","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
+		Teacher teacher = new Teacher("username","password1","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
 		
 		Course c = course_fact.createCourse("learning101", "10/15/2013", "10/16/2013", meetingDays, "10:30", "EMS145", payment_options, "its a class", teacher);
 
@@ -134,9 +125,7 @@ public class CreateCourseFactoryTest {
 		CreateCourseFactory course_fact = new CreateCourseFactory();
 		Set<String> meetingDays = new HashSet<String>(Arrays.asList(new String[] { "M", "T", "W" }));
 		Set<String> payment_options = new HashSet<String>(Arrays.asList(new String[] { "Pay now", "Pay then", "Give me your arm" }));
-		
-		CreateInstructorFactory instr_fact = new CreateInstructorFactory();
-		User teacher = instr_fact.createInstructor("username","password1","password1","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
+		Teacher teacher = new Teacher("username","password1","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
 		
 		Course c = course_fact.createCourse("learning101", "10/15/2013", "10/16/2013", meetingDays, "", "EMS145", payment_options, "its a class", teacher);
 
@@ -151,9 +140,7 @@ public class CreateCourseFactoryTest {
 		CreateCourseFactory course_fact = new CreateCourseFactory();
 		Set<String> meetingDays = new HashSet<String>(Arrays.asList(new String[] { "M", "T", "W" }));
 		Set<String> payment_options = new HashSet<String>(Arrays.asList(new String[] { "Pay now", "Pay then", "Give me your arm" }));
-		
-		CreateInstructorFactory instr_fact = new CreateInstructorFactory();
-		User teacher = instr_fact.createInstructor("username","password1","password1","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
+		Teacher teacher = new Teacher("username","password1","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
 		
 		Course c = course_fact.createCourse("learning101", "10/15/2013", "10/16/2013", meetingDays, "10:45", "", payment_options, "its a class", teacher);
 
@@ -168,9 +155,7 @@ public class CreateCourseFactoryTest {
 		CreateCourseFactory course_fact = new CreateCourseFactory();
 		Set<String> meetingDays = new HashSet<String>(Arrays.asList(new String[] { "M", "T", "W" }));
 		Set<String> payment_options = null;
-		
-		CreateInstructorFactory instr_fact = new CreateInstructorFactory();
-		User teacher = instr_fact.createInstructor("username","password1","password1","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
+		Teacher teacher = new Teacher("username","password1","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
 		
 		Course c = course_fact.createCourse("learning101", "10/15/2013", "10/16/2013", meetingDays, "10:45", "EMS203", payment_options, "its a class", teacher);
 
@@ -185,9 +170,7 @@ public class CreateCourseFactoryTest {
 		CreateCourseFactory course_fact = new CreateCourseFactory();
 		Set<String> meetingDays = new HashSet<String>(Arrays.asList(new String[] { "M", "T", "W" }));
 		Set<String> payment_options = new HashSet<String>(Arrays.asList(new String[] { "Pay now", "Pay then", "Give me your arm" }));
-		
-		CreateInstructorFactory instr_fact = new CreateInstructorFactory();
-		User teacher = instr_fact.createInstructor("username","password1","password1","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
+		Teacher teacher = new Teacher("username","password1","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
 		
 		Course c = course_fact.createCourse("learning101", "10/15/2013", "10/16/2013", meetingDays, "10:45","EMS203", payment_options, "", teacher);
 
@@ -203,7 +186,7 @@ public class CreateCourseFactoryTest {
 		CreateCourseFactory course_fact = new CreateCourseFactory();
 		Set<String> meetingDays = new HashSet<String>(Arrays.asList(new String[] { "M", "T", "W" }));
 		Set<String> payment_options = new HashSet<String>(Arrays.asList(new String[] { "Pay now", "Pay then", "Give me your arm" }));
-		User teacher = new User(UserConstants.TEACHER_NUM, "john", "pw", "john", "john", "email", "8478478474", new String[] {"teacher1","teacher2"});
+		Teacher teacher = new Teacher("username","password1","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
 		
 		Course c = course_fact.createCourse("learning101", "10/15/2013", "10/16/2013", meetingDays, "10:45","EMS203", payment_options,"its a good class", teacher);
 

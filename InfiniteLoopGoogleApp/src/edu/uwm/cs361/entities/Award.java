@@ -23,12 +23,12 @@ public class Award {
 	private String awardDescription;
 	
 	@Persistent
-	private Set<User> users;
+	private Set<Student> users;
 	
 	public Award(String name, String des) {
 		awardName = name;
 		awardDescription = des;
-		users = new HashSet<User>();
+		users = new HashSet<Student>();
 	}
 	
 	public Key getAward_id(){
@@ -44,7 +44,7 @@ public class Award {
 		return awardDescription;
 	}
 	
-	public Set<User> getUsers(){
+	public Set<Student> getUsers(){
 			return users;
 	}
 

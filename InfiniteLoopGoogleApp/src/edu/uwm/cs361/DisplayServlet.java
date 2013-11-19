@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.uwm.cs361.entities.Course;
-import edu.uwm.cs361.entities.User;
+import edu.uwm.cs361.entities.old_User;
 
 @SuppressWarnings("serial")
 public class DisplayServlet extends HttpServlet
@@ -57,14 +57,14 @@ public class DisplayServlet extends HttpServlet
 	private void displayUsers(HttpServletRequest req, HttpServletResponse resp, PersistenceManager pm) throws IOException {
 		resp.getWriter().println("<h1>Users</h1>");
 
-		List<User> users = (List<User>) pm.newQuery(User.class).execute();
+		List<old_User> users = (List<old_User>) pm.newQuery(old_User.class).execute();
 
 		if (users.size() == 0) {
 			resp.getWriter().println("<p>There are no users.</p>");
 		} else {
 			resp.getWriter().println("<ul>");
 
-			for (User user : users) {
+			for (old_User user : users) {
 				String row = "";
 				String userType = "";
 				switch(user.getUser_type()) {

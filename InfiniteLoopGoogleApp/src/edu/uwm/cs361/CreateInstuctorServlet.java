@@ -1,8 +1,6 @@
 package edu.uwm.cs361;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
@@ -11,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import edu.uwm.cs361.entities.User;
-import factories.CreateInstructorFactory;
+import edu.uwm.cs361.entities.Teacher;
+import edu.uwm.cs361.factories.CreateInstructorFactory;
 
 @SuppressWarnings("serial")
 public class CreateInstuctorServlet extends HttpServlet {
@@ -36,7 +34,7 @@ public class CreateInstuctorServlet extends HttpServlet {
 		}
 		
 		CreateInstructorFactory instr_fact = new CreateInstructorFactory();
-		User instructor = instr_fact.createInstructor(username, password, password_repeat, firstname, lastname, email, phonenumber, instructor_types_array);
+		Teacher instructor = instr_fact.createInstructor(username, password, password_repeat, firstname, lastname, email, phonenumber, instructor_types_array);
 
 		try {
 			if (instr_fact.hasErrors()) {

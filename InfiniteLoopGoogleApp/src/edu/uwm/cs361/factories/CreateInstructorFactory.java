@@ -1,15 +1,14 @@
-package factories;
+package edu.uwm.cs361.factories;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.uwm.cs361.entities.User;
-import edu.uwm.cs361.util.UserConstants;
+import edu.uwm.cs361.entities.Teacher;
 
 public class CreateInstructorFactory {
 	private List<String> errors = new ArrayList<String>();
 	
-	public User createInstructor(String username, String password, String password_repeat,
+	public Teacher createInstructor(String username, String password, String password_repeat,
 			String firstname, String lastname, String email,
 			String phonenumber, String[] instructor_types) {
 		if (username.isEmpty()) {
@@ -30,7 +29,7 @@ public class CreateInstructorFactory {
 		if(hasErrors()) {
 			return null;
 		} else {
-			return new User(UserConstants.TEACHER_NUM,username,password,firstname,lastname,email,phonenumber,instructor_types);
+			return new Teacher(username,password,firstname,lastname,email,phonenumber,instructor_types);
 		}
 	}
 	

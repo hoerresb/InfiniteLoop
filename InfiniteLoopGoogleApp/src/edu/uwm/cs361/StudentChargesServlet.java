@@ -13,8 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.uwm.cs361.entities.Charge;
 import edu.uwm.cs361.entities.Course;
-import edu.uwm.cs361.entities.User;
-import edu.uwm.cs361.util.UserConstants;
+import edu.uwm.cs361.entities.Student;
 
 @SuppressWarnings("serial")
 public class StudentChargesServlet extends HttpServlet {
@@ -35,9 +34,9 @@ public class StudentChargesServlet extends HttpServlet {
 		Charge[] charges = new Charge[classlist.length];
 
 		PersistenceManager pm = getPersistenceManager();
-		List<User> students = getStudents();
+		List<Student> students = getStudents();
 		
-		for (User student : students) {
+		for (Student student : students) {
 			for (Charge charge : student.getCharges()) {
 				double amount = Double.parseDouble(req.getParameter(student.getUser_id() + "_charge"));
 				String[] date_string = req.getParameter(student.getUser_id() + "_deadline").split("-");
@@ -55,7 +54,7 @@ public class StudentChargesServlet extends HttpServlet {
 				req.setAttribute("errors", errors);
 				req.getRequestDispatcher("studentCharges.jsp").forward(req,resp);
 			} else {
-				for (User student : students) {
+				for (Student student : students) {
 					pm.makePersistent(student);
 					System.out.println(student.getFullName() + ": ");
 					for (Charge c : student.getCharges()) {
@@ -73,24 +72,19 @@ public class StudentChargesServlet extends HttpServlet {
 	}
 
 	@SuppressWarnings("unchecked")
-	private List<User> getStudents() {
+	private List<Student> getStudents() {
 		PersistenceManager pm = getPersistenceManager();
-		List<User> students = new ArrayList<User>();
-		
 		try {
-			Query query = pm.newQuery(User.class);
-			query.setFilter("user_type == " + UserConstants.STUDENT_NUM);
-			students = (List<User>) query.execute();
-			return students;
+			return (List<Student>) pm.newQuery(Student.class).execute();
 		} finally {
 			pm.close();
 		}
 	}
 	
 	@SuppressWarnings("unchecked")
-	private List<User> setAllStudentCourses() {
+	private List<Student> setAllStudentCourses() {
 		PersistenceManager pm = getPersistenceManager();
-		List<User> students = new ArrayList<User>();
+		List<Student> students = new ArrayList<Student>();
 		Set<String> meetingDays = new HashSet<String>();
 		Set<String> payment_options = new HashSet<String>();
 		double[] amount = new double[1];
@@ -103,10 +97,9 @@ public class StudentChargesServlet extends HttpServlet {
 		Course course = new Course("Kung Fu", "9-3-2013", "12-25-2013", meetingDays, "5:30PM", "Kung-Shi's Dojo", payment_options, "Kick stuff");
 		Charge charge = new Charge(amount[0],new Date(2013,11,31),"");
 		try {
-			Query query = pm.newQuery(User.class);
-			query.setFilter("user_type == " + UserConstants.STUDENT_NUM);
-			students = (List<User>) query.execute();
-			for (User student : students) {
+			Query query = pm.newQuery(Student.class);
+			students = (List<Student>) query.execute();
+			for (Student student : students) {
 				if (student.getCourses().size() == 0) {
 					student.getCourses().add(course);
 					student.getCharges().add(charge);

@@ -9,9 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import edu.uwm.cs361.entities.User;
 import edu.uwm.cs361.entities.Award;
-import edu.uwm.cs361.util.UserConstants;
+import edu.uwm.cs361.entities.Student;
 
 @SuppressWarnings("serial")
 public class IssueAwardServlet extends HttpServlet {
@@ -29,7 +28,7 @@ public class IssueAwardServlet extends HttpServlet {
 			
 			for (String id : studentIds) {
 				long studentId = Long.parseLong(id);
-				User user = pm.getObjectById(User.class, studentId);
+				Student user = pm.getObjectById(Student.class, studentId);
 
 				user.getAwards().add(award);
 				award.getUsers().add(user);

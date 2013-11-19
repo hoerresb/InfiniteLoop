@@ -1,4 +1,4 @@
-package factories;
+package edu.uwm.cs361.factories;
 
 import java.util.ArrayList;
 import java.util.List;   
@@ -7,16 +7,15 @@ import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 
 import edu.uwm.cs361.entities.Charge;
-import edu.uwm.cs361.entities.User;
-import edu.uwm.cs361.util.UserConstants;
+import edu.uwm.cs361.entities.old_User;
 
 public class loginFactory {
 	
 	PersistenceManager pm = getPersistenceManager();
 	private List<String> errors = new ArrayList<String>();
-	private List<User> users = new ArrayList<User>();
+	private List<old_User> users = new ArrayList<old_User>();
 	
-	public User createUser(int user_type, String username, String password, String firstName, String lastName, String email,
+	public old_User createUser(int user_type, String username, String password, String firstName, String lastName, String email,
 			String phone_number, String[] instructor_types) {
 		
 			if(username.trim().isEmpty()){
@@ -35,7 +34,7 @@ public class loginFactory {
 			if(hasErrors()) {
 				return null;
 			} else {
-				 User u = new User(user_type,username, password,firstName,lastName,email,phone_number, instructor_types);
+				 old_User u = new old_User(user_type,username, password,firstName,lastName,email,phone_number, instructor_types);
 				 users.add(u);
 				 return u;
 			}
@@ -48,8 +47,8 @@ public class loginFactory {
 		return new ArrayList<String>(errors);
 	} 
 	
-	public List<User> getUsers(){
-		return new ArrayList<User>(users);
+	public List<old_User> getUsers(){
+		return new ArrayList<old_User>(users);
 	}
 	
 	public boolean doLoginIncorrectPassword(String username, String password){

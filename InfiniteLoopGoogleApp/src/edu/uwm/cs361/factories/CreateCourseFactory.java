@@ -1,18 +1,17 @@
-package factories;
+package edu.uwm.cs361.factories;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import edu.uwm.cs361.entities.Course;
-import edu.uwm.cs361.entities.User;
-import edu.uwm.cs361.util.UserConstants;
+import edu.uwm.cs361.entities.Teacher;
 
 public class CreateCourseFactory {
 	private List<String> errors = new ArrayList<String>();
 	
 	public Course createCourse(String classname, String startDate, String endDate, 
-			Set<String> meetingDays, String time, String place, Set<String> payment_options, String description, User teacher) {
+			Set<String> meetingDays, String time, String place, Set<String> payment_options, String description, Teacher teacher) {
 		
 		if (classname.isEmpty()) {
 			errors.add("Please enter a class name.");

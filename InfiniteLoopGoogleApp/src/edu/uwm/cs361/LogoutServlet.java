@@ -19,7 +19,7 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.Query;
 
-import edu.uwm.cs361.entities.User;
+import edu.uwm.cs361.entities.old_User;
 
 @SuppressWarnings("serial")
 public class LogoutServlet extends HttpServlet
@@ -53,7 +53,7 @@ public class LogoutServlet extends HttpServlet
 		
 		try{
 			req.setAttribute("errors", errors);
-	List<User> us = (List<User>) pm.newQuery(User.class).execute();
+	List<old_User> us = (List<old_User>) pm.newQuery(old_User.class).execute();
 	
 		resp.setContentType("text/html");
 		

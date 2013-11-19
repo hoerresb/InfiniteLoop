@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import edu.uwm.cs361.entities.User;
+import edu.uwm.cs361.entities.old_User;
 
 @SuppressWarnings("serial")
 public class ClearServlet extends HttpServlet {
@@ -19,7 +19,7 @@ public class ClearServlet extends HttpServlet {
 		PersistenceManager pm = getPersistenceManager();
 
 		try {
-			for (User user : (List<User>) pm.newQuery(User.class).execute()) {
+			for (old_User user : (List<old_User>) pm.newQuery(old_User.class).execute()) {
 				pm.deletePersistent(user);
 			}
 
