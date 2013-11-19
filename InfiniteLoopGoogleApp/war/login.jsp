@@ -1,10 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 
 <%@ page import="java.util.List" %>
-
 <%@ page import="javax.jdo.JDOHelper" %>
 <%@ page import="javax.jdo.PersistenceManager" %>
-<%@ page import="edu.uwm.cs361.entities.old_User" %>
 
 <!DOCTYPE html> 
 	<html>

@@ -23,10 +23,25 @@
 			<input type='text' id='phonenumber' name='phonenumber' /><br/><br/>
 			<label for='instructor_types'>Instructor Types: </label>
 			<input type='text' id='instructor_types' name='instructor_types'/><br/><br/>
-			<label for='student_list'>Instructor Types: </label>
-			<input type='text' id='student_list' name='student_list' placeholder='John, Matt, Nick ...'/><br/><br/>
-			<label for='course_list'>Instructor Types: </label>
-			<input type='text' id='course_list' name='course_list'/><br/><br/>
+			
+			<label for='student_list'>Students: </label>
+	        <select id="student_opts" name="student_opts" multiple>
+	            <optgroup>
+	               <c:forEach items="${student_list}" var="student">
+			     	 <option value="${student.user_id.id}">${student.fullName}</option>
+				   </c:forEach> 
+	            </optgroup>
+	        </select><br/><br/>
+			
+			<label for='course_list'>Courses: </label>
+	        <select id="course_opts" name="course_opts" multiple>
+	            <optgroup>
+	               <c:forEach items="${course_list}" var="course">
+			     	 <option value="${course.course_id.id}">${course.name}</option>
+				   </c:forEach> 
+	            </optgroup>
+	        </select><br/><br/>
+			
 			<input type='submit' value='Create Teacher' />
 		</form>
 	</body>

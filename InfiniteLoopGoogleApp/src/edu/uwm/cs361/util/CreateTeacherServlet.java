@@ -1,7 +1,9 @@
 package edu.uwm.cs361.util;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
@@ -32,20 +34,46 @@ public class CreateTeacherServlet  extends HttpServlet {
 		String email = req.getParameter("email");
 		String phonenumber = (req.getParameter("phonenumber")).equals("null") ? null : req.getParameter("phonenumber");
 		
-//		String instructor_types = req.getParameter("instructor_types");
-//		String[] instructor_types_array = null;
-//		if(!req.getParameter("instructor_types").equals("null")) {
-//			instructor_types_array = instructor_types.split(",");
-//		}
+		String instructor_types = req.getParameter("instructor_types");
+		String[] instructor_types_array = null;
+		if(!req.getParameter("instructor_types").equals("null")) {
+			instructor_types_array = instructor_types.split(",");
+		}
 		
-		createTeacher(username, password, firstname, lastname, email, phonenumber);
+		Set<Course> courses = getSelectedCourses(req);
+		Set<Student> students = getSelectedStudents(req);
+		
+		createTeacher(username, password, firstname, lastname, email, phonenumber, instructor_types_array, courses, students);
+		resp.sendRedirect("/display");
+	}
+
+	private Set<Course> getSelectedCourses(HttpServletRequest req) {
+		PersistenceManager pm = getPersistenceManager();
+		String[] course_ids_str = req.getParameterValues("course_opts");
+		Set<Course> courses  =  new HashSet<Course>();
+		for (String s : course_ids_str) {
+			courses.add(pm.getObjectById(Course.class, Long.parseLong(s)));
+		}
+		return courses;
+	}
+	
+	private Set<Student> getSelectedStudents(HttpServletRequest req) {
+		PersistenceManager pm = getPersistenceManager();
+		String[] student_ids_str = req.getParameterValues("student_opts");
+		Set<Student> students  =  new HashSet<Student>();
+		for (String s : student_ids_str) {
+			students.add(pm.getObjectById(Student.class, Long.parseLong(s)));
+		}
+		return students;
 	}
 
 	private void createTeacher(String username, String password,
-			String firstname, String lastname, String email, String phonenumber) {
+			String firstname, String lastname, String email, 
+			String phonenumber, String[] instructor_types, 
+			Set<Course> courses, Set<Student> students) {
 		PersistenceManager pm = getPersistenceManager();
 		try {
-			pm.makePersistent(new Teacher(username,password,firstname,lastname,email,phonenumber,null,null,null));
+			pm.makePersistent(new Teacher(username,password,firstname,lastname,email,phonenumber,instructor_types,courses,students));
 		} finally {
 			pm.close();
 		}
