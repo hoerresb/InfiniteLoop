@@ -36,6 +36,11 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet>
 	
 	<servlet>
+		<servlet-name>CreateStudent</servlet-name>
+		<servlet-class>edu.uwm.cs361.util.CreateStudentServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
 		<servlet-name>Display</servlet-name>
 		<servlet-class>edu.uwm.cs361.DisplayServlet</servlet-class>
 	</servlet>
@@ -48,11 +53,6 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<servlet>
 		<servlet-name>CreateInstructor</servlet-name>
 		<servlet-class>edu.uwm.cs361.CreateInstuctorServlet</servlet-class>
-	</servlet>
-	
-	<servlet>
-		<servlet-name>CreateStudent</servlet-name>
-		<servlet-class>edu.uwm.cs361.CreateStudentServlet</servlet-class>
 	</servlet>
 	
 	<servlet>

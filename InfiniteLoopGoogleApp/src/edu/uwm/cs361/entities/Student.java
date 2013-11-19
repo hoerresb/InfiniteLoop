@@ -34,11 +34,12 @@ public class Student extends User
 	}
 
 	public Student (String username, String password, String firstname, String lastname, 
-					String email, Set<Course> courses, Set<Teacher> teachers, Set<Award> awards) {
+					String email, Set<Course> courses, Set<Teacher> teachers, Set<Award> awards, Set<Charge> charges) {
 		super(username, password, firstname, lastname, email);	
 		this.courses = courses;
 		this.teachers = teachers;
 		this.awards = awards;
+		this.charges = charges;
 	}
 
 	public Student(String username, String password, String firstname,
