@@ -47,12 +47,12 @@ public class DisplayServlet extends HttpServlet
 				String row = "";
 				row += "<li>(" + student.getUser_id().getId() + ")<br/>Name: "+ student.getFullName() + "<br/>Username: " + student.getUsername() +
 						"<br/>password: " + student.getPassword() + "<br/>email: " + student.getEmail() + "<br/>";
-				row +=	"Courses: "; 
+				row +=	"Courses: <ul>"; 
 				Set<Course> courses = student.getCourses();
 				for(Course c : courses) {
-					row += "Name: " + c.getName() + " Days: " + c.getMeetingDays();
+					row += "<li>Name: [" + c.getName() + "] Days: " + c.getMeetingDays() + "</li>";
 				}
-				row += "</li>";
+				row += "</ul></li>";
 				resp.getWriter().println(row);
 			}
 			resp.getWriter().println("</ul>");
@@ -91,12 +91,12 @@ public class DisplayServlet extends HttpServlet
 				String row = "";
 				row += "<li>(" + teacher.getUser_id().getId() + ")<br/>Name: "+ teacher.getFullName() + "<br/>Username: " + teacher.getUsername() +
 						"<br/>password: " + teacher.getPassword() + "<br/>email: " + teacher.getEmail() + "<br/>phone-number: " + teacher.getPhoneNumber() +
-						 "<br/>Courses: "; 
+						 "<br/>Courses: <ul>"; 
 				Set<Course> courses = teacher.getCourses();
 				for(Course c : courses) {
-					row += "Name: " + c.getName() + " Days: " + c.getMeetingDays();
+					row += "<li>Name: [" + c.getName() + "] Days: " + c.getMeetingDays() + "</li>";
 				}
-				row += "</li>";
+				row += "</ul></li>";
 				resp.getWriter().println(row);
 			}
 			resp.getWriter().println("</ul>");
