@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.uwm.cs361.entities.Course;
 import edu.uwm.cs361.entities.Teacher;
-import edu.uwm.cs361.entities.old_User;
 
 @SuppressWarnings("serial")
 public class ClearServlet extends HttpServlet {

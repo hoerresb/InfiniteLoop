@@ -9,7 +9,6 @@ import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestC
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
 import edu.uwm.cs361.entities.Teacher;
-import edu.uwm.cs361.entities.old_User;
 import edu.uwm.cs361.factories.CreateInstructorFactory;
 
 import java.util.Arrays;
@@ -37,9 +36,9 @@ public class CreateInstructorFactoryTest {
 		pm = getPersistenceManager();
 
 		try {
-			List<old_User> instructors = (List<old_User>) pm.newQuery(old_User.class).execute();
+			List<Teacher> instructors = (List<Teacher>) pm.newQuery(Teacher.class).execute();
 
-			for (old_User user : instructors) {
+			for (Teacher user : instructors) {
 				pm.deletePersistent(user);
 			}
 		} finally {

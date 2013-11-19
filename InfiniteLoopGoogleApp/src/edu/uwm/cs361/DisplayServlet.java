@@ -15,7 +15,6 @@ import edu.uwm.cs361.entities.Admin;
 import edu.uwm.cs361.entities.Course;
 import edu.uwm.cs361.entities.Student;
 import edu.uwm.cs361.entities.Teacher;
-import edu.uwm.cs361.entities.old_User;
 
 @SuppressWarnings("serial")
 public class DisplayServlet extends HttpServlet

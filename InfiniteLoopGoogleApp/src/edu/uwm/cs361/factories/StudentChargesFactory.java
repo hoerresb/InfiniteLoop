@@ -3,14 +3,14 @@ package edu.uwm.cs361.factories;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.uwm.cs361.entities.old_User;
+import edu.uwm.cs361.entities.Student;
 
 public class StudentChargesFactory {
 	private List<String> errors = new ArrayList<String>();
-	private List<old_User> students = new ArrayList<old_User>();
+	private List<Student> students = new ArrayList<Student>();
 	
-	public List<old_User> getStudents() {
-		return new ArrayList<old_User>(students);
+	public List<Student> getStudents() {
+		return new ArrayList<Student>(students);
 	}
 	
 	public boolean hasStudents() {
