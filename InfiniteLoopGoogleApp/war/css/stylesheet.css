@@ -220,3 +220,11 @@ ul {
 .chargesContainer .charge_input {width: 50px;}
 .chargesContainer .charge_due {width: 70px;}
 
+#payment_value {
+	float: none;
+	width: 50px;
+}
+
+#payment_value_span {
+	float: right;
+}
