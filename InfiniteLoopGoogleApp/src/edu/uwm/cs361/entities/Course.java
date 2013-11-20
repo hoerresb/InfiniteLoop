@@ -35,14 +35,14 @@ public class Course {
 	private String place;
 
 	@Persistent
-	private Set<String> payment_options; //TODO: need a new table? How are we assigning these ...
+	private String payment_options; //TODO: need a new table? How are we assigning these ...
 	
 	@Persistent
 	private String description;
 
 	public Course(String name, String startDate, String endDate,
 			Set<String> meetingDays, String time, String place,
-			Set<String> payment_options, String description) {
+			String payment_options, String description) {
 		this.name = name;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -81,7 +81,7 @@ public class Course {
 		return place;
 	}
 
-	public Set<String> getPayment_options() {
+	public String getPayment_options() {
 		return payment_options;
 	}
 

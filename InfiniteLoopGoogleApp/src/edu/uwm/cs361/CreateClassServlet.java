@@ -46,16 +46,15 @@ public class CreateClassServlet extends HttpServlet {
 		String place = req.getParameter("place");
 		String description = req.getParameter("class_description");
 
-		String payment_options = req.getParameter("payment_options");
-		String[] payment_options_array = null;
-		if(!req.getParameter("payment_options").equals("null")) {
-			payment_options_array = payment_options.split(",");
-		}
+		String payment_value = req.getParameter("payment_value");
+		String payment_duration = req.getParameter("payment_duration");
+		String payment_option = payment_value + " per " + payment_duration;
+
 		
 		Teacher teacher = (Teacher) pm.getObjectById(Teacher.class,Long.parseLong(req.getParameter("instr_options"))); //update teacher
 
 		CreateCourseFactory course_fact = new CreateCourseFactory();
-		Course course = course_fact.createCourse(classname, startDate, endDate, meetingDays, time, place, new HashSet<String>(Arrays.asList(payment_options_array)), description,teacher);
+		Course course = course_fact.createCourse(classname, startDate, endDate, meetingDays, time, place, payment_option, description,teacher);
 		try {
 			if (course_fact.hasErrors()) {
 				req.setAttribute("classname", classname);
@@ -65,8 +64,8 @@ public class CreateClassServlet extends HttpServlet {
 				req.setAttribute("place", place);
 				req.setAttribute("meeting_times", meetingDays);
 				req.setAttribute("class_description", description);
-				req.setAttribute("payment_options", payment_options);
-				//req.setAttribute("teacher", teacher); can do?
+				req.setAttribute("payment_value", payment_value);
+				req.setAttribute("payment_duration", payment_duration);
 				req.setAttribute("errors", course_fact.getErrors());
 				req.setAttribute("teachers", getTeachers());
 				req.getRequestDispatcher("createClass.jsp").forward(req, resp);

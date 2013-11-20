@@ -37,8 +37,20 @@
 			<label for="place">Meeting place:</label>
 			<input id="place" class="text-input" type="text" name="place" value='${place}'/><br/><br/>
 			
-			<label for="options">Payment options:</label>
-			<input id="options" class="text-input" type="text" name="payment_options" placeholder="Ex: $30/month, $150 for 6 months" value='${payment_options}'/><br/><br/>
+			<label for="payment_value">Payment value:</label>
+			<span id="payment_value_span">
+			$<input id="payment_value" class="text-input" type="text" name="payment_value" value="${payment_value}"/> per 
+				<select id="payment_duration" name="${payment_duration}">
+		            <optgroup>
+		            	<option value="session">session</option>
+				     	 <option value="hour">hour</option>
+				     	 <option value="day">day</option>
+				     	 <option value="week">week</option>
+				     	 <option value="month">month</option>
+				     	 <option value="year">year</option>
+		            </optgroup>
+		        </select>
+	        </span><br/><br/>
 		</div>
 		
 		<label for="instr">Instructor:</label>

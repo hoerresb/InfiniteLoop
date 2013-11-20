@@ -11,7 +11,7 @@ public class CreateCourseFactory {
 	private List<String> errors = new ArrayList<String>();
 	
 	public Course createCourse(String classname, String startDate, String endDate, 
-			Set<String> meetingDays, String time, String place, Set<String> payment_options, String description, Teacher teacher) {
+			Set<String> meetingDays, String time, String place, String payment_option, String description, Teacher teacher) {
 		
 		if (classname.isEmpty()) {
 			errors.add("Please enter a class name.");
@@ -25,8 +25,8 @@ public class CreateCourseFactory {
 		if (meetingDays == null) {
 			errors.add("Must select a meeting day.");
 		}
-		if(payment_options == null) {
-			errors.add("Please enter payment options.");
+		if(payment_option.isEmpty()) {
+			errors.add("Please enter a payment option.");
 		}
 		if (time.isEmpty()) {
 			errors.add("Please enter a meeting time.");
@@ -41,7 +41,7 @@ public class CreateCourseFactory {
 		if(hasErrors()) {
 			return null;
 		} else {
-			Course c = new Course(classname, startDate, endDate, meetingDays, time, place, payment_options, description);
+			Course c = new Course(classname, startDate, endDate, meetingDays, time, place, payment_option, description);
 			teacher.getCourses().add(c);
 			return c;
 		}
