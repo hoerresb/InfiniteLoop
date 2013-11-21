@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
+import edu.uwm.cs361.entities.Admin;
 import edu.uwm.cs361.entities.Teacher;
 import edu.uwm.cs361.factories.CreateInstructorFactory;
 
@@ -35,15 +36,12 @@ public class CreateInstructorFactoryTest {
 		helper.setUp();
 		pm = getPersistenceManager();
 
-		try {
-			List<Teacher> instructors = (List<Teacher>) pm.newQuery(Teacher.class).execute();
+		List<Teacher> instructors = (List<Teacher>) pm.newQuery(Teacher.class).execute();
 
-			for (Teacher user : instructors) {
-				pm.deletePersistent(user);
-			}
-		} finally {
-			pm.close();
+		for (Teacher user : instructors) {
+			pm.deletePersistent(user);
 		}
+		pm.flush();
 	}
 
 	@After
@@ -104,6 +102,19 @@ public class CreateInstructorFactoryTest {
 		assertTrue(instr_fact.hasErrors());
 		assertEquals(1, instr_fact.getErrors().size());
 		assertTrue(instr_fact.getErrors().get(0).equals("Email is required."));
+	}
+	
+	@Test
+	public void testErrorOnExistingUsername() {
+		Admin admin = new Admin("username", "password", "firstname", "lastname", "email@emial.com");
+		pm.makePersistent(admin);
+		CreateInstructorFactory instr_fact = new CreateInstructorFactory();
+		Teacher u = instr_fact.createInstructor("username","password1","password1","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
+	
+		assertNull(u);
+		assertTrue(instr_fact.hasErrors());
+		assertEquals(1, instr_fact.getErrors().size());
+		assertTrue(instr_fact.getErrors().get(0).equals("Username is already taken."));
 	}
 	
 	@Test

@@ -3,6 +3,7 @@ package edu.uwm.cs361.factories;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.uwm.cs361.UsernameValidator;
 import edu.uwm.cs361.entities.Teacher;
 
 public class CreateInstructorFactory {
@@ -13,6 +14,8 @@ public class CreateInstructorFactory {
 			String phonenumber, String[] instructor_types) {
 		if (username.isEmpty()) {
 			errors.add("Username is required.");
+		} else if(UsernameValidator.usernameExists(username)) {
+			errors.add("Username is already taken.");
 		}
 		if (password.isEmpty()) {
 			errors.add("Password is required.");
