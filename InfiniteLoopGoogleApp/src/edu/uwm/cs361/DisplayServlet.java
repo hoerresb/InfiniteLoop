@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.uwm.cs361.entities.Admin;
+import edu.uwm.cs361.entities.Charge;
 import edu.uwm.cs361.entities.Course;
 import edu.uwm.cs361.entities.Student;
 import edu.uwm.cs361.entities.Teacher;
@@ -28,10 +29,31 @@ public class DisplayServlet extends HttpServlet
 		try {
 			displayAdmins(req, resp, pm);
 			displayTeachers(req, resp, pm);
-			displayStudents(req, resp, pm);
-			displayCourses(req, resp, pm);
+			//displayStudents(req, resp, pm);
+			//displayCourses(req, resp, pm);
+			displayCharges(req, resp, pm);
+			EmailService.SendDeadlineEmails();
 		} finally {
 			pm.close();
+		}
+	}
+
+	private void displayCharges(HttpServletRequest req, HttpServletResponse resp, PersistenceManager pm) throws IOException {
+		resp.getWriter().println("<h1>Charges</h1>");
+		List<Charge> charges = (List<Charge>) pm.newQuery(Charge.class).execute();
+		if (charges.size() == 0) {
+			resp.getWriter().println("<p>There are no charges.</p>");
+		} else {
+			resp.getWriter().println("<ul>");
+			for (Charge charge : charges) {
+				String row = "";
+				row += "<li>(" + charge.getCharge_id().getId() + ")<br/>Amount: "+ charge.getAmount() 
+						+ "<br/>Deadline: " + charge.getDeadline()
+						+ "<br/>Reason: " + charge.getReason() + "<br/>";
+				row += "</li>";
+				resp.getWriter().println(row);
+			}
+			resp.getWriter().println("</ul>");
 		}
 	}
 
