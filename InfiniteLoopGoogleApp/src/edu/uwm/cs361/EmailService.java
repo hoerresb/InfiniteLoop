@@ -15,12 +15,17 @@ public class EmailService {
 	private static SimpleDateFormat dateFormatter = new SimpleDateFormat ("MM/dd/yyyy");
 	
 	public static void SendDeadlineEmails() {
-		List<DeadlineEmailObject> studentsWithDeadlineToday = populateEmailList();
-		sendEmails(studentsWithDeadlineToday);
+		PersistenceManager pm = getPersistenceManager();
+		try {
+			List<DeadlineEmailObject> studentsWithDeadlineToday = populateEmailList(pm);
+			sendEmails(studentsWithDeadlineToday);
+		} finally {
+			pm.close();
+		}
 	}
 
-	private static List<DeadlineEmailObject> populateEmailList() {
-		List<Student> students =  getStudents();
+	private static List<DeadlineEmailObject> populateEmailList(PersistenceManager pm) {
+		List<Student> students =  getStudents(pm);
 		List<DeadlineEmailObject> studentsWithDeadlineToday = new ArrayList<DeadlineEmailObject>();
 		String today = dateFormatter.format(System.currentTimeMillis());
 		
@@ -39,13 +44,8 @@ public class EmailService {
 	}
 
 	@SuppressWarnings("unchecked")
-	private static List<Student> getStudents() {
-		PersistenceManager pm = getPersistenceManager();
-		try {
-			return (List<Student>) pm.newQuery(Student.class).execute();
-		} finally {
-			pm.close();
-		}
+	private static List<Student> getStudents(PersistenceManager pm) {
+		return (List<Student>) pm.newQuery(Student.class).execute();
 	}
 	
 	private static void sendEmails(List<DeadlineEmailObject> studentsWithDeadlineToday) {

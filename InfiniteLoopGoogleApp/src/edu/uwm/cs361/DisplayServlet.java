@@ -1,6 +1,7 @@
 package edu.uwm.cs361;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -20,6 +21,9 @@ import edu.uwm.cs361.entities.Teacher;
 @SuppressWarnings("serial")
 public class DisplayServlet extends HttpServlet
 {
+	
+	private static SimpleDateFormat dateFormatter = new SimpleDateFormat ("MM/dd/yyyy");
+	
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		resp.setContentType("text/html");
@@ -73,7 +77,16 @@ public class DisplayServlet extends HttpServlet
 				for(Course c : courses) {
 					row += "<li>Name: [" + c.getName() + "] Days: " + c.getMeetingDays() + "</li>";
 				}
-				row += "</ul></li>";
+				row += "</ul>";
+				
+				row +=	"Charges: <ul>"; 
+				Set<Charge> charges = student.getCharges();
+				for(Charge c : charges) {
+					row += "<li>Amount: $" + c.getAmount() + " Deadline: " + dateFormatter.format(c.getDeadline()) + " Reason: " + c.getReason() + "</li>";
+				}
+				row += "</ul>";
+				
+				row += "</li>";
 				resp.getWriter().println(row);
 			}
 			resp.getWriter().println("</ul>");
