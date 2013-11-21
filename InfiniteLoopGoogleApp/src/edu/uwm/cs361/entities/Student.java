@@ -47,12 +47,6 @@ public class Student extends User
 		super(username, password, firstname, lastname, email);	
 		this.courses = student_courses;
 	}
-	
-	public Student(String username, String password, String firstname, String lastname, String email,
-			String phone_number, Charge[] charges) {
-		super(username, password, firstname, lastname, email);
-		this.charges = new HashSet<Charge>(Arrays.asList(charges));
-	}
 
 	public Set<Teacher> getTeachers() {
 		return teachers;

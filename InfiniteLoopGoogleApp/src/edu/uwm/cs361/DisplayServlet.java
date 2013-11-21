@@ -23,14 +23,12 @@ public class DisplayServlet extends HttpServlet
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		resp.setContentType("text/html");
-
 		PersistenceManager pm = getPersistenceManager();
-
 		try {
 			displayAdmins(req, resp, pm);
 			displayTeachers(req, resp, pm);
-			//displayStudents(req, resp, pm);
-			//displayCourses(req, resp, pm);
+			displayStudents(req, resp, pm);
+		    displayCourses(req, resp, pm);
 			displayCharges(req, resp, pm);
 			EmailService.SendDeadlineEmails();
 		} finally {
@@ -38,6 +36,7 @@ public class DisplayServlet extends HttpServlet
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	private void displayCharges(HttpServletRequest req, HttpServletResponse resp, PersistenceManager pm) throws IOException {
 		resp.getWriter().println("<h1>Charges</h1>");
 		List<Charge> charges = (List<Charge>) pm.newQuery(Charge.class).execute();

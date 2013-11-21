@@ -35,7 +35,7 @@ public class Course {
 	private String place;
 
 	@Persistent
-	private String payment_options; //TODO: need a new table? How are we assigning these ...
+	private String payment_option;
 	
 	@Persistent
 	private String description;
@@ -49,7 +49,7 @@ public class Course {
 		this.meetingDays = meetingDays;
 		this.time = time;
 		this.place = place;
-		this.payment_options = payment_options;
+		this.payment_option = payment_options;
 		this.description = description;
 	}
 
@@ -81,8 +81,8 @@ public class Course {
 		return place;
 	}
 
-	public String getPayment_options() {
-		return payment_options;
+	public String getPaymentOption() {
+		return payment_option;
 	}
 
 	public String getDescription() {
