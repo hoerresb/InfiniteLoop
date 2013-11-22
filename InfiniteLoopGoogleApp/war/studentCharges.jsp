@@ -28,17 +28,23 @@
 					<td>
 						<a href='#'>${student.fullName}</a>
 					</td>
-					<td>
-						
-						<c:set value='${student.charges}' var='charge'/>
+					<td>						
 						<label for='${student.user_id}}_add_charge'>Amount:</label>
 						<input class='charge_input' name='${student.user_id}_add_charge' type='text'>
 						<button id='add-id' type='submit'>Add</button>
 					</td>
 					<td>
 						<c:set value='${0.0}' var='total'/>
+						<c:if test="${empty student.charges}">
+							No Charges<br/>
+						</c:if>
+						<c:if test="${not empty student.charges}">
+							Charges<br/>
+						</c:if>										
+						
 						<c:forEach items='${student.charges}' var='charge'>
 							<c:set value='${total + charge.amount}' var='total'/>
+							in loop
 							<c:set value='${charge.deadline}' var='deadline'/>
 						</c:forEach>
 						<span>Total: $${total}</span><br/>

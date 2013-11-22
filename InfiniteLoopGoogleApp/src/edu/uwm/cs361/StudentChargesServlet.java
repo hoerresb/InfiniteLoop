@@ -20,7 +20,7 @@ public class StudentChargesServlet extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		
-		req.setAttribute("students", setAllStudentCourses());
+		req.setAttribute("students", getStudents());
 		req.getRequestDispatcher("studentCharges.jsp").forward(req, resp);
 	}
 
@@ -80,36 +80,31 @@ public class StudentChargesServlet extends HttpServlet {
 			pm.close();
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	private List<Student> setAllStudentCourses() {
 		PersistenceManager pm = getPersistenceManager();
 		List<Student> students = new ArrayList<Student>();
 		Set<String> meetingDays = new HashSet<String>();
-		Set<String> payment_options = new HashSet<String>();
-		double[] amount = new double[1];
+		String payment_option;
+		double amount;
 		meetingDays.add("M");
 		meetingDays.add("W");
-		payment_options.add("30");
-		for (String s_amount : payment_options) {
-			amount[0] = Double.parseDouble(s_amount);
-		}
-		Course course = new Course("Kung Fu", "9-3-2013", "12-25-2013", meetingDays, "5:30PM", "Kung-Shi's Dojo", payment_options, "Kick stuff");
-		Charge charge = new Charge(amount[0],new Date(2013,11,31),"");
+		payment_option = "30";
+		amount = Double.parseDouble(payment_option);
+		
+		Course course = new Course("Kung Fu", "9-3-2013", "12-25-2013", meetingDays, "5:30PM", "Kung-Shi's Dojo", payment_option, "Kick stuff");
+		Charge charge = new Charge(amount,new Date(2013,11,31),"");
 		try {
 			Query query = pm.newQuery(Student.class);
 			students = (List<Student>) query.execute();
 			for (Student student : students) {
 				if (student.getCourses().size() == 0) {
-					student.getCourses().add(course);
-					student.getCharges().add(charge);
-				}
-				for (Course current : student.getCourses()) {
-					if (current == course) {
-						break;
-					} else {
-						student.getCourses().add(course);
-						student.getCharges().add(charge);						
+					for (Course current : student.getCourses()) {
+						if (current != course) {
+							student.getCourses().add(course);
+							student.getCharges().add(charge);						
+						}
 					}
 				}
 			}
