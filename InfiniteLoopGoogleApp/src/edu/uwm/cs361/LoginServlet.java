@@ -20,6 +20,7 @@ import java.util.List;
 
 @SuppressWarnings("serial")
 public class LoginServlet extends HttpServlet {
+	@SuppressWarnings("unchecked")
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		
@@ -41,22 +42,38 @@ public class LoginServlet extends HttpServlet {
 		
 		try{
 			req.setAttribute("errors", errors);
-	List<old_User> us = (List<old_User>) pm.newQuery(old_User.class).execute();
+	List<Admin> us = (List<Admin>) pm.newQuery(Admin.class).execute();
 	
 		resp.setContentType("text/html");
 		
 		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-		Query q = new Query("User");
+		Query q = new Query("Admin");
 		q.setFilter(Query.CompositeFilterOperator.and(
 				new Query.FilterPredicate("username", Query.FilterOperator.EQUAL, username),
 				new Query.FilterPredicate("password", Query.FilterOperator.EQUAL, password)));
 		List<Entity> entities = ds.prepare(q).asList(FetchOptions.Builder.withDefaults());
+		
+		Query q2 = new Query("Student");
+		q.setFilter(Query.CompositeFilterOperator.and(
+				new Query.FilterPredicate("username", Query.FilterOperator.EQUAL, username),
+				new Query.FilterPredicate("password", Query.FilterOperator.EQUAL, password)));
+		List<Entity> Sentities = ds.prepare(q2).asList(FetchOptions.Builder.withDefaults());
+		
+		Query q3 = new Query("Teacher");
+		q.setFilter(Query.CompositeFilterOperator.and(
+				new Query.FilterPredicate("username", Query.FilterOperator.EQUAL, username),
+				new Query.FilterPredicate("password", Query.FilterOperator.EQUAL, password)));
+		List<Entity> Tentites = ds.prepare(q3).asList(FetchOptions.Builder.withDefaults());
+		
 		if(entities.size() == 0 ){
 			req.getRequestDispatcher("/login.jsp").forward(req, resp);			
 		}
 		//if(entities.size()>0){
-		if(us.size()>0){
-			for(int i = 0; i < us.size(); i++){
+		if(entities.size()>0){
+			Cookie c = new Cookie("Adminname", req.getParameter("username"));
+			resp.addCookie(c);
+			resp.sendRedirect("/AdminHome");
+			/*for(int i = 0; i < us.size(); i++){
 				if(us.get(i).getPassword().equals(password) && us.get(i).getUsername().equals(username) && us.get(i).getUser_type() == 0){
 					Cookie c = new Cookie("Adminname", req.getParameter("username"));
 					resp.addCookie(c);
@@ -69,6 +86,7 @@ public class LoginServlet extends HttpServlet {
 					resp.sendRedirect("/login.jsp");
 				}
 			}
+			*/
 			//resp.sendRedirect("/login.jsp");
 	//	}
 		}
