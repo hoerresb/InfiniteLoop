@@ -12,30 +12,12 @@
 <%@ page import="javax.servlet.http.Cookie" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
-
-<%
-	String username = null;
-
-		Cookie[] cookies = request.getCookies();
-
-		if (cookies != null) {
-			for (Cookie c : cookies) {
-				if (c.getName().equals("Adminname")) {
-					username = c.getValue();
-				}
-			}
-		}
-%>
-
-
 <%@include file='/templates/admin_header.html'%>	
 	<div id="content">
-		<h2> Welcome, <%=username%> </h2>
+		<h2> Welcome, ${username} </h2>
 		<div class="home_item subsection">
 			<span>Charges:</span>
 			<p class="subsection">
-				<c:set value="-1" var="balance"/>
 				<c:if test="${balance > 0}">
 					<c:set value="green" var="balance_color"/>
 					<c:set value="You are turning a profit!" var="balance_note"/>

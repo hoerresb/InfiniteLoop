@@ -1,20 +1,22 @@
 package edu.uwm.cs361;
 
 import java.io.IOException;
-
-
+import java.util.*;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
+import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import edu.uwm.cs361.entities.*;
+
 @SuppressWarnings("serial")
 public class AdminHome extends HttpServlet {
 	
-	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException	{
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException	{
 		
 		String username = null;
 
@@ -28,39 +30,35 @@ public class AdminHome extends HttpServlet {
 			}
 		}
 
-		resp.setContentType("text/html");
-		
-		resp.getWriter().println( "<!DOCTYPE html>" +
-				"<html>" +
-				"	<head>" +
-				"		<title>Monet Mall</title>" +
-				"		<link type='text/css' rel='stylesheet' href='/css/stylesheet.css'/>" +
-				"	</head>" +
-				"	<body>" +
-				"		<div id='container'>" +
-				"			<div id='banner'></div>" +
-				"			<div id='navbar'>" +
-				"				<div class='nav'><a href='/AdminHome'>Home</a></div>" +
-				"				<div class='nav'><a href=''>Create Class</a></div>" +
-				"				<div class='nav'><a href='/createInstructor.jsp'>Create Instructor</a></div>" +
-				"				<div class='nav'><a href='/studentCharges.jsp'>Student Charges</a></div>" +	
-				"				<div id='login' class='nav'><a href='/login.jsp'>Log Out</a></div>" +
-				"			</div>"+
-				"			<div id='content'>	"	+
-				"            <h1>Welcome, " + username + "</h1>"+
-				"</div>" +
-				"</div>" +
-				"</body>"+
-				"</html>");
-		
+		req.setAttribute("username", username);
+		req.setAttribute("balance", getBalance());
+		req.getRequestDispatcher("AdminHome.jsp").forward(req, resp);
 		
 	}
-		
 	
-	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException	{
-		
+	@SuppressWarnings("unchecked")
+	private double getBalance() {
+		PersistenceManager pm = getPersistenceManager();
+		List<Student> students = new ArrayList<Student>();
+		double balance = 0;
+		try {
+			students = (List<Student>) pm.newQuery(Student.class).execute();
+			for (Student student : students) {
+				for (Charge charge : student.getCharges()) {
+					balance += charge.getAmount();
+				}
+				for (Course course : student.getCourses()) {
+					String payment_option = course.getPaymentOption();
+					String[] amount_duration = payment_option.split(" per ");
+					balance += Double.parseDouble(amount_duration[0]);
+				}
+			}
+		} finally {
+			pm.close();
+		}
+		return balance*-1;
 	}
-	@SuppressWarnings("unused")
+
 	private PersistenceManager getPersistenceManager() {
 		return JDOHelper.getPersistenceManagerFactory("transactions-optional").getPersistenceManager();
 	}
