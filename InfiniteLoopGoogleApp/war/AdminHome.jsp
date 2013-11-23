@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.List" %>
 <%@ page import="javax.servlet.ServletException" %>
 <%@ page import="javax.servlet.http.HttpServlet" %>
@@ -8,10 +8,8 @@
 
 <%@ page import="javax.jdo.JDOHelper" %>
 <%@ page import="javax.jdo.PersistenceManager" %>
-<<<<<<< HEAD
 <%@ page import="javax.servlet.http.Cookie" %>
-
-
+<%@ page import="edu.uwm.cs361.entities.Admin" %>
 
 <%
 	String username = null;
@@ -26,12 +24,6 @@
 			}
 		}
 %>
-
-=======
-<%@ page import="edu.uwm.cs361.entities.Admin" %>
-<%@ page import="javax.servlet.http.Cookie" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
->>>>>>> 5ca466d35d37679e08337c8c3fdf5a0a7de97749
 
 <%@include file='/templates/admin_header.html'%>	
 	<div id="content">
