@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
-  <application></application>
+  <application>iiinnnfffiiinnniiiittteeeloop</application>
   <version>1</version>
 
   <!--
@@ -17,6 +17,7 @@
   	<include path="/css/**.css" />
   	<include path="/images/**.png" />
   	<include path="/util/**.jsp" />
+  	<include path="/templates/**.html" />
   </resource-files>
   <!--
     HTTP Sessions are disabled by default. To enable HTTP sessions specify:

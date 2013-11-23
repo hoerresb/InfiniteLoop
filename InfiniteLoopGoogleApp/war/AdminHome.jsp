@@ -8,7 +8,6 @@
 
 <%@ page import="javax.jdo.JDOHelper" %>
 <%@ page import="javax.jdo.PersistenceManager" %>
-<%@ page import="edu.uwm.cs361.entities.old_User" %>
 <%@ page import="javax.servlet.http.Cookie" %>
 
 
@@ -16,7 +15,7 @@
 <%
 	String username = null;
 
-		Cookie[] cookies = req.getCookies();
+		Cookie[] cookies = request.getCookies();
 
 		if (cookies != null) {
 			for (Cookie c : cookies) {

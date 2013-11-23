@@ -106,37 +106,37 @@ public class todo_CreateStudentFactoryTest {
 		assertTrue(stud_fact.getErrors().get(0).equals("Email is required."));
 	}
 	
-	@Test
-	public void testSuccess() {
-		todo_CreateStudentFactory stud_fact = new todo_CreateStudentFactory();
-		CreateCourseFactory course_fact = new CreateCourseFactory();
-		
-		Set<String> meetingDays = new HashSet<String>(Arrays.asList(new String[] { "M", "T", "W" }));
-		Set<String> payment_options = new HashSet<String>(Arrays.asList(new String[] { "Pay now", "Pay then", "Give me your arm" }));
-		Teacher teacher = new Teacher("john", "pw", "john", "john", "email", "8478478474", new String[] {"teacher1","teacher2"});
-		
-		Course c = course_fact.createCourse("learning101", "10/15/2013", "10/16/2013", meetingDays, "10:45","EMS203", payment_options,"its a good class", teacher);
-
-		Set<Course> expectedStud_courses = new HashSet<Course>();
-		expectedStud_courses.add(c);
-		
-		Student u = stud_fact.createStudent("jSmith","jsmith","jsmith","John","Smith",
-				"jSmith@email.com", "8478478478",expectedStud_courses);
-	
-		assertFalse(stud_fact.hasErrors());
-		assertEquals(0, stud_fact.getErrors().size());
-		assertEquals(u.getUsername(), "jSmith");
-		assertEquals(u.getPassword(), "jsmith");
-		assertEquals(u.getFullName(), "John Smith");
-		assertEquals(u.getEmail(), "jSmith@email.com");
-		
-		Set<Course> studentCourses = u.getCourses(); 
-		Iterator<Course> iterator = studentCourses.iterator();
-		Iterator<Course> expected_iterator = expectedStud_courses.iterator();
-		while(iterator.hasNext() && expected_iterator.hasNext()) {
-			assertEquals(iterator.next(), expected_iterator.next());
-		}
-	}
+//	@Test
+//	public void testSuccess() {
+//		todo_CreateStudentFactory stud_fact = new todo_CreateStudentFactory();
+//		CreateCourseFactory course_fact = new CreateCourseFactory();
+//		
+//		Set<String> meetingDays = new HashSet<String>(Arrays.asList(new String[] { "M", "T", "W" }));
+//		Set<String> payment_options = new HashSet<String>(Arrays.asList(new String[] { "Pay now", "Pay then", "Give me your arm" }));
+//		Teacher teacher = new Teacher("john", "pw", "john", "john", "email", "8478478474", new String[] {"teacher1","teacher2"});
+//		
+//		//Course c = course_fact.createCourse("learning101", "10/15/2013", "10/16/2013", meetingDays, "10:45","EMS203", payment_options,"its a good class", teacher);
+//
+//		Set<Course> expectedStud_courses = new HashSet<Course>();
+//		expectedStud_courses.add(c);
+//		
+//		Student u = stud_fact.createStudent("jSmith","jsmith","jsmith","John","Smith",
+//				"jSmith@email.com", "8478478478",expectedStud_courses);
+//	
+//		assertFalse(stud_fact.hasErrors());
+//		assertEquals(0, stud_fact.getErrors().size());
+//		assertEquals(u.getUsername(), "jSmith");
+//		assertEquals(u.getPassword(), "jsmith");
+//		assertEquals(u.getFullName(), "John Smith");
+//		assertEquals(u.getEmail(), "jSmith@email.com");
+//		
+//		Set<Course> studentCourses = u.getCourses(); 
+//		Iterator<Course> iterator = studentCourses.iterator();
+//		Iterator<Course> expected_iterator = expectedStud_courses.iterator();
+//		while(iterator.hasNext() && expected_iterator.hasNext()) {
+//			assertEquals(iterator.next(), expected_iterator.next());
+//		}
+//	}
 
 	private PersistenceManager getPersistenceManager() {
 		return JDOHelper.getPersistenceManagerFactory("transactions-optional")

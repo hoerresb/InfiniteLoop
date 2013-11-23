@@ -1,21 +1,14 @@
 package edu.uwm.cs361.util;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.uwm.cs361.entities.Admin;
-import edu.uwm.cs361.entities.Course;
-import edu.uwm.cs361.entities.Student;
-import edu.uwm.cs361.entities.Teacher;
 
 @SuppressWarnings("serial")
 public class CreateAdminServlet extends HttpServlet {

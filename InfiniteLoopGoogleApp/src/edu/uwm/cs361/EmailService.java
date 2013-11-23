@@ -87,18 +87,25 @@ public class EmailService {
  
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress("infiniteloop@gmail.com"));
-			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("njbonnet@uwm.edu"));
-			message.setSubject("Testing Subject");
-			message.setText("Dear Mail Crawler,"
-				+ "\n\n No spam to my email, please!");
- 
+			//message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailObj.getStudent().getEmail()));
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("njbonnet@uwm.edu")); 
+			message.setSubject("Deadline Reached");
+			message.setText(buildMessage(emailObj));
 			Transport.send(message);
- 
 			System.out.println("Done");
- 
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	private static String buildMessage(DeadlineEmailObject emailObj) {
+		String email = "";
+		email += "Dear " + emailObj.getStudent().getFullName() + " ,\n";
+		email += "You owe us money. This much: $" + emailObj.getCharge().getAmount() + ".\n";
+		email += "For this reason: " + emailObj.getCharge().getReason() + ".\n";
+		email += "The deadline is today and I advise you to pay it or you will be deported to Idontpaymybills Islans forever.\n";
+		email += "Thank you,\n Automated Emailer";
+		return email;
 	}
 
 	private static PersistenceManager getPersistenceManager() {

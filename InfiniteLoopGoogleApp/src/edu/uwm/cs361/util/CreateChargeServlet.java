@@ -9,10 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import edu.uwm.cs361.entities.Admin;
 import edu.uwm.cs361.entities.Charge;
 
+@SuppressWarnings("serial")
 public class CreateChargeServlet extends HttpServlet {
+	@SuppressWarnings("deprecation")
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException	{
 		Double amount = Double.parseDouble(req.getParameter("amount"));
