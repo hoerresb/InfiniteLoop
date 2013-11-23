@@ -74,6 +74,16 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>CreateCharge</servlet-name>
 		<servlet-class>edu.uwm.cs361.util.CreateChargeServlet</servlet-class>
 	</servlet>
+	
+    <servlet>
+		<servlet-name>feedback</servlet-name>
+		<servlet-class>edu.uwm.cs361.EmailTestServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>feedback</servlet-name>
+		<url-pattern>/feedback</url-pattern>
+	</servlet-mapping>
 
 	<servlet-mapping>
 		<servlet-name>CreateCharge</servlet-name>

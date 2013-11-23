@@ -1,6 +1,5 @@
 package edu.uwm.cs361;
 
-import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,12 +8,11 @@ import java.util.Set;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
+
+
 import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
@@ -67,35 +65,18 @@ public class EmailService {
 	}
 
 	private static void sendEmail(DeadlineEmailObject emailObj) {
-		final String username = "infiniteloopinfiniteloop@gmail.com";
-		final String password = "infiniteloop19";
- 
 		Properties props = new Properties();
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", "smtp.gmail.com");
-		props.put("mail.smtp.port", "587");
- 
-		Session session = Session.getInstance(props,
-		  new javax.mail.Authenticator() {
-			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(username, password);
-			}
-		  });
- 
-		try {
- 
-			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress("infiniteloop@gmail.com"));
-			//message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailObj.getStudent().getEmail()));
-			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("njbonnet@uwm.edu")); 
-			message.setSubject("Deadline Reached");
-			message.setText(buildMessage(emailObj));
-			Transport.send(message);
-			System.out.println("Done");
-		} catch (MessagingException e) {
-			throw new RuntimeException(e);
-		}
+        Session session = Session.getDefaultInstance(props, null);
+        try {
+            Message msg = new MimeMessage(session);
+            msg.setFrom(new InternetAddress("njbuwm@gmail.com", "Admin"));
+            msg.addRecipient(Message.RecipientType.TO, new InternetAddress(emailObj.getStudent().getEmail(), emailObj.getStudent().getFullName()));
+		    msg.setSubject("Deadline Reached");
+			msg.setText(buildMessage(emailObj));
+			Transport.send(msg);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 	}
 
 	private static String buildMessage(DeadlineEmailObject emailObj) {
@@ -103,8 +84,8 @@ public class EmailService {
 		email += "Dear " + emailObj.getStudent().getFullName() + " ,\n";
 		email += "You owe us money. This much: $" + emailObj.getCharge().getAmount() + ".\n";
 		email += "For this reason: " + emailObj.getCharge().getReason() + ".\n";
-		email += "The deadline is today and I advise you to pay it or you will be deported to Idontpaymybills Islans forever.\n";
-		email += "Thank you,\n Automated Emailer";
+		email += "The deadline is today and I advise you to pay it or you will be deported to Idontpaymybills Island forever.\n";
+		email += "Thank you,\nAutomated Emailer";
 		return email;
 	}
 
