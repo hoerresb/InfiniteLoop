@@ -61,6 +61,11 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet>
 	
 	<servlet>
+		<servlet-name>RegisterStudent</servlet-name>
+		<servlet-class>edu.uwm.cs361.RegisterStudentServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
 		<servlet-name>StudentCharges</servlet-name>
 		<servlet-class>edu.uwm.cs361.StudentChargesServlet</servlet-class>
 	</servlet>
@@ -138,6 +143,11 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<servlet-mapping>
 		<servlet-name>CreateStudent</servlet-name>
 		<url-pattern>/createStudent</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>RegisterStudent</servlet-name>
+		<url-pattern>/RegisterStudentServlet</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>
