@@ -38,6 +38,9 @@ public class Course {
 	private String payment_option;
 	
 	@Persistent
+	private double payment_amount;
+	
+	@Persistent
 	private String description;
 
 	public Course(String name, String startDate, String endDate,
@@ -83,6 +86,11 @@ public class Course {
 
 	public String getPaymentOption() {
 		return payment_option;
+	}
+	
+	public double getPayment_amount() {
+		String[] amount_duration = this.payment_option.split(" per ");
+		return Double.parseDouble(amount_duration[0]);
 	}
 
 	public String getDescription() {

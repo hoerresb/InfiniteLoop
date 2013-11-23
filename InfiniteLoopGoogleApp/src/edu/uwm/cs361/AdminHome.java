@@ -48,9 +48,7 @@ public class AdminHome extends HttpServlet {
 					balance += charge.getAmount();
 				}
 				for (Course course : student.getCourses()) {
-					String payment_option = course.getPaymentOption();
-					String[] amount_duration = payment_option.split(" per ");
-					balance += Double.parseDouble(amount_duration[0]);
+					balance += course.getPayment_amount();
 				}
 			}
 		} finally {

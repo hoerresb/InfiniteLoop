@@ -74,11 +74,18 @@ public class StudentChargesServlet extends HttpServlet {
 	@SuppressWarnings("unchecked")
 	private List<Student> getStudents() {
 		PersistenceManager pm = getPersistenceManager();
+		List<Student> students = new ArrayList<Student>();
 		try {
-			return (List<Student>) pm.newQuery(Student.class).execute();
+			students = (List<Student>) pm.newQuery(Student.class).execute();
+			for (Student s : students) {
+				s.getCharges();
+				s.getCourses();
+			}
 		} finally {
 			pm.close();
 		}
+		
+		return students;
 	}
 
 	@SuppressWarnings("unchecked")
