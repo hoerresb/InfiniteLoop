@@ -30,7 +30,7 @@ public class StudentHome extends HttpServlet {
 //			}
 //		}
 		//test until student login works
-		username = "student 2";
+		username = "student";
 		req.setAttribute("username", username);
 		
 		Student student = getStudent(username);		
