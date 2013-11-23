@@ -227,7 +227,7 @@ ul {
 .chargesContainer .charge_input {width: 50px;}
 .chargesContainer .charge_due {width: 70px;}
 
-.register,td {width: 330px; border: none;  border-collapse: collapse; background-color: #484E72;}
+.register td {width: 330px; border: none;  border-collapse: collapse; background-color: #484E72;}
 .register .register_left {width: 30%;}
 .register .register_right {text-align: center;}
 
