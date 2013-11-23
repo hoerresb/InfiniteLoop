@@ -34,21 +34,18 @@
 						<button id='add-id' type='submit'>Add</button>
 					</td>
 					<td>
-						<c:set value='${0.0}' var='total'/>
-						<c:if test="${empty student.charges}">
-							No Charges<br/>
-						</c:if>
-						<c:if test="${not empty student.charges}">
-							Charges<br/>
-						</c:if>										
+						<c:set value='${0.0}' var='total'/>								
 						
 						<c:forEach items='${student.charges}' var='charge'>
 							<c:set value='${total + charge.amount}' var='total'/>
-							in loop
 							<c:set value='${charge.deadline}' var='deadline'/>
 						</c:forEach>
+						
+						<c:forEach items='${student.courses}' var='course'>
+							<c:set value='${total + course.payment_amount}' var='total'/>
+						</c:forEach>
 						<span>Total: $${total}</span><br/>
-						<span>Due: ${deadline.month+1}-${deadline.day}-${deadline.year}</span>
+						<span>Due: ${deadline.month+1}-${deadline.day}-${deadline.year+1900}</span>
 					</td>
 					<td>
 						<a href='mailto:${student.email}'>${student.email}</a>

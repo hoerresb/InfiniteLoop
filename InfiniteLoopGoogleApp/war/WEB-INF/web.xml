@@ -21,6 +21,11 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet>
 	
 	<servlet>
+		<servlet-name>StudentHome</servlet-name>
+		<servlet-class>edu.uwm.cs361.StudentHome</servlet-class>
+	</servlet>
+	
+	<servlet>
 		<servlet-name>Logout</servlet-name>
 		<servlet-class>edu.uwm.cs361.LogoutServlet</servlet-class>
 	</servlet>
@@ -104,7 +109,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>AdminHome</servlet-name>
 		<url-pattern>/AdminHome</url-pattern>
 	</servlet-mapping>
-	
+		
 	<servlet-mapping>
 		<servlet-name>Display</servlet-name>
 		<url-pattern>/display</url-pattern>
@@ -123,6 +128,11 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<servlet-mapping>
 		<servlet-name>CreateStudent</servlet-name>
 		<url-pattern>/createStudent</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>StudentHome</servlet-name>
+		<url-pattern>/StudentHome</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>

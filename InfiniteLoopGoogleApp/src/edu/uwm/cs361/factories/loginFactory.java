@@ -6,17 +6,16 @@ import java.util.List;
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 
+import edu.uwm.cs361.entities.Admin;
 import edu.uwm.cs361.entities.Charge;
-import edu.uwm.cs361.entities.old_User;
 
 public class loginFactory {
 	
 	PersistenceManager pm = getPersistenceManager();
 	private List<String> errors = new ArrayList<String>();
-	private List<old_User> users = new ArrayList<old_User>();
+	private List<Admin> users = new ArrayList<Admin>();
 	
-	public old_User createUser(int user_type, String username, String password, String firstName, String lastName, String email,
-			String phone_number, String[] instructor_types) {
+	public Admin createUser( String username, String password, String firstName, String lastName, String email) {
 		
 			if(username.trim().isEmpty()){
 				errors.add("Username is required");
@@ -34,7 +33,7 @@ public class loginFactory {
 			if(hasErrors()) {
 				return null;
 			} else {
-				 old_User u = new old_User(user_type,username, password,firstName,lastName,email,phone_number, instructor_types);
+				 Admin u = new Admin(username, password,firstName,lastName,email);
 				 users.add(u);
 				 return u;
 			}
@@ -47,8 +46,8 @@ public class loginFactory {
 		return new ArrayList<String>(errors);
 	} 
 	
-	public List<old_User> getUsers(){
-		return new ArrayList<old_User>(users);
+	public List<Admin> getUsers(){
+		return new ArrayList<Admin>(users);
 	}
 	
 	public boolean doLoginIncorrectPassword(String username, String password){

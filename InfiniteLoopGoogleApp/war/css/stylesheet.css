@@ -13,9 +13,16 @@ body {
 a {
 	padding: 10px;
 	text-decoration: none;
-	color: #FFF;
+	color: #DD7900;
 }
 a:link{
+	color: #DD7900;
+}
+
+.nav a {
+	color: #FFF;
+}
+.nav a:link {
 	color: #FFF;
 }
 .nav:hover a {
