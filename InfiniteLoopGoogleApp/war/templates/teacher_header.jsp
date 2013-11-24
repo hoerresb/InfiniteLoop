@@ -23,15 +23,21 @@
 		if (cookies != null) {
 			for (Cookie c : cookies) {
 			
-			 if(c.getName().equals("Teachername")){
-					username = c.getValue();
-				}
-			else if(c.getName().equals("Studentname")){
-				response.sendRedirect("/StudentHome");
+			  if(c.getName().equals("Teachername")){
+				username = c.getValue();
 			}
-			else if(c.getName().equals("Adminname")){
-				response.sendRedirect("/AdminHome");
-			}
+		 if(c.getName().equals("Adminname")){
+			Cookie admin = new Cookie("Adminname", null);
+			admin.setMaxAge(0);
+			resp.addCookie(admin);
+			resp.sendRedirect("/login.jsp");
+		}
+			 if(c.getName().equals("Studentname")){
+				Cookie student = new Cookie("Studentname", null);
+				student.setMaxAge(0);
+				resp.addCookie(student);
+				resp.sendRedirect("/login.jsp");
+		}
 			}
 		}
 		
