@@ -27,45 +27,50 @@ public class StudentChargesServlet extends HttpServlet {
 	@SuppressWarnings({ "unchecked", "deprecation" })
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException {
+			throws IOException, ServletException {
 		List<String> errors = new ArrayList<String>();
-	
-		String[] classlist = { "Cooking For Dummies", "Kung Fu", "Dog Training" };
-		Charge[] charges = new Charge[classlist.length];
-
+		
 		PersistenceManager pm = getPersistenceManager();
 		List<Student> students = getStudents();
-		
-		for (Student student : students) {
-			for (Charge charge : student.getCharges()) {
-				double amount = Double.parseDouble(req.getParameter(student.getUser_id() + "_charge"));
-				String[] date_string = req.getParameter(student.getUser_id() + "_deadline").split("-");
-				int[] date_int = new int[date_string.length]; // Int[3]
-				for (int i=0; i<date_string.length; i++) {
-					date_int[i] = Integer.parseInt(date_string[i]); // Int[month, day, year]
-				}
-				Date deadline = new Date(date_int[2], (date_int[0]) - 1, date_int[1]); // Date(year, month-1, day)
-				charge = new Charge (amount,deadline,"");
-			}
-		}
-		
+		double amount;
+		Date deadline;
+		String reason;
+
 		try {
-			if (errors.size() > 0) {
-				req.setAttribute("errors", errors);
-				req.getRequestDispatcher("studentCharges.jsp").forward(req,resp);
-			} else {
-				for (Student student : students) {
-					pm.makePersistent(student);
-					System.out.println(student.getFullName() + ": ");
-					for (Charge c : student.getCharges()) {
-						System.out.println("    " + c.getAmount() + " due: "
-								+ c.getDeadline());
-					}
+			for (Student student : students) {
+				String t_amount = req.getParameter(student.getUser_id() + "_add_charge_amount");
+				String t_deadline = req.getParameter(student.getUser_id() + "_add_charge_deadline");
+				String t_reason = req.getParameter(student.getUser_id() + "_add_charge_reason");
+				System.out.println(student.getUser_id());
+				if (t_amount.isEmpty()) {
+					System.out.println("You must enter amount!");
 				}
-				resp.sendRedirect("studentCharges.jsp");
+				if (t_deadline.isEmpty()) {
+					System.out.println("You must enter deadline!");
+				}
+				if (t_reason.isEmpty()) {
+					System.out.println("You must enter a reason!");
+				}
+				if (errors.size() > 0) {
+					req.setAttribute(student.getUser_id() + "_add_charge_amount", t_amount);
+					req.setAttribute(student.getUser_id() + "_add_charge_deadline", t_deadline);
+					req.setAttribute(student.getUser_id() + "_add_charge_reason", t_reason);
+					req.setAttribute("errors", errors);
+					req.getRequestDispatcher("studentCharges.jsp").forward(req, resp);
+				} else if (!t_amount.isEmpty() && !t_deadline.isEmpty() && !t_reason.isEmpty()) {
+					amount = Double.parseDouble(t_amount);
+					deadline = new Date(t_deadline);
+					reason = t_reason;
+					Charge charge = new Charge(amount, deadline, reason);
+					student.getCharges().add(charge);
+					pm.makePersistent(student);
+					System.out.println(student.getFullName() + " new charge: " + charge.getAmount() + " due " + charge.getDeadline() + " because of the reason " + charge.getReason());
+				}
+			}	
+			if (errors.size() == 0) {
+				req.setAttribute("students", getStudents());
+				req.getRequestDispatcher("studentCharges.jsp").forward(req, resp);
 			}
-		} catch (ServletException e) {
-			e.printStackTrace();
 		} finally {
 			pm.close();
 		}
@@ -86,39 +91,6 @@ public class StudentChargesServlet extends HttpServlet {
 		}
 		
 		return students;
-	}
-
-	@SuppressWarnings("unchecked")
-	private List<Student> setAllStudentCourses() {
-		PersistenceManager pm = getPersistenceManager();
-		List<Student> students = new ArrayList<Student>();
-		Set<String> meetingDays = new HashSet<String>();
-		String payment_option;
-		double amount;
-		meetingDays.add("M");
-		meetingDays.add("W");
-		payment_option = "30";
-		amount = Double.parseDouble(payment_option);
-		
-		Course course = new Course("Kung Fu", "9-3-2013", "12-25-2013", meetingDays, "5:30PM", "Kung-Shi's Dojo", payment_option, "Kick stuff");
-		Charge charge = new Charge(amount,new Date(2013,11,31),"");
-		try {
-			Query query = pm.newQuery(Student.class);
-			students = (List<Student>) query.execute();
-			for (Student student : students) {
-				if (student.getCourses().size() == 0) {
-					for (Course current : student.getCourses()) {
-						if (current != course) {
-							student.getCourses().add(course);
-							student.getCharges().add(charge);						
-						}
-					}
-				}
-			}
-			return students;
-		} finally {
-			pm.close();
-		}
 	}
 	
 	private PersistenceManager getPersistenceManager() {
