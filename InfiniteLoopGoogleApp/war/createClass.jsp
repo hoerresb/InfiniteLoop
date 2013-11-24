@@ -14,24 +14,24 @@
 			<input id="classname" class="text-input" type="text" name="classname" autofocus="autofocus"  value='${classname}'/><br/><br/>
 		
 			<label for="classstart">Class Start Date:</label>
-			<input id="classstart" class="text-input" type="text" name="classstart" value='${classstart}'/><br/><br/>
+			<input id="classstart" class="text-input" type="date" name="classstart" value='${classstart}'/><br/><br/>
 			
 			<label for="classend">Class End Date:</label>
-			<input id="classend" class="text-input" type="text" name="classend" value='${classend}'/><br/><br/>
+			<input id="classend" class="text-input" type="date" name="classend" value='${classend}'/><br/><br/>
 			
 			<label for="meeting_times">Weekly Meeting Times:</label><br/>
 			<div id="meeting_times">
 				<label for="meeting_days">Days:</label><br/>
-				<label for="meeting_times_mon"><input class="meeting_time_op" type="checkbox" name="meeting_times" value="M">M</label>
-				<label for="meeting_times_tue"><input class="meeting_time_op" type="checkbox" name="meeting_times" value="T">T</label>
-				<label for="meeting_times_wed"><input class="meeting_time_op" type="checkbox" name="meeting_times" value="W">W</label>
-				<label for="meeting_times_thur"><input class="meeting_time_op" type="checkbox" name="meeting_times" value="Th">Th</label>
-				<label for="meeting_times_fri"><input class="meeting_time_op" type="checkbox" name="meeting_times" value="F">F</label>
-				<label for="meeting_times_sat"><input class="meeting_time_op" type="checkbox" name="meeting_times" value="S">S</label>
-				<label for="meeting_times_sun"><input class="meeting_time_op" type="checkbox" name="meeting_times" value="Su">Su</label><br/><br/>
+				<label for="meeting_times_mon"><input class="meeting_time_op" type="checkbox" name="meeting_times" value="M" ${(type == "M") ? "selected" : ""}>M</label>
+				<label for="meeting_times_tue"><input class="meeting_time_op" type="checkbox" name="meeting_times" value="T" ${(type == "T") ? "selected" : ""}>T</label>
+				<label for="meeting_times_wed"><input class="meeting_time_op" type="checkbox" name="meeting_times" value="W" ${(type == "W") ? "selected" : ""}>W</label>
+				<label for="meeting_times_thur"><input class="meeting_time_op" type="checkbox" name="meeting_times" value="Th" ${(type == "Th") ? "selected" : ""}>Th</label>
+				<label for="meeting_times_fri"><input class="meeting_time_op" type="checkbox" name="meeting_times" value="F" ${(type == "F") ? "selected" : ""}>F</label>
+				<label for="meeting_times_sat"><input class="meeting_time_op" type="checkbox" name="meeting_times" value="S" ${(type == "S") ? "selected" : ""}>S</label>
+				<label for="meeting_times_sun"><input class="meeting_time_op" type="checkbox" name="meeting_times" value="Su" ${(type == "Su") ? "selected" : ""}>Su</label><br/><br/>
 			
 				<label for="time">Time:</label>
-				<input id="time" class="text-input" type="text" name="time"  value='${time}'/><br/><br/>
+				<input id="time" class="text-input" type="time" name="time"  value='${time}'/><br/><br/>
 			</div>
 			
 			<label for="place">Meeting place:</label>

@@ -14,7 +14,7 @@
 			<label for='email-id'>E-Mail:</label>
 			<input id='email-id' class='text-input' type='email' name='email' value='${email}'/><br/><br/>
 			<label for='phone_num-id'>Phone number:</label>
-			<input id='phone_num-id' class='text-input' type='text' name='phonenumber' value='${phonenumber}'/><br/><br/>
+			<input id='phone_num-id' class='text-input' type='tel' name='phonenumber' value='${phonenumber}'/><br/><br/>
 			<label for='instructor_types'>Instructor Type:</label><br/>
 			<input id='instructor_types' class='text-input' type='text' name='instructor_types'
 						 placeholder='Ex: Dog Trainer, Tutor ...' value='${instructor_types}'/><br/><br/>
