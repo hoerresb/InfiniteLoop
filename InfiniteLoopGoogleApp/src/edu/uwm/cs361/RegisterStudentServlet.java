@@ -1,9 +1,7 @@
 package edu.uwm.cs361;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
@@ -12,12 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import edu.uwm.cs361.entities.Award;
-import edu.uwm.cs361.entities.Charge;
-import edu.uwm.cs361.entities.Course;
-import edu.uwm.cs361.entities.Student;
-import edu.uwm.cs361.entities.Teacher;
-import edu.uwm.cs361.factories.CreateInstructorFactory;
+import edu.uwm.cs361.entities.*;
+import edu.uwm.cs361.factories.*;
 
 @SuppressWarnings("serial")
 public class RegisterStudentServlet extends HttpServlet {
@@ -30,7 +24,7 @@ public class RegisterStudentServlet extends HttpServlet {
 		req.getRequestDispatcher("/registerStudent.jsp").forward(req, resp);
 	}
 	@Override
-	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException	{
+	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException	{
 		PersistenceManager pm = getPersistenceManager();
 		
 		String username = req.getParameter("username");
@@ -46,8 +40,31 @@ public class RegisterStudentServlet extends HttpServlet {
 		Set<Award> awards = getSelectedAwards(req);
 		Set<Charge> charges = getSelectedCharges(req);
 		
-		createStudent(username, password, firstname, lastname, email, courses, teachers, awards, charges);
-		resp.sendRedirect("/display");
+		RegisterStudentFactory stud_fact = new RegisterStudentFactory();
+		Student student = stud_fact.createStudent(username, password, password_repeat, firstname, lastname, email, courses, teachers, awards, charges);
+				
+		try {
+			if (stud_fact.hasErrors()) {				
+				req.setAttribute("firstname", firstname);
+				req.setAttribute("lastname", lastname);
+				req.setAttribute("email", email);
+				req.setAttribute("phonenumber", phonenumber);
+				req.setAttribute("username", username);
+				req.setAttribute("password", password);
+				req.setAttribute("password_repeat", password_repeat);
+				req.setAttribute("errors", stud_fact.getErrors());
+				req.setAttribute("course_list", getCourses());
+				req.setAttribute("teacher_list", getTeachers());
+				req.setAttribute("award_list", getAwards());
+				req.setAttribute("charge_list", getCharges());
+				req.getRequestDispatcher("/registerStudent.jsp").forward(req, resp);
+			} else {
+				pm.makePersistent(student);
+				resp.sendRedirect("/display");
+			}
+		} finally {			
+			pm.close();
+		}
 	}
 	
 	private Set<Course> getSelectedCourses(HttpServletRequest req) {

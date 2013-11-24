@@ -30,11 +30,13 @@ public class StudentHome extends HttpServlet {
 //			}
 //		}
 		//test until student login works
-		username = "student";
+		username = "student4";
 		req.setAttribute("username", username);
 		
 		Student student = getStudent(username);		
 		req.setAttribute("balance", getBalance(student));
+		req.setAttribute("courses", getCourses(student));
+		req.setAttribute("teachers", getTeachers(student));
 	
 		req.getRequestDispatcher("StudentHome.jsp").forward(req, resp);
 		
@@ -82,6 +84,36 @@ public class StudentHome extends HttpServlet {
 			pm.close();
 		}
 		return balance*-1;
+	}
+	
+	private Set<Course> getCourses(Student student) {
+		PersistenceManager pm = getPersistenceManager();
+		Set<Course> courses = new HashSet<Course>();
+		try {
+			if (student != null) {
+				if (student.getCourses() != null) {
+					courses = student.getCourses();
+				}
+			}
+		} finally {
+			pm.close();
+		}
+		return courses;
+	}
+	
+	private Set<Teacher> getTeachers(Student student) {
+		PersistenceManager pm = getPersistenceManager();
+		Set<Teacher> teachers = new HashSet<Teacher>();
+		try {
+			if (student != null) {
+				if (student.getTeachers() != null) {
+					teachers = student.getTeachers();
+				}
+			}
+		} finally {
+			pm.close();
+		}
+		return teachers;
 	}
 
 	private PersistenceManager getPersistenceManager() {

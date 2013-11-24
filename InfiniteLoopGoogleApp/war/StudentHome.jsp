@@ -35,22 +35,29 @@
 			</p>
 		</div>
 		<h3>Classes</h3>
-		<div class="home_item">
-			<span>student.course.name</span>
-			<ul>
-				<li> if(student.course == student.teacher.course) {</li>
-				<li>Instructor: teacher.fullname</li>
-				<li>Email: <a href="mailto:teacher.email">teacher.email</a></li>
-				<li>Start Date: student.course.startdate</li>
-				<li>End Date: student.course.enddate</li>
-				<li>Meeting Days: student.course.meetingdays</li>
-				<li>Time: student.course.time</li>
-				<li>Location: student.course.place</li>
-				<li>Payment Method: student.course.payment_option</li>
-				<li>Description: student.course.description</li>
-				<li> } </li>
-			</ul>
-		</div>
+		<c:forEach items="${courses}" var="course">
+			<c:forEach items="${teachers}" var="t">
+				<c:forEach items="${t.courses}" var="t_course">
+					<c:if test="${t_course}!=${course}">
+						<c:set value="${t}" var="teacher"/>
+					</c:if>
+				</c:forEach>
+			</c:forEach>
+			<div class="home_item">
+				<span>${course.name}</span>
+				<ul>
+					<li><b>Instructor:</b> <em>teacher.fullName</em></li>
+					<li><b>Email:</b><em><a href="mailto:${teacher.email}">teacher.email</a></em></li>
+					<li><b>Start Date:</b> <em>${course.startDate}</em></li>
+					<li><b>End Date:</b> <em>${course.endDate}</em></li>
+					<li><b>Meeting Days:</b> <em>${course.meetingDays}</em></li>
+					<li><b>Time:</b> <em>${course.time}</em></li>
+					<li><b>Location:</b> <em>${course.place}</em></li>
+					<li><b>Payment Method:</b> <em>$${course.paymentOption}</em></li>
+					<li><b>Description:</b> <em>${course.description}</em></li>
+				</ul>
+			</div>
+		</c:forEach>
 		<h3>Awards</h3>
 		<div class="home_item">
 			<span>And here is where awards would be...</span>

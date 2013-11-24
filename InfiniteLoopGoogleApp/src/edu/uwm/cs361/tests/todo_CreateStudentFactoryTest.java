@@ -12,7 +12,7 @@ import edu.uwm.cs361.entities.Course;
 import edu.uwm.cs361.entities.Student;
 import edu.uwm.cs361.entities.Teacher;
 import edu.uwm.cs361.factories.CreateCourseFactory;
-import edu.uwm.cs361.factories.todo_CreateStudentFactory;
+import edu.uwm.cs361.factories.RegisterStudentFactory;
 
 import java.util.*;
 
@@ -53,7 +53,7 @@ public class todo_CreateStudentFactoryTest {
 
 	@Test
 	public void testErrorOnBlankUsername() {
-		todo_CreateStudentFactory stud_fact = new todo_CreateStudentFactory();
+		RegisterStudentFactory stud_fact = new RegisterStudentFactory();
 		Student u = stud_fact.createStudent("","password","password","fname","lname", "email", "8478478478", null);
 
 		assertNull(u);
@@ -64,7 +64,7 @@ public class todo_CreateStudentFactoryTest {
 
 	@Test
 	public void testErrorOnBlankPassword() {
-		todo_CreateStudentFactory stud_fact = new todo_CreateStudentFactory();
+		RegisterStudentFactory stud_fact = new RegisterStudentFactory();
 		Student u = stud_fact.createStudent("username","","password","fname","lname", "email", "8478478478", null);
 	
 		assertNull(u);
@@ -75,7 +75,7 @@ public class todo_CreateStudentFactoryTest {
 	
 	@Test
 	public void testErrorOnNonMatchingPasswords() {
-		todo_CreateStudentFactory stud_fact = new todo_CreateStudentFactory();
+		RegisterStudentFactory stud_fact = new RegisterStudentFactory();
 		Student u = stud_fact.createStudent("username","password1","password2","fname","lname", "email", "8478478478", null);
 	
 		assertNull(u);
@@ -86,7 +86,7 @@ public class todo_CreateStudentFactoryTest {
 	
 	@Test
 	public void testErrorOnBlankPhoneNumber() {
-		todo_CreateStudentFactory stud_fact = new todo_CreateStudentFactory();
+		RegisterStudentFactory stud_fact = new RegisterStudentFactory();
 		Student u = stud_fact.createStudent("username","password1","password1","fname","lname", "email", "", null);
 	
 		assertNull(u);
@@ -97,7 +97,7 @@ public class todo_CreateStudentFactoryTest {
 	
 	@Test
 	public void testErrorOnBlankEmail() {
-		todo_CreateStudentFactory stud_fact = new todo_CreateStudentFactory();
+		RegisterStudentFactory stud_fact = new RegisterStudentFactory();
 		Student u = stud_fact.createStudent("username","password1","password1","fname","lname", "", "8478478478", null);
 	
 		assertNull(u);
