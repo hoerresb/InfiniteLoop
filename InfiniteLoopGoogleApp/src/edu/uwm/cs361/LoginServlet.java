@@ -42,54 +42,40 @@ public class LoginServlet extends HttpServlet {
 		
 		try{
 			req.setAttribute("errors", errors);
-	List<Admin> us = (List<Admin>) pm.newQuery(Admin.class).execute();
+			resp.setContentType("text/html");
+
+		List<Admin> adm = (List<Admin>) pm.newQuery(Admin.class).execute();
 	
-		resp.setContentType("text/html");
+		List<Student> Student = (List<Student>) pm.newQuery(Student.class).execute();
 		
-		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-		Query q = new Query("Admin");
-		q.setFilter(Query.CompositeFilterOperator.and(
-				new Query.FilterPredicate("username", Query.FilterOperator.EQUAL, username),
-				new Query.FilterPredicate("password", Query.FilterOperator.EQUAL, password)));
-		List<Entity> entities = ds.prepare(q).asList(FetchOptions.Builder.withDefaults());
+		List<Teacher> Teacher = (List<Teacher>) pm.newQuery(Teacher.class).execute();
 		
-		Query q2 = new Query("Student");
-		q.setFilter(Query.CompositeFilterOperator.and(
-				new Query.FilterPredicate("username", Query.FilterOperator.EQUAL, username),
-				new Query.FilterPredicate("password", Query.FilterOperator.EQUAL, password)));
-		List<Entity> Sentities = ds.prepare(q2).asList(FetchOptions.Builder.withDefaults());
-		
-		Query q3 = new Query("Teacher");
-		q.setFilter(Query.CompositeFilterOperator.and(
-				new Query.FilterPredicate("username", Query.FilterOperator.EQUAL, username),
-				new Query.FilterPredicate("password", Query.FilterOperator.EQUAL, password)));
-		List<Entity> Tentites = ds.prepare(q3).asList(FetchOptions.Builder.withDefaults());
-		
-		if(entities.size() == 0 ){
-			req.getRequestDispatcher("/login.jsp").forward(req, resp);			
-		}
-		//if(entities.size()>0){
-		if(entities.size()>0){
-			Cookie c = new Cookie("Adminname", req.getParameter("username"));
-			resp.addCookie(c);
-			resp.sendRedirect("/AdminHome");
-			/*for(int i = 0; i < us.size(); i++){
-				if(us.get(i).getPassword().equals(password) && us.get(i).getUsername().equals(username) && us.get(i).getUser_type() == 0){
-					Cookie c = new Cookie("Adminname", req.getParameter("username"));
-					resp.addCookie(c);
-					resp.sendRedirect("/AdminHome");
-				}
-				if(us.get(i).getPassword().equals(password) && us.get(i).getUsername().equals(username) && us.get(i).getUser_type() == 1){
-					resp.sendRedirect("/login.jsp");
-				}
-				if(us.get(i).getPassword().equals(password) && us.get(i).getUsername().equals(username) && us.get(i).getUser_type() == 2){
-					resp.sendRedirect("/login.jsp");
-				}
+		if(adm.size()>0){
+		for(int i = 0 ; i < adm.size(); i ++){
+			if(adm.get(i).getPassword().equals(password) && adm.get(i).getUsername().equals(username)){
+				Cookie c = new Cookie("Adminname", req.getParameter("username"));
+				resp.addCookie(c);
+				resp.sendRedirect("/AdminHome");
 			}
-			*/
-			//resp.sendRedirect("/login.jsp");
-	//	}
+		}}
+		
+		if(Student.size()>0){
+		for(int i = 0 ; i < Student.size(); i ++){
+			if(Student.get(i).getPassword().equals(password) && Student.get(i).getUsername().equals(username)){
+				resp.sendRedirect("/StudentHome");
+			}
+		}}
+		
+		if(Teacher.size()>0){
+		for(int i = 0 ; i < Teacher.size(); i ++){
+			if(Teacher.get(i).getPassword().equals(password) && Teacher.get(i).getUsername().equals(username)){
+				resp.sendRedirect("/StudentChargesServelt");
+			}
+		}}
+		else{
+			req.getRequestDispatcher("/login.jsp").forward(req, resp);	
 		}
+			
 		}catch (ServletException e) {
 			e.printStackTrace();
 		} finally {
