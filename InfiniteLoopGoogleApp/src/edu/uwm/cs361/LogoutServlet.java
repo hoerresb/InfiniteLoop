@@ -30,8 +30,14 @@ public class LogoutServlet extends HttpServlet
 	{
 		Cookie c = new Cookie("Adminname", null);
 		c.setMaxAge(0);
+		Cookie student = new Cookie("Studentname", null);
+		student.setMaxAge(0);
+		Cookie teacher = new Cookie("Teachername", null);
+		student.setMaxAge(0);
 
 		resp.addCookie(c);
+		resp.addCookie(student);
+		resp.addCookie(teacher);
 		resp.sendRedirect("/login.jsp");
 	}
 	

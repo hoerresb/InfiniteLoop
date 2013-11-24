@@ -12,7 +12,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 			
 				
-<%@include file='/templates/admin_header.html'%>	
+<%@include file='/templates/admin_header.jsp'%>	
 	<%@include file='/templates/error.html'%>
 	<div class='chargesContainer'>
 		<form id='form-id' method='POST' action='/StudentChargesServlet'>

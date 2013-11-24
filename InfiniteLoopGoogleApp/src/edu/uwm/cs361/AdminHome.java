@@ -18,7 +18,7 @@ public class AdminHome extends HttpServlet {
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException	{
 		
-		String username = null;
+	/*	String username = null;
 
 		Cookie[] cookies = req.getCookies();
 
@@ -31,6 +31,7 @@ public class AdminHome extends HttpServlet {
 		}
 
 		req.setAttribute("username", username);
+		*/
 		req.setAttribute("balance", getBalance());
 		req.getRequestDispatcher("AdminHome.jsp").forward(req, resp);
 		

@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 		
-<%@include file='/templates/admin_header.html'%>
+<%@include file='/templates/admin_header.jsp'%>
 <div id='content'>
 <%@include file='/templates/error.html'%>
 	<span class='title'>Create a Class:</span>
