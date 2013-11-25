@@ -15,7 +15,7 @@
 		PersistenceManager pm = JDOHelper.getPersistenceManagerFactory("transactions-optional").getPersistenceManager();
 
 
-		
+
 	%>
 
 

@@ -16,7 +16,7 @@
 			<label for='phone_num-id'>Phone number:</label>
 			<input id='phone_num-id' class='text-input' type='text' name='phonenumber' value='${phonenumber}'/><br/><br/>
 			<label for='username-id'>Username:</label>
-			<input id='username-id' class='text-input' type='text' name='username' value='${username}'/><br/><br/> 
+			<input id='username-id' class='text-input' type='text' name='student_username' value='${student_username}'/><br/><br/> 
 			<label for='password'>Password:</label>
 			<input id='password' class='text-input' type='password' name='password' value='${password}'/><br/><br/>
 			<label for='password_repeat'>Retype Password:</label>
@@ -37,48 +37,6 @@
 				        </select><br/><br/>
 			        </td>
 				</tr>
-				<tr>
-					<td class="register_left">
-						<label for='teacher_list'>Teachers: </label>
-					</td>
-				    <td class="register_right">
-				        <select id="teacher_opts" name="teacher_opts" multiple>
-				            <optgroup>
-				               <c:forEach items="${teacher_list}" var="teacher">
-						     	 <option value="${teacher.user_id.id}">${teacher.fullName}</option>
-							   </c:forEach> 
-				            </optgroup>
-				        </select><br/><br/>
-			        </td>
-				</tr>
-				<tr>
-					<td class="register_left">
-						<label for='award_list'>Awards: </label>
-				    </td>
-				    <td class="register_right">
-				        <select id="award_opts" name="award_opts" multiple>
-				            <optgroup>
-				               <c:forEach items="${award_list}" var="award">
-						     	 <option value="${award.award_id.id}">${award.name}</option>
-							   </c:forEach> 
-				            </optgroup>
-				        </select><br/><br/>
-					</td>
-	        	</tr>
-	        	<tr>
-	        		<td class="register_left">
-	       				<label for='charge_list'>Charges: </label>
-	        		</td>
-	        		<td class="register_right">
-				        <select id="charge_opts" name="charge_opts" multiple>
-				            <optgroup>
-				               <c:forEach items="${charge_list}" var="charge">
-						     	 <option value="${charge.charge_id.id}">${charge.amount} ${charge.reason}</option>
-							   </c:forEach> 
-				            </optgroup>
-				        </select><br/><br/>
-	        		</td>
-	        	</tr>
 			</table>
 			<div id='button-area'>
 				<button id='submit-id' type='submit'>Register</button><br/><br/> 
