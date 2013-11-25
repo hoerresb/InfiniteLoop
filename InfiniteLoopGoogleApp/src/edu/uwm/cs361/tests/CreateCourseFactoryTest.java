@@ -187,6 +187,7 @@ public class CreateCourseFactoryTest {
 		assertEquals(c.getTime(), "10:45");
 		assertEquals(c.getPlace(), "EMS203");
 		assertEquals(c.getDescription(), "its a good class");
+		assertEquals(c.getTeacher().getFirstName(), "fname");
 		
 		Iterator<String> iterator = c.getMeetingDays().iterator();
 		Iterator<String> iterator2 = meetingDays.iterator();
