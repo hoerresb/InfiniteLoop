@@ -11,21 +11,8 @@
 <%@ page import="javax.servlet.http.Cookie" %>
 <%@ page import="edu.uwm.cs361.entities.Admin" %>
 
-<%
-	String username = null;
 
-		Cookie[] cookies = request.getCookies();
-
-		if (cookies != null) {
-			for (Cookie c : cookies) {
-				if (c.getName().equals("Adminname")) {
-					username = c.getValue();
-				}
-			}
-		}
-%>
-
-<%@include file='/templates/admin_header.html'%>	
+<%@include file='/templates/admin_header.jsp'%>	
 	<div id="content">
 		<h2> Welcome, ${username} </h2>
 		<div class="home_item">

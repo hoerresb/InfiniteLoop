@@ -62,6 +62,8 @@ public class LoginServlet extends HttpServlet {
 		if(Student.size()>0){
 		for(int i = 0 ; i < Student.size(); i ++){
 			if(Student.get(i).getPassword().equals(password) && Student.get(i).getUsername().equals(username)){
+				Cookie student = new Cookie("Studentname", req.getParameter("username"));
+				resp.addCookie(student);
 				resp.sendRedirect("/StudentHome");
 			}
 		}}
@@ -69,7 +71,9 @@ public class LoginServlet extends HttpServlet {
 		if(Teacher.size()>0){
 		for(int i = 0 ; i < Teacher.size(); i ++){
 			if(Teacher.get(i).getPassword().equals(password) && Teacher.get(i).getUsername().equals(username)){
-				resp.sendRedirect("/StudentChargesServelt");
+				Cookie teacher = new Cookie("Teachername", req.getParameter("username"));
+				resp.addCookie(teacher);
+				resp.sendRedirect("/RegisterStudentServlet");
 			}
 		}}
 		else{
