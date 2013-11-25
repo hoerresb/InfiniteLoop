@@ -1,5 +1,11 @@
 <ul>
-	<c:forEach items="${errors}" var="error">
-     	<li class="error"><c:out value="${error}"/></li>
-  	</c:forEach>
+  	<c:choose>
+	      <c:when test="${fn:length(errors) == 0}">
+	      </c:when>
+	      <c:otherwise>
+   			<c:forEach items="${errors}" var="error">
+     			<li class="error"><c:out value="${error}"/></li>
+  			</c:forEach>
+	      </c:otherwise>
+	</c:choose>
 </ul>
