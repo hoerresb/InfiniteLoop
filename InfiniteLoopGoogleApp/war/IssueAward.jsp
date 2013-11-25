@@ -15,19 +15,7 @@
 		PersistenceManager pm = JDOHelper.getPersistenceManagerFactory("transactions-optional").getPersistenceManager();
 
 
-			List<old_User> users = (List<old_User>) pm.newQuery(old_User.class).execute();
-			if(users.size() == 0){
-		pm.makePersistent(new old_User(UserConstants.STUDENT_NUM, "michaelds", "1234", "Michael", "DeSanta", "michaelds@uwm.edu", "111-111-1111", new Charge[0]));
-		pm.makePersistent(new old_User(UserConstants.STUDENT_NUM, "trevorp", "5678", "Trevor", "Philips", "trevorp@uwm.edu", "111-111-1112", new Charge[0]));
-		pm.makePersistent(new old_User(UserConstants.STUDENT_NUM, "frankc", "9011", "Franklin", "Clinton", "frankc@uwm.edu", "111-111-1113", new Charge[0]));
-			}
-			List<Award> awards = (List<Award>) pm.newQuery(Award.class).execute();
-			if(awards.size() == 0){
-		pm.makePersistent(new Award("Beginner Chef", "Prepared your first meal in class...No, you don't have to eat it.")); 
-		pm.makePersistent(new Award("Intermediate Chef", "You're classmates enjoyed a meal you cooked for them."));
-		pm.makePersistent(new Award("Head Chef", "Our restaurant was proud to have you in charge of the kitchen for a day."));
-		pm.makePersistent(new Award("Master Chef", "Successfully catered a client's family re-union."));
-			}
+		
 	%>
 
 
