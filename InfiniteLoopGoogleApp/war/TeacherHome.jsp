@@ -12,7 +12,7 @@
 <%@ page import="javax.servlet.http.Cookie" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%@include file='/templates/teacher_header.html'%>	
+<%@include file='/templates/teacher_header.jsp'%>	
 	<div id="content">
 		<h2> Welcome, ${username} </h2>
 		
