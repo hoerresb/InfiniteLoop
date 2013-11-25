@@ -40,14 +40,14 @@
 			<label for="payment_value">Payment value:</label>
 			<span id="payment_value_span">
 			$<input id="payment_value" class="text-input" type="text" name="payment_value" value="${payment_value}"/> per 
-				<select id="payment_duration" name="${payment_duration}">
+				<select id="payment_duration" name="payment_duration">
 		            <optgroup>
-		            	<option value="session">session</option>
-				     	 <option value="hour">hour</option>
-				     	 <option value="day">day</option>
-				     	 <option value="week">week</option>
-				     	 <option value="month">month</option>
-				     	 <option value="year">year</option>
+		            	<option value="session" ${(payment_duration == "session") ? "selected" : ""}>session</option>
+				     	 <option value="hour" ${(payment_duration == "hour") ? "selected" : ""}>hour</option>
+				     	 <option value="day" ${(payment_duration == "day") ? "selected" : ""}>day</option>
+				     	 <option value="week" ${(payment_duration == "week") ? "selected" : ""}>week</option>
+				     	 <option value="month" ${(payment_duration == "month") ? "selected" : ""}>month</option>
+				     	 <option value="year" ${(payment_duration == "year") ? "selected" : ""}>year</option>
 		            </optgroup>
 		        </select>
 	        </span><br/><br/>

@@ -131,7 +131,7 @@ public class DisplayServlet extends HttpServlet
 						 "<br/>Courses: <ul>"; 
 				Set<Course> courses = teacher.getCourses();
 				for(Course c : courses) {
-					row += "<li>Name: [" + c.getName() + "] Days: " + c.getMeetingDays() + "</li>";
+					row += "<li>Name: [" + c.getName() + "] \nTeacher: " + c.getTeacher().getFullName() + "\nDays: " + c.getMeetingDays() + "</li>";
 				}
 				row += "</ul></li>";
 				resp.getWriter().println(row);

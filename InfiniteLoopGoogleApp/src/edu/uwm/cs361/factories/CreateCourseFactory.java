@@ -41,7 +41,7 @@ public class CreateCourseFactory {
 		if(hasErrors()) {
 			return null;
 		} else {
-			Course c = new Course(classname, startDate, endDate, meetingDays, time, place, payment_option, description);
+			Course c = new Course(classname, startDate, endDate, meetingDays, time, place, payment_option, description, teacher);
 			teacher.getCourses().add(c);
 			return c;
 		}

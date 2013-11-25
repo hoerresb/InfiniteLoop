@@ -9,6 +9,7 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.datanucleus.annotations.Unowned;
 
 @PersistenceCapable
 public class Course {
@@ -42,10 +43,14 @@ public class Course {
 	
 	@Persistent
 	private String description;
+	
+	@Persistent
+	@Unowned
+	private Teacher teacher;
 
 	public Course(String name, String startDate, String endDate,
 			Set<String> meetingDays, String time, String place,
-			String payment_options, String description) {
+			String payment_options, String description, Teacher teacher) {
 		this.name = name;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -54,6 +59,7 @@ public class Course {
 		this.place = place;
 		this.payment_option = payment_options;
 		this.description = description;
+		this.teacher = teacher;
 	}
 
 	public Key getCourse_id() {
@@ -95,5 +101,9 @@ public class Course {
 
 	public String getDescription() {
 		return description;
+	}
+	
+	public Teacher getTeacher() {
+		return teacher;
 	}
 }
