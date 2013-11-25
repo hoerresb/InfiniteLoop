@@ -27,7 +27,7 @@ public class RegisterStudentServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException	{
 		PersistenceManager pm = getPersistenceManager();
 		
-		String username = req.getParameter("username");
+		String username = req.getParameter("student_username");
 		String password = req.getParameter("password");
 		String password_repeat = req.getParameter("password_repeat");
 		String firstname = req.getParameter("firstname");
@@ -49,7 +49,7 @@ public class RegisterStudentServlet extends HttpServlet {
 				req.setAttribute("lastname", lastname);
 				req.setAttribute("email", email);
 				req.setAttribute("phonenumber", phonenumber);
-				req.setAttribute("username", username);
+				req.setAttribute("student_username", username);
 				req.setAttribute("password", password);
 				req.setAttribute("password_repeat", password_repeat);
 				req.setAttribute("errors", stud_fact.getErrors());
