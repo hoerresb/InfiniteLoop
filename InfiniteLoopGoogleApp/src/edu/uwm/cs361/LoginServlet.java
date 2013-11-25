@@ -73,7 +73,7 @@ public class LoginServlet extends HttpServlet {
 			if(Teacher.get(i).getPassword().equals(password) && Teacher.get(i).getUsername().equals(username)){
 				Cookie teacher = new Cookie("Teachername", req.getParameter("username"));
 				resp.addCookie(teacher);
-				resp.sendRedirect("/RegisterStudentServlet");
+				resp.sendRedirect("/TeacherHome");
 			}
 		}}
 		else{
