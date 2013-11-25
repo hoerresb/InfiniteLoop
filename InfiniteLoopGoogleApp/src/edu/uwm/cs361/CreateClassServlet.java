@@ -1,17 +1,12 @@
 package edu.uwm.cs361;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
-import javax.jdo.Query;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import edu.uwm.cs361.entities.Course; 
 import edu.uwm.cs361.entities.Teacher;
 import edu.uwm.cs361.factories.CreateCourseFactory;
+import edu.uwm.cs361.factories.PersistanceFactory;
 
 
 @SuppressWarnings("serial")
@@ -32,7 +28,7 @@ public class CreateClassServlet extends HttpServlet {
 
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException	{
-		PersistenceManager pm = getPersistenceManager();
+		PersistenceManager pm = PersistanceFactory.getPersistenceManager();
 		
 		String classname = req.getParameter("classname");
 		String startDate = req.getParameter("classstart");
@@ -84,15 +80,11 @@ public class CreateClassServlet extends HttpServlet {
 
 	@SuppressWarnings("unchecked")
 	private List<Teacher> getTeachers() {
-		PersistenceManager pm = getPersistenceManager();
+		PersistenceManager pm = PersistanceFactory.getPersistenceManager();
 		try {
 			return (List<Teacher>) pm.newQuery(Teacher.class).execute();
 		} finally {
 			pm.close();
 		}
-	}
-	
-	private PersistenceManager getPersistenceManager() {
-		return JDOHelper.getPersistenceManagerFactory("transactions-optional").getPersistenceManager();
 	}
 }

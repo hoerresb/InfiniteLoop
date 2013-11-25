@@ -11,13 +11,13 @@ import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import edu.uwm.cs361.entities.Admin;
 import edu.uwm.cs361.entities.Teacher;
 import edu.uwm.cs361.factories.CreateInstructorFactory;
+import edu.uwm.cs361.factories.PersistanceFactory;
 
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 
 import org.junit.After;
@@ -34,7 +34,7 @@ public class CreateInstructorFactoryTest {
 	@SuppressWarnings("unchecked")
 	public void setUp() {
 		helper.setUp();
-		pm = getPersistenceManager();
+		pm = PersistanceFactory.getPersistenceManager();
 
 		List<Teacher> instructors = (List<Teacher>) pm.newQuery(Teacher.class).execute();
 
@@ -139,10 +139,5 @@ public class CreateInstructorFactoryTest {
 		while(iterator.hasNext() && expected_iterator.hasNext()) {
 			assertEquals(iterator.next(), expected_iterator.next());
 		}
-	}
-
-	private PersistenceManager getPersistenceManager() {
-		return JDOHelper.getPersistenceManagerFactory("transactions-optional")
-				.getPersistenceManager();
 	}
 }

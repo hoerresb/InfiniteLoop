@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Set;
 
-import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +15,7 @@ import edu.uwm.cs361.entities.Charge;
 import edu.uwm.cs361.entities.Course;
 import edu.uwm.cs361.entities.Student;
 import edu.uwm.cs361.entities.Teacher;
+import edu.uwm.cs361.factories.PersistanceFactory;
 
 @SuppressWarnings("serial")
 public class DisplayServlet extends HttpServlet
@@ -26,7 +26,7 @@ public class DisplayServlet extends HttpServlet
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		resp.setContentType("text/html");
-		PersistenceManager pm = getPersistenceManager();
+		PersistenceManager pm = PersistanceFactory.getPersistenceManager();
 		try {
 			displayAdmins(req, resp, pm);
 			displayTeachers(req, resp, pm);
@@ -157,9 +157,5 @@ public class DisplayServlet extends HttpServlet
 			}
 			resp.getWriter().println("</ul>");
 		}
-	}
-
-	private PersistenceManager getPersistenceManager() {
-		return JDOHelper.getPersistenceManagerFactory("transactions-optional").getPersistenceManager();
 	}
 }

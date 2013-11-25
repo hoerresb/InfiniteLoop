@@ -2,7 +2,6 @@ package edu.uwm.cs361;
 
 import java.io.IOException;
 
-import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,13 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.uwm.cs361.entities.Teacher;
 import edu.uwm.cs361.factories.CreateInstructorFactory;
+import edu.uwm.cs361.factories.PersistanceFactory;
 
 @SuppressWarnings("serial")
 public class CreateInstuctorServlet extends HttpServlet {
 
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException	{
-		PersistenceManager pm = getPersistenceManager();
+		PersistenceManager pm = PersistanceFactory.getPersistenceManager();
 		
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");
@@ -57,9 +57,5 @@ public class CreateInstuctorServlet extends HttpServlet {
 		} finally {
 			pm.close();
 		}
-	}
-
-	private PersistenceManager getPersistenceManager() {
-		return JDOHelper.getPersistenceManagerFactory("transactions-optional").getPersistenceManager();
 	}
 }
