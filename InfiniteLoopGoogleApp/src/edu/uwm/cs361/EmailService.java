@@ -32,7 +32,7 @@ public class EmailService {
 		}
 	}
 
-	private static List<DeadlineEmailObject> populateEmailList(PersistenceManager pm) {
+	public static List<DeadlineEmailObject> populateEmailList(PersistenceManager pm) { // needs to be public in order to test
 		List<Student> students =  getStudents(pm);
 		List<DeadlineEmailObject> studentsWithDeadlineToday = new ArrayList<DeadlineEmailObject>();
 		String today = dateFormatter.format(System.currentTimeMillis());
