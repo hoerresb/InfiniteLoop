@@ -21,14 +21,34 @@ public class TeacherHome extends HttpServlet {
 		String username = null;
 
 		Cookie[] cookies = req.getCookies();
+		
+		if(cookies == null){
+			resp.sendRedirect("/login.jsp");
+		}
+		if (cookies != null) {
+			for (Cookie c : cookies) {
 
-	if (cookies != null) {
-		for (Cookie c : cookies) {
-			if (c.getName().equals("Teachername")) {
+		 if(c.getName().equals("Teachername")){
 				username = c.getValue();
 			}
+		 if(c.getName().equals("Adminname")){
+			Cookie admin = new Cookie("Adminname", null);
+			admin.setMaxAge(0);
+			resp.addCookie(admin);
+			resp.sendRedirect("/login.jsp");
 		}
-	}
+			 if(c.getName().equals("Studentname")){
+				Cookie student = new Cookie("Studentname", null);
+				student.setMaxAge(0);
+				resp.addCookie(student);
+				resp.sendRedirect("/login.jsp");
+		}
+			 if(c.getName().isEmpty()){
+					resp.sendRedirect("/login.jsp");
+				}
+				
+			}
+		}
 
 		req.setAttribute("username", username);
 		

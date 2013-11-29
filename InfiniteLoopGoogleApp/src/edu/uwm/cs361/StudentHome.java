@@ -22,6 +22,9 @@ public class StudentHome extends HttpServlet {
 
 		Cookie[] cookies = req.getCookies();
 		
+		if(cookies == null){
+			resp.sendRedirect("/login.jsp");
+		}
 		if (cookies != null) {
 			for (Cookie c : cookies) {
 
@@ -40,6 +43,9 @@ public class StudentHome extends HttpServlet {
 				resp.addCookie(teacher);
 				resp.sendRedirect("/login.jsp");
 		}
+			 if(c.getName().isEmpty()){
+					resp.sendRedirect("/login.jsp");
+				}
 				
 			}
 		}

@@ -19,6 +19,10 @@
 	String username = null;
 
 		Cookie[] cookies = request.getCookies();
+		
+		if(cookies == null){
+			response.sendRedirect("/login.jsp");
+		}
 
 		if (cookies != null) {
 			for (Cookie c : cookies) {
@@ -37,6 +41,9 @@
 					teacher.setMaxAge(0);
 					response.addCookie(teacher);
 					response.sendRedirect("/login.jsp");
+			}
+			if(c.getName().isEmpty()){
+				response.sendRedirect("/login.jsp");
 			}
 				
 			}

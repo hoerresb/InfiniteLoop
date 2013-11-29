@@ -74,7 +74,14 @@ public class LoginServlet extends HttpServlet {
 						resp.addCookie(teacher);
 						resp.sendRedirect("/TeacherHome");
 					}
-				}}
+				}
+				
+				
+				}
+				
+				else{
+					req.getRequestDispatcher("/login.jsp").forward(req, resp);	
+				}
 			}catch (Exception e) {
 				e.printStackTrace();
 			} finally {
