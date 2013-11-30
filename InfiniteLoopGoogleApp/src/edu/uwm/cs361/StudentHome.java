@@ -93,11 +93,6 @@ public class StudentHome extends HttpServlet {
 						balance += charge.getAmount();
 					}
 				}
-				if (student.getCourses() != null) {
-					for (Course course : student.getCourses()) {
-						balance += course.getPayment_amount();
-					}
-				}
 			} else {
 				balance = 0;
 			}

@@ -45,11 +45,8 @@
 							<c:set value='${charge.deadline}' var='deadline'/>
 						</c:forEach>
 						
-						<c:forEach items='${student.courses}' var='course'>
-							<c:set value='${total + course.payment_amount}' var='total'/>
-						</c:forEach>
 						<span>Total: $${total}</span><br/>
-						<span>Due: ${deadline.month+1}-${deadline.day}-${deadline.year+1900}</span>
+						<span>Due: ${deadline.month+1}-${deadline.day+1}-${deadline.year+1900}</span>
 					</td>
 					<td>
 						<a href='mailto:${student.email}'>${student.email}</a>

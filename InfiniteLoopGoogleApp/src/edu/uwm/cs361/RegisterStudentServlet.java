@@ -36,9 +36,14 @@ public class RegisterStudentServlet extends HttpServlet {
 		String phonenumber = (req.getParameter("phonenumber")).equals("null") ? null : req.getParameter("phonenumber");
 		
 		Set<Course> courses = getSelectedCourses(req);
+		Set<Charge> charges = new HashSet<Charge>();
+		Date deadline, currentDate = new Date();
+		deadline = new Date(currentDate.getYear(),currentDate.getMonth()+1,1);
+		for (Course course : courses) {
+			charges.add(new Charge(course.getPayment_amount(),deadline,course.getName()));
+		}
 		Set<Teacher> teachers = getSelectedTeachers(req);
 		Set<Award> awards = getSelectedAwards(req);
-		Set<Charge> charges = getSelectedCharges(req);
 		
 		RegisterStudentFactory stud_fact = new RegisterStudentFactory();
 		Student student = stud_fact.createStudent(username, password, password_repeat, firstname, lastname, email, courses, teachers, awards, charges);

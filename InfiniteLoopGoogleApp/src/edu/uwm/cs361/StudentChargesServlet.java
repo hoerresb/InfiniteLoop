@@ -69,7 +69,7 @@ public class StudentChargesServlet extends HttpServlet {
 			}	
 			if (errors.size() == 0) {
 				req.setAttribute("students", getStudents());
-				req.getRequestDispatcher("studentCharges.jsp").forward(req, resp);
+				req.getRequestDispatcher("/StudentChargesServlet").forward(req, resp);
 			}
 		} finally {
 			pm.close();
