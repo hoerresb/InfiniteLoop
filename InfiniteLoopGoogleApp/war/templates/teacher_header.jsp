@@ -23,7 +23,7 @@
 			<div id="container">
 				<div id="banner"></div>
 				<div id="navbar">
-					<div class="nav"><a href="">Home</a></div>
+					<div class="nav"><a href="/TeacherHome">Home</a></div>
 					<div class="nav"><a href="">Attendance</a></div>
 					<div class="nav"><a href="">Awards</a></div>
 					<div class="nav"><a href="/RegisterStudentServlet">Register Student</a></div>
