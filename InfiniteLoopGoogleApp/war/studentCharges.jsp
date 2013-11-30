@@ -31,10 +31,7 @@
 					<td>						
 						<label for='${student.user_id}_add_charge_amount'>Amount:</label>
 						<input class='charge_input' name='${student.user_id}_add_charge_amount' type='text'><br/>
-						
-						<label for='${student.user_id}_add_charge_deadline'>Deadline:</label>
-						<input class='charge_input' name='${student.user_id}_add_charge_deadline' type='text'><br/>
-						
+
 						<label for='${student.user_id}_add_charge_reason'>Reason:</label>
 						<input class='charge_input' name='${student.user_id}_add_charge_reason' type='text'><br/>
 						<button id='add-id' type='submit'>Add</button>

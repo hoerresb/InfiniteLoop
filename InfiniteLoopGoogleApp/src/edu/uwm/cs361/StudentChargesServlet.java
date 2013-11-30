@@ -1,6 +1,7 @@
 package edu.uwm.cs361;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javax.jdo.JDOHelper;
@@ -17,6 +18,9 @@ import edu.uwm.cs361.entities.Student;
 
 @SuppressWarnings("serial")
 public class StudentChargesServlet extends HttpServlet {
+	
+	private static SimpleDateFormat dateFormatter = new SimpleDateFormat ("MM/dd/yyyy");
+	
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		
@@ -33,33 +37,29 @@ public class StudentChargesServlet extends HttpServlet {
 		PersistenceManager pm = getPersistenceManager();
 		List<Student> students = getStudents();
 		double amount;
-		Date deadline;
+		Date deadline, currentDate = new Date();
 		String reason;
 
 		try {
 			for (Student student : students) {
 				String t_amount = req.getParameter(student.getUser_id() + "_add_charge_amount");
-				String t_deadline = req.getParameter(student.getUser_id() + "_add_charge_deadline");
 				String t_reason = req.getParameter(student.getUser_id() + "_add_charge_reason");
 				System.out.println(student.getUser_id());
 				if (t_amount.isEmpty()) {
 					System.out.println("You must enter amount!");
-				}
-				if (t_deadline.isEmpty()) {
-					System.out.println("You must enter deadline!");
 				}
 				if (t_reason.isEmpty()) {
 					System.out.println("You must enter a reason!");
 				}
 				if (errors.size() > 0) {
 					req.setAttribute(student.getUser_id() + "_add_charge_amount", t_amount);
-					req.setAttribute(student.getUser_id() + "_add_charge_deadline", t_deadline);
 					req.setAttribute(student.getUser_id() + "_add_charge_reason", t_reason);
 					req.setAttribute("errors", errors);
 					req.getRequestDispatcher("studentCharges.jsp").forward(req, resp);
-				} else if (!t_amount.isEmpty() && !t_deadline.isEmpty() && !t_reason.isEmpty()) {
+				} else if (!t_amount.isEmpty() && !t_reason.isEmpty()) {
 					amount = Double.parseDouble(t_amount);
-					deadline = new Date(t_deadline);
+					deadline = new Date(currentDate.getYear(),currentDate.getMonth()+1,1);
+					System.out.println(dateFormatter.format(deadline));
 					reason = t_reason;
 					Charge charge = new Charge(amount, deadline, reason);
 					student.getCharges().add(charge);
