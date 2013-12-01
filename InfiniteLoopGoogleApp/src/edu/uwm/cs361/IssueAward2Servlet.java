@@ -19,7 +19,7 @@ import edu.uwm.cs361.entities.Student;
 import edu.uwm.cs361.entities.Teacher;
 import edu.uwm.cs361.entities.Course;
 @SuppressWarnings("serial")
-public class IssueAwardServlet extends HttpServlet {
+public class IssueAward2Servlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException        {
         
