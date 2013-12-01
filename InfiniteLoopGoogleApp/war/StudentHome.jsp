@@ -42,12 +42,12 @@
 						<c:set value="${t}" var="teacher"/>
 					</c:if>
 				</c:forEach>
-			</c:forEach>
+			</c:forEach> <!-- Doesn't work for unknown reasons -->
 			<div class="home_item">
 				<span>${course.name}</span>
 				<ul>
-					<li><b>Instructor:</b> <em>teacher.fullName</em></li>
-					<li><b>Email:</b><em><a href="mailto:${teacher.email}">teacher.email</a></em></li>
+					<!-- <li><b>Instructor:</b> <em>teacher.fullName</em></li> -->
+					<!-- <li><b>Email:</b><em><a href="mailto:${teacher.email}">teacher.email</a></em></li> -->
 					<li><b>Start Date:</b> <em>${course.startDate}</em></li>
 					<li><b>End Date:</b> <em>${course.endDate}</em></li>
 					<li><b>Meeting Days:</b> <em>${course.meetingDays}</em></li>
