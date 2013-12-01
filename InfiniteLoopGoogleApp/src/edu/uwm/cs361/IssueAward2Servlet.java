@@ -58,11 +58,6 @@ public class IssueAwardServlet extends HttpServlet {
 		PersistenceManager pm = getPersistenceManager();
 
 		try {
-				Cookie c = new Cookie("Coursename", req.getParameter("award_courses"));
-                resp.addCookie(c);
-
-			
-			resp.sendRedirect("Awards.jsp");
 			
 		} finally {
 			pm.close();
