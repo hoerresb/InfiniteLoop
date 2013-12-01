@@ -4,6 +4,11 @@ xmlns="http://java.sun.com/xml/ns/javaee"
 xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+
+<servlet>
+		<servlet-name>Attendance</servlet-name>
+		<servlet-class>edu.uwm.cs361.Attendance</servlet-class>
+	</servlet>
 	
 	<servlet>
 		<servlet-name>EmailJob</servlet-name>
@@ -101,6 +106,11 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>feedback</servlet-name>
 		<servlet-class>edu.uwm.cs361.EmailTestServlet</servlet-class>
 	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Attendance</servlet-name>
+		<url-pattern>/Attendance</url-pattern>
+	</servlet-mapping>
 
 	<servlet-mapping>
 		<servlet-name>feedback</servlet-name>
