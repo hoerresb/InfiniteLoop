@@ -19,7 +19,7 @@
 					<select id="award_courses" name="award_courses">
 		
 					<c:forEach items="${courses}" var="course">
-							<option value="${course.user_id}">${course.name}</option>   
+							<option value="${course.course_id}">${course.name}</option>   
             		</c:forEach>
 
 					</select><br/><br/>
