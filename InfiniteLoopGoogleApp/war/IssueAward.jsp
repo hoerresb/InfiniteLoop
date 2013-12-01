@@ -8,10 +8,6 @@
 
 		<div id="content">
 
-			<span class="title">Cooking For Dummies</span><br/>
-                        <span class="title">Certifications</span>
-
-			
 			<form action="/IssueAward" method="POST">
 
 				<label for="award_courses">Courses:</label>
@@ -24,7 +20,7 @@
 
 					</select><br/><br/>
 
-				<input type="submit" value="Issue Award" />
+				<input type="submit" value="IssueAward" />
 			</form>
 		</div>
 		
