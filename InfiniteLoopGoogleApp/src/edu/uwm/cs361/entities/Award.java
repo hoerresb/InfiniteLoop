@@ -21,8 +21,7 @@ public class Award {
 	
 	@Persistent
 	private String awardDescription;
-	
-	
+		
 	public Award(String name, String des) {
 		awardName = name;
 		awardDescription = des;
@@ -40,7 +39,5 @@ public class Award {
 	public String getAwardDescription(){
 		return awardDescription;
 	}
-	
-
 
 }

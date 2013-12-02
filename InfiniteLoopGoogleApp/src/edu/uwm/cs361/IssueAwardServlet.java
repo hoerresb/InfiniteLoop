@@ -14,94 +14,108 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Cookie;
 
-import edu.uwm.cs361.entities.Award;
-import edu.uwm.cs361.entities.Student;
-import edu.uwm.cs361.entities.Teacher;
-import edu.uwm.cs361.entities.Course;
+import edu.uwm.cs361.entities.*;
+import edu.uwm.cs361.factories.IssueAwardFactory;
 
 @SuppressWarnings("serial")
 public class IssueAwardServlet extends HttpServlet {
 
-	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException        {
-        
-        String username = null;
+	private Teacher teacher;
+	public void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException, ServletException {
 
-        Cookie[] cookies = req.getCookies();
-        
-        if(cookies == null){
-                resp.sendRedirect("/login.jsp");
-        }
-        if (cookies != null) {
-        	for (Cookie c : cookies) {
+		String username = null;
 
-                if(c.getName().equals("Teachername")){
-                               username = c.getValue();
-                }
-                
-                if(c.getName().isEmpty()){
-                     resp.sendRedirect("/login.jsp");
-                }
-                               
-            }
-        }
-        
-        Teacher teacher = getTeacher(username);                
-        
-        req.setAttribute("award_courses", getCourses(teacher));
-        req.getRequestDispatcher("IssueAward.jsp").forward(req, resp);
-    }
-	@Override
-	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException	{
+		Cookie[] cookies = req.getCookies();
+
+		if (cookies == null) {
+			resp.sendRedirect("/login.jsp");
+		}
+		if (cookies != null) {
+			for (Cookie c : cookies) {
+
+				if (c.getName().equals("Teachername")) {
+					username = c.getValue();
+				}
+
+				if (c.getName().isEmpty()) {
+					resp.sendRedirect("/login.jsp");
+				}
+
+			}
+		}
+
+		teacher = getTeacher(username);
 		
+		req.setAttribute("courses", getCourses(teacher));
+		req.getRequestDispatcher("IssueAward.jsp").forward(req, resp);
+	}
+
+	@Override
+	public void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException, ServletException {
+
 		PersistenceManager pm = getPersistenceManager();
+		
+		Course course = (Course) pm.getObjectById(Course.class,Long.parseLong(req.getParameter("award_courses")));
+		String award_name = req.getParameter("award_name");
+		String award_description = req.getParameter("award_description");
+		
+		IssueAwardFactory award_fact = new IssueAwardFactory();
+		Award award = award_fact.createAward(course, award_name, award_description);
 
 		try {
-				Cookie c = new Cookie("Coursename", req.getParameter("award_courses"));
-                resp.addCookie(c);
-
-			
-			resp.sendRedirect("IssueAward2.jsp");
-			
+			if (award_fact.hasErrors()) {
+				req.setAttribute("award_name", award_name);
+				req.setAttribute("award_description", award_description);
+				req.setAttribute("courses", getCourses(teacher));
+				req.setAttribute("errors", award_fact.getErrors());
+				req.getRequestDispatcher("IssueAward.jsp").forward(req, resp);
+			} else {
+				pm.makePersistent(award);
+				
+			}
 		} finally {
 			pm.close();
 		}
 	}
-	
-	@SuppressWarnings("unchecked")
-    private Teacher getTeacher(String username) {
-            PersistenceManager pm = getPersistenceManager();
-            List<Teacher> teachers = new ArrayList<Teacher>();
-            Teacher teacher = null;
-            try {
-                    teachers = (List<Teacher>) pm.newQuery(Teacher.class).execute();
-                    for (Teacher t : teachers) {
-                            if (t.getUsername().equals(username)) {
-                                    teacher = t;
-                            }
-                    }
-            } finally {
-                    pm.close();
-            }
-            return teacher;
-    }
-    
 
-    private Set<Course> getCourses(Teacher teacher) {
-            PersistenceManager pm = getPersistenceManager();
-            Set<Course> courses = new HashSet<Course>();
-            try {
-                    if (teacher != null) {
-                            if (teacher.getCourses() != null) {
-                                    courses = teacher.getCourses();
-                            }
-                    }
-            } finally {
-                    pm.close();
-            }
-            return courses;
-    }
+	@SuppressWarnings("unchecked")
+	private Teacher getTeacher(String username) {
+		PersistenceManager pm = getPersistenceManager();
+		List<Teacher> teachers = new ArrayList<Teacher>();
+		Teacher teacher = null;
+		try {
+			teachers = (List<Teacher>) pm.newQuery(Teacher.class).execute();
+			for (Teacher t : teachers) {
+				if (t.getUsername().equals(username)) {
+					teacher = t;
+					teacher.getCourses();
+				}
+			}
+		} finally {
+			pm.close();
+		}
+		return teacher;
+	}
+
+	private Set<Course> getCourses(Teacher teacher) {
+		PersistenceManager pm = getPersistenceManager();
+		Set<Course> courses = new HashSet<Course>();
+		try {
+			if (teacher != null) {
+				if (teacher.getCourses() != null) {
+					courses = teacher.getCourses();
+				}
+			}
+		} finally {
+			pm.close();
+		}
+		return courses;
+	}
 
 	private PersistenceManager getPersistenceManager() {
-		return JDOHelper.getPersistenceManagerFactory("transactions-optional").getPersistenceManager();
+		return JDOHelper.getPersistenceManagerFactory("transactions-optional")
+				.getPersistenceManager();
 	}
 }

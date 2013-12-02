@@ -22,7 +22,7 @@
 			<div class="classSelect">
 				<nav>
 				<ul>
-					<li><a href="#">Select Class</a>
+					<li><a href="">Select Class</a>
 						<ul>
 						
 						<c:forEach items="${courses}" var="course">
@@ -34,7 +34,7 @@
 								</c:forEach>
 							</c:forEach>
 							
-								<li><a href="attendance_cooking.html">${course.name}</a>
+								<li><a href="">${course.name}</a>
 								<ul>
 									<li><a href=""> <b>Start Date:</b> <em>${course.startDate}</em></a></li>
 									<li><a href=""> <b>End Date:</b> <em>${course.endDate}</em></a></li>

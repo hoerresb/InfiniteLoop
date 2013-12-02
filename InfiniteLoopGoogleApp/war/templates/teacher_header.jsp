@@ -73,7 +73,7 @@
 				<div id="navbar">
 					<div class="nav"><a href="/TeacherHome">Home</a></div>
 					<div class="nav"><a href="/Attendance">Attendance</a></div>
-					<div class="nav"><a href="">Awards</a></div>
+					<div class="nav"><a href="/IssueAward">Awards</a></div>
 					<div class="nav"><a href="/RegisterStudentServlet">Register Student</a></div>
 					<div id="login" class='nav'><a href="/logout">Log Out</a></div>
 				</div>

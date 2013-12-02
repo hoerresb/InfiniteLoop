@@ -47,6 +47,9 @@ public class Course {
 	@Persistent
 	@Unowned
 	private Teacher teacher;
+	
+	@Persistent
+	private Set<Award> awards;
 
 	public Course(String name, String startDate, String endDate,
 			Set<String> meetingDays, String time, String place,
@@ -105,5 +108,9 @@ public class Course {
 	
 	public Teacher getTeacher() {
 		return teacher;
+	}
+	
+	public Set<Award> getAwards() {
+		return awards;
 	}
 }
