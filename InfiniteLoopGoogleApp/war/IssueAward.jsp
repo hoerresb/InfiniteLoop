@@ -27,8 +27,9 @@
 				<input id="award_name" type="text" name="award_name" value="${award_name}"/><br/><br/>
 				
 				<label for="award_description">Award Description:</label>
-				<textarea id="award_description" form="form-id" name="award_description" rows="5" cols="35">${award_description}</textarea><br/><br/>	
-		
+				<p>
+					<textarea id="award_description" name="award_description" rows="5" cols="35">${award_description}</textarea><br/><br/>	
+				</p>
 				<input type="submit" value="Issue Award" />
 			</form>
 		</div>
