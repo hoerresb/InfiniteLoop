@@ -8,6 +8,8 @@
 
 		<div id="content">
 		<%@include file='/templates/error.html'%>
+			<span class="success">${success}</span><br/>
+			<span class='title'>Create an Award:</span><br/>
 
 			<form action="/IssueAward" method="POST">
 

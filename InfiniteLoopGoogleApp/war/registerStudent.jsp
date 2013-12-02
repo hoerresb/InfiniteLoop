@@ -5,6 +5,7 @@
 <%@include file='/templates/teacher_header.jsp'%>	
 	<div id='content'>
 		<%@include file='/templates/error.html'%>
+		<span class="success">${success}</span><br/>
 		<span class='title'>Register a Student:</span>
 		<form id='form-id' method='POST' action='/RegisterStudentServlet'>
 			<label for='firstname-id'>First Name:</label>

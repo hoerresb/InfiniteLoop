@@ -5,6 +5,7 @@
 <%@include file='/templates/admin_header.jsp'%>	
 	<div id='content'>
 		<%@include file='/templates/error.html'%>
+		<span class="success">${success}</span><br/>
 		<span class='title'>Create an Instructor:</span>
 		<form id='form-id' method='POST' action='/createInstructor'>
 			<label for='firstname-id'>First Name:</label>

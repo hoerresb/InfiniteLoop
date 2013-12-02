@@ -73,7 +73,9 @@ public class IssueAwardServlet extends HttpServlet {
 				req.getRequestDispatcher("IssueAward.jsp").forward(req, resp);
 			} else {
 				pm.makePersistent(award);
-				
+				req.setAttribute("success", "Class created successfully.");
+				req.setAttribute("courses", getCourses(teacher));
+				req.getRequestDispatcher("IssueAward.jsp").forward(req, resp);
 			}
 		} finally {
 			pm.close();

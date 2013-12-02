@@ -6,6 +6,7 @@
 <%@include file='/templates/admin_header.jsp'%>
 <div id='content'>
 <%@include file='/templates/error.html'%>
+	<span class="success">${success}</span><br/>
 	<span class='title'>Create a Class:</span>
 	<form id='form-id' method='POST' action='/createClass'>
 		<h3>General Info:</h3>

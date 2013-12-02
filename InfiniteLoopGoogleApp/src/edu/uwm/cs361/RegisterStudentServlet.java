@@ -65,7 +65,12 @@ public class RegisterStudentServlet extends HttpServlet {
 				req.getRequestDispatcher("/registerStudent.jsp").forward(req, resp);
 			} else {
 				pm.makePersistent(student);
-				resp.sendRedirect("/display");
+				req.setAttribute("course_list", getCourses());
+				req.setAttribute("teacher_list", getTeachers());
+				req.setAttribute("award_list", getAwards());
+				req.setAttribute("charge_list", getCharges());
+				req.setAttribute("success", "Student registered successfully.");
+				req.getRequestDispatcher("/registerStudent.jsp").forward(req, resp);
 			}
 		} finally {			
 			pm.close();

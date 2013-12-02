@@ -50,7 +50,8 @@ public class CreateInstuctorServlet extends HttpServlet {
 				req.getRequestDispatcher("/createInstructor.jsp").forward(req, resp);
 			} else {
 				pm.makePersistent(instructor);
-				resp.sendRedirect("/display");
+				req.setAttribute("success", "Instructor created successfully.");
+				req.getRequestDispatcher("/createInstructor.jsp").forward(req, resp);
 			}
 		} catch (ServletException e) {
 			e.printStackTrace();

@@ -69,7 +69,9 @@ public class CreateClassServlet extends HttpServlet {
 				pm.makePersistent(course);
 //				teacher.getCourses().add(course);
 //				pm.makePersistent(teacher);
-				resp.sendRedirect("/display");
+				req.setAttribute("success", "Class created successfully.");
+				req.setAttribute("teachers", getTeachers());
+				req.getRequestDispatcher("createClass.jsp").forward(req, resp);
 			}
 		} catch (ServletException e) {
 			e.printStackTrace();
