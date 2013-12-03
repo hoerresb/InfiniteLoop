@@ -2,7 +2,7 @@ package edu.uwm.cs361.factories;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+
 
 import edu.uwm.cs361.entities.*;
 
@@ -14,7 +14,7 @@ public class IssueAwardFactory {
 		if (name.isEmpty()) {
 			errors.add("Please enter an award name.");
 		}
-		if(description.isEmpty(){
+		if(description.isEmpty()){
 			errors.add("Please enter an award description.");
 		}
 		if (course == null) {
