@@ -79,9 +79,10 @@ public class LoginServlet extends HttpServlet {
 				
 				}
 				
-				else{
+					errors.add("Incorrect Login Information");
+					req.setAttribute("errors", errors);
 					req.getRequestDispatcher("/login.jsp").forward(req, resp);	
-				}
+				
 			}catch (Exception e) {
 				e.printStackTrace();
 			} finally {
