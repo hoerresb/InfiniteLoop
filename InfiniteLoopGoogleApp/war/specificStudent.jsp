@@ -11,10 +11,11 @@
 <%@ page import="edu.uwm.cs361.entities.Admin" %>
 <%@ page import="javax.servlet.http.Cookie" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<%@include file='/templates/teacher_header.html'%>	
+<%@include file='/templates/teacher_header.jsp'%>	
 	<div id="content">
-	<span class="title">${username}</span>
+	<span class="title">${studentName}</span>
 	<h2 class="home_title">Account Charges:</h2>
 	<div class="home_item subsection">
 		<p>Charges:</p>
@@ -37,29 +38,42 @@
 	</div>
 	<h2 class="home_title">Classes:</h2>
 	<div class="home_item subsection">
-			<c:forEach items="${courses}" var="course">
-				<h3 class="home_title"><a href="cooking_course_info_teacher.html">${course.name}</a></h3> <!--  Make link go to specific course -->
-					<ul>
-						<li><b>Instructor:</b> <em>teacher.fullName</em></li> -->
-						<li><b>Email:</b><em><a href="mailto:${teacher.email}">teacher.email</a></em></li>
-						<li><b>Start Date:</b> <em>${course.startDate}</em></li>
-						<li><b>End Date:</b> <em>${course.endDate}</em></li>
-						<li><b>Meeting Days:</b> <em>${course.meetingDays}</em></li>
-						<li><b>Time:</b> <em>${course.time}</em></li>
-						<li><b>Location:</b> <em>${course.place}</em></li>
-						<li><b>Payment Method:</b> <em>$${course.paymentOption}</em></li>
-						<li><b>Description:</b> <em>${course.description}</em></li>
-					</ul>
-			</c:forEach>
+		<c:choose>
+		      <c:when test="${fn:length(courses) == 0}">
+		      		<p>This student is not enrolled in any courses.</p>
+		      </c:when>
+		      <c:otherwise>
+				<c:forEach items="${courses}" var="course">
+					<h3 class="home_title"><a href="cooking_course_info_teacher.html">${course.name}</a></h3> <!--  Make link go to specific course -->
+						<ul>
+							<li><b>Instructor:</b> <em>teacher.fullName</em></li>
+							<li><b>Email:</b><em><a href="mailto:${teacher.email}">teacher.email</a></em></li>
+							<li><b>Start Date:</b> <em>${course.startDate}</em></li>
+							<li><b>End Date:</b> <em>${course.endDate}</em></li>
+							<li><b>Meeting Days:</b> <em>${course.meetingDays}</em></li>
+							<li><b>Time:</b> <em>${course.time}</em></li>
+							<li><b>Location:</b> <em>${course.place}</em></li>
+							<li><b>Payment Method:</b> <em>$${course.paymentOption}</em></li>
+							<li><b>Description:</b> <em>${course.description}</em></li>
+						</ul>
+				</c:forEach>
+			 </c:otherwise>
+		</c:choose>
 	</div>
-	<!-- TODO: -->
 	<h2 class="home_title">Awards:</h2>
 	<div class="home_item subsection">
-		<h3 class="home_title"><a href="cooking_course_info_teacher.html">Cooking for Dummies</a></h3> 
 		<ul>
-			<li>Beginner Chef</li>
-			<li>Intermediate Chef</li>
-		</ul>
+		<c:choose>
+		      <c:when test="${fn:length(awards) == 0}">
+		      		<p>This student has not received any awards.</p>
+		      </c:when>
+		      <c:otherwise>
+				<c:forEach items="${awards}" var="award">
+					<li>${award.awardName}</li>
+				</c:forEach>
+			  </c:otherwise>
+			</c:choose>
+		<ul>
 	</div>
 </div>
 	

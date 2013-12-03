@@ -28,12 +28,12 @@ public class DisplayServlet extends HttpServlet
 		resp.setContentType("text/html");
 		PersistenceManager pm = PersistanceFactory.getPersistenceManager();
 		try {
-			displayAdmins(req, resp, pm);
-			displayTeachers(req, resp, pm);
+			//displayAdmins(req, resp, pm);
+			//displayTeachers(req, resp, pm);
 			displayStudents(req, resp, pm);
-		    displayCourses(req, resp, pm);
-			displayCharges(req, resp, pm);
-			EmailService.SendDeadlineEmails();
+		    //displayCourses(req, resp, pm);
+			//displayCharges(req, resp, pm);
+			//EmailService.SendDeadlineEmails();
 		} catch(Exception e){
 			e.getStackTrace();
 		} finally {
@@ -75,8 +75,13 @@ public class DisplayServlet extends HttpServlet
 			resp.getWriter().println("<ul>");
 			for (Student student : students) {
 				String row = "";
-				row += "<li>(" + student.getUser_id().getId() + ")<br/>Name: "+ student.getFullName() + "<br/>Username: " + student.getUsername() +
-						"<br/>password: " + student.getPassword() + "<br/>email: " + student.getEmail() + "<br/>";
+				row += "<li>(<a href='/specificStudent?student_id=" + student.getUser_id().getId() + "'>" + 
+						student.getUser_id().getId() + "</a>)"+
+						"<br/>Name: "+ student.getFullName() + 
+						"<br/>Username: " + student.getUsername() +
+						"<br/>password: " + student.getPassword() + 
+						"<br/>email: " + student.getEmail() + 
+						"<br/>";
 				row +=	"Courses: <ul>"; 
 				Set<Course> courses = student.getCourses();
 				for(Course c : courses) {

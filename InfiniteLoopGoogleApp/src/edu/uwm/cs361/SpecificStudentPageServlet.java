@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import edu.uwm.cs361.entities.Award;
 import edu.uwm.cs361.entities.Charge;
 import edu.uwm.cs361.entities.Course;
 import edu.uwm.cs361.entities.Student;
@@ -21,81 +22,80 @@ import edu.uwm.cs361.factories.PersistanceFactory;
 public class SpecificStudentPageServlet extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-		long id = (long) req.getAttribute("student_id");
-		Student student = getStudent(id);
-		
-		req.setAttribute("balance", getBalance(student));
-		req.setAttribute("courses", getCourses(student));
-		req.setAttribute("teachers", getTeachers(student));
-		req.getRequestDispatcher("specificStudent.jsp").forward(req, resp);
-	}
-
-	@SuppressWarnings("unchecked")
-	private Student getStudent(long id) {
 		PersistenceManager pm = PersistanceFactory.getPersistenceManager();
-		List<Student> students = null;
+		long id = Long.parseLong(req.getParameter("student_id"));
 		try {
-			students = (List<Student>) pm.newQuery(Student.class).execute(); 
+			Student student = getStudent(pm, id);
+			
+			req.setAttribute("studentName", student.getFullName());
+			req.setAttribute("balance", getBalance(pm, student));
+			req.setAttribute("courses", getCourses(pm, student));
+			req.setAttribute("teachers", getTeachers(pm, student));
+			req.setAttribute("awards", getAwards(pm, student));
+			req.getRequestDispatcher("specificStudent.jsp").forward(req, resp);
 		} catch(Exception e) {
 			e.getStackTrace();
 		} finally {
+			pm.flush();
 			pm.close();
 		}
-		
+	}
+
+	private Set<Award> getAwards(PersistenceManager pm, Student student) {
+		Set<Award> awards = new HashSet<Award>();
+		if (student != null) {
+			if (student.getAwards() != null) {
+				awards = student.getAwards();
+			}
+		}
+		return awards;
+	}
+
+	@SuppressWarnings("unchecked")
+	private Student getStudent(PersistenceManager pm, long id) {
+		List<Student> students = null;
+
+		students = (List<Student>) pm.newQuery(Student.class).execute(); 
 		for(Student student : students) {
 			if (student.getUser_id().getId() == id) {
 				return student;
 			}
 		}
-		
 		return null; 
 	}
 	
-	private double getBalance(Student student) {
-		PersistenceManager pm = PersistanceFactory.getPersistenceManager();
+	private double getBalance(PersistenceManager pm, Student student) {
 		double balance = 0;
-		try {
-			if (student != null) {
-				if (student.getCharges() != null) {
-					for (Charge charge : student.getCharges()) {
-						balance += charge.getAmount();
-					}
+
+		if (student != null) {
+			if (student.getCharges() != null) {
+				for (Charge charge : student.getCharges()) {
+					balance += charge.getAmount();
 				}
-			} else {
-				balance = 0;
 			}
-		} finally {
-			pm.close();
+		} else {
+			balance = 0;
 		}
 		return balance*-1;
 	}
 	
-	private Set<Course> getCourses(Student student) {
-		PersistenceManager pm = PersistanceFactory.getPersistenceManager();
+	private Set<Course> getCourses(PersistenceManager pm, Student student) {
 		Set<Course> courses = new HashSet<Course>();
-		try {
-			if (student != null) {
-				if (student.getCourses() != null) {
-					courses = student.getCourses();
-				}
+		if (student != null) {
+			if (student.getCourses() != null) {
+				courses = student.getCourses();
 			}
-		} finally {
-			pm.close();
 		}
 		return courses;
 	}
 	
-	private Set<Teacher> getTeachers(Student student) {
-		PersistenceManager pm = PersistanceFactory.getPersistenceManager();
+	private Set<Teacher> getTeachers(PersistenceManager pm, Student student) {
 		Set<Teacher> teachers = new HashSet<Teacher>();
-		try {
-			if (student != null) {
-				if (student.getTeachers() != null) {
-					teachers = student.getTeachers();
-				}
+
+		if (student != null) {
+			if (student.getTeachers() != null) {
+				teachers = student.getTeachers();
 			}
-		} finally {
-			pm.close();
 		}
 		return teachers;
 	}
