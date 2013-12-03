@@ -14,13 +14,13 @@ public class IssueAwardFactory {
 		if (name.isEmpty()) {
 			errors.add("Please enter an award name.");
 		}
-		if (description != null) {
-			if (description.isEmpty()) {
-				errors.add("Please enter an award description.");
-			}
-		} else {
+		if(description.isEmpty(){
 			errors.add("Please enter an award description.");
 		}
+		if (course == null) {
+				errors.add("Please specify a course.");
+		} 
+		
 		
 		if(hasErrors()) {
 			return null;
