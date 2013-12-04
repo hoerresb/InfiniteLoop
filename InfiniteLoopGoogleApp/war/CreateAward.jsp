@@ -13,9 +13,9 @@
 
 			<form action="/CreateAward" method="POST">
 
-				<label for="award_courses">Courses:</label>
+				<label for="courses">Courses:</label>
 
-					<select id="award_courses" name="award_courses">
+					<select id="courses" name="courses">
 		
 						<c:forEach items="${courses}" var="course">
 							<option value="${course.course_id.id}">${course.name}</option>   
