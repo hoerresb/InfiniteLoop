@@ -62,6 +62,7 @@ public class CreateAwardServlet {
 				if (fact.hasErrors()) {
 					req.setAttribute("award_name", awardName);
 					req.setAttribute("award_description", awardDescription);
+					req.setAttribute("errors", fact.getErrors());
 					req.getRequestDispatcher("createAward.jsp").forward(req, resp);
 				} 
 				else {
