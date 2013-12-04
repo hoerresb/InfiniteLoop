@@ -9,7 +9,7 @@ public class RegisterStudentFactory {
 	private List<String> errors = new ArrayList<String>();
 	
 	public Student createStudent(String username, String password, String password_repeat,
-			String firstname, String lastname, String email, Set<Course> courses, Set<Teacher> teachers, Set<Award> awards, Set<Charge> charges) {
+			String firstname, String lastname, String email, Set<Course> courses) {
 		if (username.isEmpty()) {
 			errors.add("Username is required.");
 		} else if(UsernameValidator.usernameExists(username)) {
@@ -27,7 +27,14 @@ public class RegisterStudentFactory {
 		if(hasErrors()) {
 			return null;
 		} else {
-			return new Student(username,password,firstname,lastname,email,courses,teachers,awards,charges);
+			Student student = new Student(username,password,firstname,lastname,email);
+			for(Course c : courses) {
+				student.getCourses().add(c);
+				Teacher teacher = c.getTeacher();
+				student.addTeacher(teacher);
+				teacher.getStudents().add(student);
+			}
+			return student;
 		}
 	}
 	

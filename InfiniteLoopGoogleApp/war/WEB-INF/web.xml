@@ -105,11 +105,6 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet>
 	
 	<servlet>
-		<servlet-name>IssueAward</servlet-name>
-		<servlet-class>edu.uwm.cs361.IssueAwardServlet</servlet-class>
-	</servlet>
-	
-	<servlet>
 		<servlet-name>CreateCharge</servlet-name>
 		<servlet-class>edu.uwm.cs361.util.CreateChargeServlet</servlet-class>
 	</servlet>
@@ -202,11 +197,6 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<servlet-mapping>
 		<servlet-name>StudentCharges</servlet-name>
 		<url-pattern>/StudentChargesServlet</url-pattern>
-	</servlet-mapping>
-	
-	<servlet-mapping>
-		<servlet-name>IssueAward</servlet-name>
-		<url-pattern>/IssueAward</url-pattern>
 	</servlet-mapping>
 
 	<welcome-file-list>
