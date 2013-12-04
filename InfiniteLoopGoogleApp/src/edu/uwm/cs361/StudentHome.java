@@ -12,11 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.uwm.cs361.entities.*;
+import edu.uwm.cs361.factories.PersistanceFactory;
 
 @SuppressWarnings("serial")
 public class StudentHome extends HttpServlet {
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException	{
+		PersistenceManager pm = PersistanceFactory.getPersistenceManager();
 		
 		String username = null;
 
@@ -50,89 +52,50 @@ public class StudentHome extends HttpServlet {
 			}
 		}
 		
-		
-		
 		req.setAttribute("username", username);
-		
-		Student student = getStudent(username);		
-		req.setAttribute("balance", getBalance(student));
-		req.setAttribute("courses", getCourses(student));
-		req.setAttribute("teachers", getTeachers(student));
+		Student student = getStudent(pm, username);		
+		req.setAttribute("balance", getBalance(pm, student));
+		req.setAttribute("courses", getCourses(pm, student));
 	
 		req.getRequestDispatcher("StudentHome.jsp").forward(req, resp);
-		
 	}
 	
 	@SuppressWarnings("unchecked")
-	private Student getStudent(String username) {
-		PersistenceManager pm = getPersistenceManager();
+	private Student getStudent(PersistenceManager pm, String username) {
 		List<Student> students = new ArrayList<Student>();
 		Student student = null;
-		try {
-			students = (List<Student>) pm.newQuery(Student.class).execute();
-			for (Student s : students) {
-				if (s.getUsername().equals(username)) {
-					student = s;
-					student.getCharges(); //black magic that makes student.getCharges() in getBalance(student) not null
-					student.getCourses(); //black magic that makes student.getCourses() in getBalance(student) not null
-				}
+		students = (List<Student>) pm.newQuery(Student.class).execute();
+		for (Student s : students) {
+			if (s.getUsername().equals(username)) {
+				student = s;
+				student.getCharges(); //black magic that makes student.getCharges() in getBalance(student) not null
+				student.getCourses(); //black magic that makes student.getCourses() in getBalance(student) not null
 			}
-		} finally {
-			pm.close();
 		}
 		return student;
 	}
 	
-	private double getBalance(Student student) {
-		PersistenceManager pm = getPersistenceManager();
+	private double getBalance(PersistenceManager pm, Student student) {
 		double balance = 0;
-		try {
-			if (student != null) {
-				if (student.getCharges() != null) {
-					for (Charge charge : student.getCharges()) {
-						balance += charge.getAmount();
-					}
+		if (student != null) {
+			if (student.getCharges() != null) {
+				for (Charge charge : student.getCharges()) {
+					balance += charge.getAmount();
 				}
-			} else {
-				balance = 0;
 			}
-		} finally {
-			pm.close();
+		} else {
+			balance = 0;
 		}
 		return balance*-1;
 	}
 	
-	private Set<Course> getCourses(Student student) {
-		PersistenceManager pm = getPersistenceManager();
+	private Set<Course> getCourses(PersistenceManager pm, Student student) {
 		Set<Course> courses = new HashSet<Course>();
-		try {
-			if (student != null) {
-				if (student.getCourses() != null) {
-					courses = student.getCourses();
-				}
+		if (student != null) {
+			if (student.getCourses() != null) {
+				courses = student.getCourses();
 			}
-		} finally {
-			pm.close();
 		}
 		return courses;
-	}
-	
-	private Set<Teacher> getTeachers(Student student) {
-		PersistenceManager pm = getPersistenceManager();
-		Set<Teacher> teachers = new HashSet<Teacher>();
-		try {
-			if (student != null) {
-				if (student.getTeachers() != null) {
-					teachers = student.getTeachers();
-				}
-			}
-		} finally {
-			pm.close();
-		}
-		return teachers;
-	}
-
-	private PersistenceManager getPersistenceManager() {
-		return JDOHelper.getPersistenceManagerFactory("transactions-optional").getPersistenceManager();
 	}
 }
