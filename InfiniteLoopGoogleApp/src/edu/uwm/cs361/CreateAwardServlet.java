@@ -47,7 +47,7 @@ public class CreateAwardServlet {
 			}
 
 			teacher = getTeacher(username);
-			req.setAttribute("award_courses", getCourses(teacher));
+			req.setAttribute("courses", getCourses(teacher));
 			req.getRequestDispatcher("createAward.jsp").forward(req, resp);
 		}
 
@@ -55,7 +55,7 @@ public class CreateAwardServlet {
 			PersistenceManager pm = PersistanceFactory.getPersistenceManager();
 			String awardName = req.getParameter("award_name");
 			String awardDescription = req.getParameter("award_description");
-			Course course = (Course) pm.getObjectById(Course.class,Long.parseLong(req.getParameter("award_courses")));
+			Course course = (Course) pm.getObjectById(Course.class,Long.parseLong(req.getParameter("courses")));
 			IssueAwardFactory fact = new IssueAwardFactory();
 			Award award = fact.createAward(course, awardName, awardDescription);
 			try {
@@ -68,7 +68,7 @@ public class CreateAwardServlet {
 				else {
 					pm.makePersistent(award);
 					req.setAttribute("success", "Award created successfully.");
-					req.setAttribute("award_courses",  getCourses(teacher));
+					req.setAttribute("courses",  getCourses(teacher));
 					req.getRequestDispatcher("createAward.jsp").forward(req, resp);
 				}
 			} catch (ServletException e) {
