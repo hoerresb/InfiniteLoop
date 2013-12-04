@@ -22,7 +22,6 @@ import edu.uwm.cs361.entities.Charge;
 import edu.uwm.cs361.entities.Course;
 import edu.uwm.cs361.entities.Student;
 import edu.uwm.cs361.entities.Teacher;
-import edu.uwm.cs361.factories.CreateCourseFactory;
 import edu.uwm.cs361.factories.PersistanceFactory;
 import edu.uwm.cs361.factories.SpecificStudentPageFactory;
 
@@ -33,6 +32,10 @@ public class SpecificStudentPageFactoryTest {
 	private PersistenceManager pm;
 	
 	private Student student;
+	private Award award;
+	private Teacher teacher;
+	private Course course;
+	private Charge charge;
 
 	@Before
 	@SuppressWarnings("unchecked")
@@ -65,13 +68,13 @@ public class SpecificStudentPageFactoryTest {
 			pm.deletePersistent(student);
 		}
 		
-		Charge charge = new Charge(30, new Date(), "Because you owe me");
-		Award award = new Award("Living Champion", "You lived past the age of two, congratulations.");
+		charge = new Charge(30, new Date(), "Because you owe me");
+		award = new Award("Living Champion", "You lived past the age of two, congratulations.");
 		
-		Teacher teacher = new Teacher("username","password1","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});		
+		teacher = new Teacher("username","password1","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});		
 		
 		Set<String> meetingDays = new HashSet<String>(Arrays.asList(new String[] { "M", "T", "W" }));
-		Course course = new Course("Breathing", "10/14/2013", "10/15/2013", meetingDays, "10:30", "EMS145", "30 per session", "breathe in, breathe out", teacher);
+		course = new Course("Breathing", "10/14/2013", "10/15/2013", meetingDays, "10:30", "EMS145", "30 per session", "breathe in, breathe out", teacher);
 		teacher.getCourses().add(course);
 		
 		Set<Award> awardsList = new HashSet<Award>(Arrays.asList(new Award[] {award}));
@@ -110,7 +113,50 @@ public class SpecificStudentPageFactoryTest {
 		assertEquals(student.getUser_id().getId(), result.getUser_id().getId());
 	}
 	
-	//TODO:
-	// Awards, Balance, Courses, Teachers
+	@Test
+	public void testGetAwards() {
+		SpecificStudentPageFactory specFact = new SpecificStudentPageFactory();
+		Set<Award> awards = specFact.getAwards(pm, student);
+		
+		assertEquals(1, awards.size());
+		for(Award a : awards) {
+			assertEquals(a.getAwardDescription(), award.getAwardDescription());
+			assertEquals(a.getAwardName(), award.getAwardName());
+			assertEquals(a.getAward_id().getId(), award.getAward_id().getId());
+		}
+	}
+	
+	@Test
+	public void testGetTeachers() {
+		SpecificStudentPageFactory specFact = new SpecificStudentPageFactory();
+		Set<Teacher> teachers = specFact.getTeachers(pm, student);
+		
+		assertEquals(1, teachers.size());
+		for(Teacher t : teachers) {
+			assertEquals(t.getUser_id().getId(), teacher.getUser_id().getId());
+			assertEquals(t.getFullName(), teacher.getFullName());
+			assertEquals(t.getEmail(), teacher.getEmail());
+		}
+	}
+	
+	@Test
+	public void testGetCourses() {
+		SpecificStudentPageFactory specFact = new SpecificStudentPageFactory();
+		Set<Course> courses = specFact.getCourses(pm, student);
+		
+		assertEquals(1, courses.size());
+		for(Course c : courses) {
+			assertEquals(c.getCourse_id().getId(), course.getCourse_id().getId());
+			assertEquals(c.getDescription(), course.getDescription());
+			assertEquals(c.getEndDate(), course.getEndDate());
+		}
+	}
+	
+	@Test
+	public void testGetBalance() {
+		SpecificStudentPageFactory specFact = new SpecificStudentPageFactory();
+		Double amount = specFact.getBalance(pm, student);
+		assertEquals((new Double(-30)).toString(), amount.toString());
+	}
 	
 }
