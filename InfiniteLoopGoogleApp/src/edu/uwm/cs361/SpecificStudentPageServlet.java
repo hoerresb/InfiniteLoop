@@ -22,7 +22,7 @@ public class SpecificStudentPageServlet extends HttpServlet {
 			SpecificStudentPageFactory specFact = new SpecificStudentPageFactory();
 			Student student = specFact.getStudent(pm, id);
 			
-			req.setAttribute("studentName", student.getFullName());
+			req.setAttribute("student", student);
 			req.setAttribute("balance", specFact.getBalance(pm, student));
 			req.setAttribute("courses", specFact.getCourses(pm, student));
 			req.setAttribute("teachers", specFact.getTeachers(pm, student));

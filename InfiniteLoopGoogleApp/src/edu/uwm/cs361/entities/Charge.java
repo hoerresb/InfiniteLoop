@@ -1,5 +1,6 @@
 package edu.uwm.cs361.entities;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
@@ -24,6 +25,8 @@ public class Charge {
 	@Persistent
 	private String reason;
 	
+	private static SimpleDateFormat dateFormatter = new SimpleDateFormat ("MM/dd/yyyy");
+	
 	//Constructor for test purposes for amounts
 	public Charge(double amount) {
 		this.amount = amount;
@@ -43,6 +46,10 @@ public class Charge {
 		return amount;
 	}
 
+	public String getFormattedDeadline() {
+		return dateFormatter.format(deadline);
+	}
+	
 	public Date getDeadline() {
 		return deadline;
 	}

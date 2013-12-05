@@ -4,7 +4,14 @@
 
 <%@include file='/templates/teacher_header.jsp'%>	
 	<div id="content">
-	<span class="title">${studentName}</span>
+	<span class="title">${student.fullName}</span>
+	<h2 class="home_title">General Info:</h2>
+	<div class="home_item subsection">
+		<ul>
+			<li><b>Username:</b> <em>${student.username}</em></li>
+			<li><b>Email:</b><em><a href="mailto:${student.email}">${student.email}</a></em></li>
+		<ul>
+	</div>
 	<h2 class="home_title">Account Charges:</h2>
 	<div class="home_item subsection">
 		<p>Charges:</p>
