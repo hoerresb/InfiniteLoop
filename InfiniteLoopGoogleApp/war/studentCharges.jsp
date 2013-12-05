@@ -45,7 +45,7 @@
 							<c:set value='${charge.deadline}' var='deadline'/>
 						</c:forEach>
 						
-						<span>Total: $${total}</span><br/>
+						<span>Total: <a href='/billingStatement?student_id=${student.user_id.id}'>$${total}</a></span><br/>
 						<span>Due: ${deadline.month+1}-${deadline.day+1}-${deadline.year+1900}</span>
 					</td>
 					<td>
