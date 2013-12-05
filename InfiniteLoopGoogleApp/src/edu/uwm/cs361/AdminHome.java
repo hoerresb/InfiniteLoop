@@ -17,24 +17,8 @@ import edu.uwm.cs361.entities.*;
 public class AdminHome extends HttpServlet {
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException	{
-		
-	/*	String username = null;
-
-		Cookie[] cookies = req.getCookies();
-
-		if (cookies != null) {
-			for (Cookie c : cookies) {
-				if (c.getName().equals("Adminname")) {
-					username = c.getValue();
-				}
-			}
-		}
-
-		req.setAttribute("username", username);
-		*/
 		req.setAttribute("balance", getBalance());
 		req.getRequestDispatcher("AdminHome.jsp").forward(req, resp);
-		
 	}
 	
 	@SuppressWarnings("unchecked")
