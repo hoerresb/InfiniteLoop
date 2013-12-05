@@ -1,15 +1,4 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
-
-<%@ page import="java.util.List" %>
-<%@ page import="javax.servlet.ServletException" %>
-<%@ page import="javax.servlet.http.HttpServlet" %>
-<%@ page import="javax.servlet.http.HttpServletRequest" %>
-<%@ page import="javax.servlet.http.HttpServletResponse" %>
-
-<%@ page import="javax.jdo.JDOHelper" %>
-<%@ page import="javax.jdo.PersistenceManager" %>
-<%@ page import="edu.uwm.cs361.entities.Admin" %>
-<%@ page import="javax.servlet.http.Cookie" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
@@ -44,8 +33,7 @@
 		      </c:when>
 		      <c:otherwise>
 				<c:forEach items="${courses}" var="course">
-					<h3 class="home_title"><a href="cooking_course_info_teacher.html">${course.name}</a></h3> <!--  Make link go to specific course -->
-						<ul>
+					<h3 class="home_title"><a href="/specificCourse?course_id=${course.course_id.id}">${course.name}</a></h3> 
 							<li><b>Instructor:</b> <em>${course.teacher.fullName}</em></li>
 							<li><b>Email:</b><em><a href="mailto:${course.teacher.email}">${course.teacher.email}</a></em></li>
 							<li><b>Start Date:</b> <em>${course.startDate}</em></li>

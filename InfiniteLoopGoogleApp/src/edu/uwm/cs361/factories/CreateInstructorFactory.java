@@ -12,20 +12,20 @@ public class CreateInstructorFactory {
 	public Teacher createInstructor(String username, String password, String password_repeat,
 			String firstname, String lastname, String email,
 			String phonenumber, String[] instructor_types) {
-		if (username.isEmpty()) {
+		if (username == null || username.isEmpty()) {
 			errors.add("Username is required.");
 		} else if(UsernameValidator.usernameExists(username)) {
 			errors.add("Username is already taken.");
 		}
-		if (password.isEmpty()) {
+		if (password == null || password.isEmpty()) {
 			errors.add("Password is required.");
 		} else if (!password.equals(password_repeat)) {
 			errors.add("Passwords do not match.");
 		}
-		if (phonenumber.isEmpty()) {
+		if (phonenumber == null || phonenumber.isEmpty()) {
 			errors.add("Phone Number is required.");
 		}
-		if (email.isEmpty()) {
+		if (email == null || email.isEmpty()) {
 			errors.add("Email is required.");
 		}
 		

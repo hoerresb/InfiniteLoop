@@ -1,6 +1,5 @@
 package edu.uwm.cs361.entities;
 
-import java.util.Date;
 import java.util.Set;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
@@ -55,8 +54,12 @@ public class Course {
 			Set<String> meetingDays, String time, String place,
 			String payment_options, String description, Teacher teacher) {
 		this.name = name;
-		this.startDate = startDate;
-		this.endDate = endDate;
+		
+		String start = startDate.substring(5,7) +"/"+ startDate.substring(8,10) +"/"+ startDate.substring(0,4);
+		this.startDate = start;
+		String end = endDate.substring(5,7) +"/"+ endDate.substring(8,10) +"/"+ endDate.substring(0,4);
+		this.endDate = end;
+		
 		this.meetingDays = meetingDays;
 		this.time = time;
 		this.place = place;

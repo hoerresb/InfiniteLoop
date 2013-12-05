@@ -19,7 +19,7 @@
 		<h3>Classes</h3>
 		<c:forEach items="${courses}" var="course">
 			<div class="home_item">
-				<span>${course.name}</span>
+				<span><a href="/specificCourse?course_id=${course.course_id.id}">${course.name}</a></span>
 				<ul>
 					<li><b>Start Date:</b> <em>${course.startDate}</em></li>
 					<li><b>End Date:</b> <em>${course.endDate}</em></li>

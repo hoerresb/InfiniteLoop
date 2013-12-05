@@ -1,7 +1,6 @@
 package edu.uwm.cs361.factories;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.jdo.PersistenceManager;
@@ -23,17 +22,8 @@ public class SpecificStudentPageFactory {
 		return awards;
 	}
 
-	@SuppressWarnings("unchecked")
 	public Student getStudent(PersistenceManager pm, long id) {
-		List<Student> students = null;
-
-		students = (List<Student>) pm.newQuery(Student.class).execute(); 
-		for(Student student : students) {
-			if (student.getUser_id().getId() == id) {
-				return student;
-			}
-		}
-		return null; 
+		return (Student) pm.getObjectById(Student.class, id);
 	}
 	
 	public double getBalance(PersistenceManager pm, Student student) {

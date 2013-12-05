@@ -29,7 +29,7 @@ public class SpecificStudentPageServlet extends HttpServlet {
 			req.setAttribute("awards", specFact.getAwards(pm, student));
 			req.getRequestDispatcher("specificStudent.jsp").forward(req, resp);
 		} catch(Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 		} finally {
 			pm.flush();
 			pm.close();
