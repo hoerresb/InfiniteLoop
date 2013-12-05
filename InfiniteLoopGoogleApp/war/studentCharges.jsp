@@ -26,7 +26,7 @@
 			<c:forEach items='${students}' var='student'>
 				<tr>
 					<td>
-						<a href='#'>${student.fullName}</a>
+						<a href='/billingStatement?student_id=${student.user_id.id}'>${student.fullName}</a>
 					</td>
 					<td>						
 						<label for='${student.user_id}_add_charge_amount'>Amount:</label>
