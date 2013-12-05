@@ -6,16 +6,18 @@
 	<div id="content">
 		<form id='form-id' method='POST' action='issueAwardClass'>
 			<label for="course_select">Select course to assign awards for:</label><br />
-	        <select id="course_select" name="course_options">
-	            <optgroup>
-	               <c:forEach items="${courses}" var="course">
-			     	 <option value="${course.course_id.id}">${course.name}</option>
-				   </c:forEach> 
-	            </optgroup>
-	        </select><br/><br/>
-	    	<div id='button-area'>
+	        <p class="centerME">
+		        <select id="course_select" name="course_options">
+		            <optgroup>
+		               <c:forEach items="${courses}" var="course">
+				     	 <option value="${course.course_id.id}">${course.name}</option>
+					   </c:forEach> 
+		            </optgroup>
+		        </select><br/><br/>
+	        </p>
+	    	<p id="GoButton" class="centerME">
 				<button id='submit-id' type='submit'>Go</button><br/><br/> 
-			</div>
+			</p>
 		</form>
 	</div>
 <%@include file='/templates/footer.html'%>

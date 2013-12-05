@@ -19,6 +19,17 @@ a:link{
 	color: #DD7900;
 }
 
+.centerME {
+	text-align: center;	
+	padding-bottom: 0px;
+	margin-bottom: 0px;
+}
+
+#GoButton {
+	padding-top: 0px;
+	margin-top: 0px;
+}
+
 .nav a {
 	color: #FFF;
 }
