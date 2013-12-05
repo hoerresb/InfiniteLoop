@@ -12,7 +12,7 @@
 <%@ page import="javax.servlet.http.Cookie" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%@include file='/templates/student_header.html'%>	
+<%@include file='/templates/student_header.jsp'%>	
 	<div id="content">
 		<h2> Welcome, ${username} </h2>
 		<h3>Charges</h3>
@@ -30,7 +30,7 @@
 					<c:set value="red" var="balance_color"/>
 					<c:set value="You owe money!" var="balance_note"/>
 				</c:if>
-				Balance: <a style="color:${balance_color}" href="/StudentChargesServlet">$${balance}</a><br/>
+				Balance: <a style="color:${balance_color}" href="/studentBillingStatement">$${balance}</a><br/>
 				${balance_note}
 			</p>
 		</div>
