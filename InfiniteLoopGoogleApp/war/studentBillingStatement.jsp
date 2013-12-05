@@ -28,7 +28,7 @@
 		<c:forEach items='${charges}' var='charge'>
 			<tr>
 				<td>
-					<span> ${charge.deadline.month+1}-${charge.deadline.day+1}-${charge.deadline.year+1900}</span>
+					<span>${charge.formattedDeadline}</span>
 				</td>
 				<td>
 					<span>${charge.reason}</span>

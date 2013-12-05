@@ -42,11 +42,11 @@
 						
 						<c:forEach items='${student.charges}' var='charge'>
 							<c:set value='${total + charge.amount}' var='total'/>
-							<c:set value='${charge.deadline}' var='deadline'/>
+							<c:set value='${charge.formattedDeadline}' var='deadline'/>
 						</c:forEach>
 						
 						<span>Total: <a href='/billingStatement?student_id=${student.user_id.id}'>$${total}</a></span><br/>
-						<span>Due: ${deadline.month+1}-${deadline.day+1}-${deadline.year+1900}</span>
+						<span>Due: ${deadline}</span>
 					</td>
 					<td>
 						<a href='mailto:${student.email}'>${student.email}</a>
