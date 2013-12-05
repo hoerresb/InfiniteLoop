@@ -19,7 +19,7 @@ public class CreateInstuctorServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException	{
 		PersistenceManager pm = PersistenceFactory.getPersistenceManager();
 		
-		String username = req.getParameter("username");
+		String username = req.getParameter("teacher_username");
 		String password = req.getParameter("password");
 		String password_repeat = req.getParameter("password_repeat");
 		String firstname = req.getParameter("firstname");

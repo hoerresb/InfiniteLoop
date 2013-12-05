@@ -5,9 +5,7 @@
 <%@ page import="javax.servlet.http.Cookie" %>
 
 <%@include file='/templates/teacher_header.jsp'%>
-
-		<div id="content">
-		
-		</div>
-		
+	<div id="content">
+	
+	</div>
 <%@include file='/templates/footer.html'%>

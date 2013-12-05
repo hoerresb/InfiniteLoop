@@ -20,7 +20,7 @@
 			<input id='instructor_types' class='text-input' type='text' name='instructor_types'
 						 placeholder='Ex: Dog Trainer, Tutor ...' value='${instructor_types}'/><br/><br/>
 			<label for='username-id'>Username:</label>
-			<input id='username-id' class='text-input' type='text' name='username' value='${username}'/><br/><br/> 
+			<input id='username-id' class='text-input' type='text' name='username' value='${teacher_username}'/><br/><br/> 
 			<label for='password'>Password:</label>
 			<input id='password' class='text-input' type='password' name='password' value='${password}'/><br/><br/>
 			<label for='password_repeat'>Retype Password:</label>

@@ -18,12 +18,13 @@ import javax.mail.internet.MimeMessage;
 
 import edu.uwm.cs361.entities.Charge;
 import edu.uwm.cs361.entities.Student;
+import edu.uwm.cs361.factories.PersistenceFactory;
 
 public class EmailService {
 	private static SimpleDateFormat dateFormatter = new SimpleDateFormat ("MM/dd/yyyy");
 	
 	public static void SendDeadlineEmails() {
-		PersistenceManager pm = getPersistenceManager();
+		PersistenceManager pm = PersistenceFactory.getPersistenceManager();
 		try {
 			List<DeadlineEmailObject> studentsWithDeadlineToday = populateEmailList(pm);
 			sendEmails(studentsWithDeadlineToday);
@@ -85,11 +86,16 @@ public class EmailService {
 		email += "You owe us money. This much: $" + emailObj.getCharge().getAmount() + ".\n";
 		email += "For this reason: " + emailObj.getCharge().getReason() + ".\n";
 		email += "The deadline is today and I advise you to pay it or you will be deported to Idontpaymybills Island forever.\n";
+		email += "You owe $" + getBalance(emailObj.getStudent().getCharges()) + ".\n";
 		email += "Thank you,\nAutomated Emailer";
 		return email;
 	}
 
-	private static PersistenceManager getPersistenceManager() {
-		return JDOHelper.getPersistenceManagerFactory("transactions-optional").getPersistenceManager();
+	private static Double getBalance(Set<Charge> charges) {
+		Double balance = 0.0;
+		for(Charge c : charges) {
+			balance += c.getAmount();
+		}
+		return balance;
 	}
 }
