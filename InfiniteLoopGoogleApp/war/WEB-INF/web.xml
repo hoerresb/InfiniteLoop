@@ -59,6 +59,16 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>SpecificCoursePage</servlet-name>
 		<url-pattern>/specificCourse</url-pattern>
 	</servlet-mapping>
+		
+	<servlet>
+		<servlet-name>BillingStatement</servlet-name>
+		<servlet-class>edu.uwm.cs361.BillingStatementServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>BillingStatement</servlet-name>
+		<url-pattern>/billingStatement</url-pattern>
+	</servlet-mapping>
 	
 	<servlet>
 		<servlet-name>EmailJob</servlet-name>
