@@ -31,6 +31,16 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>CreateAward</servlet-name>
+		<servlet-class>edu.uwm.cs361.CreateAwardServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>CreateAward</servlet-name>
+		<url-pattern>/CreateAward</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>SpecificStudentPage</servlet-name>
 		<servlet-class>edu.uwm.cs361.SpecificStudentPageServlet</servlet-class>
 	</servlet>

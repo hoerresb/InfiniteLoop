@@ -21,9 +21,10 @@ import edu.uwm.cs361.entities.Teacher;
 import edu.uwm.cs361.factories.IssueAwardFactory;
 import edu.uwm.cs361.factories.PersistenceFactory;
 
-public class CreateAwardServlet {
+@SuppressWarnings("serial")
+public class CreateAwardServlet extends HttpServlet {
 	private Teacher teacher;
-	
+		@Override
 		public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 			String username = null;
 
@@ -48,9 +49,9 @@ public class CreateAwardServlet {
 
 			teacher = getTeacher(username);
 			req.setAttribute("courses", getCourses(teacher));
-			req.getRequestDispatcher("createAward.jsp").forward(req, resp);
+			req.getRequestDispatcher("CreateAward.jsp").forward(req, resp);
 		}
-
+		@Override
 		public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException	{
 			PersistenceManager pm = PersistenceFactory.getPersistenceManager();
 			String awardName = req.getParameter("award_name");
@@ -63,13 +64,13 @@ public class CreateAwardServlet {
 					req.setAttribute("award_name", awardName);
 					req.setAttribute("award_description", awardDescription);
 					req.setAttribute("errors", fact.getErrors());
-					req.getRequestDispatcher("createAward.jsp").forward(req, resp);
+					req.getRequestDispatcher("CreateAward.jsp").forward(req, resp);
 				} 
 				else {
 					pm.makePersistent(award);
 					req.setAttribute("success", "Award created successfully.");
 					req.setAttribute("courses",  getCourses(teacher));
-					req.getRequestDispatcher("createAward.jsp").forward(req, resp);
+					req.getRequestDispatcher("CreateAward.jsp").forward(req, resp);
 				}
 			} catch (ServletException e) {
 				e.printStackTrace();
