@@ -17,13 +17,13 @@ import edu.uwm.cs361.factories.*;
 public class RegisterStudentServlet extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-		PersistenceManager pm = PersistanceFactory.getPersistenceManager();
+		PersistenceManager pm = PersistenceFactory.getPersistenceManager();
 		req.setAttribute("course_list", getCourses(pm));
 		req.getRequestDispatcher("/registerStudent.jsp").forward(req, resp);
 	}
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException	{
-		PersistenceManager pm = PersistanceFactory.getPersistenceManager();
+		PersistenceManager pm = PersistenceFactory.getPersistenceManager();
 		
 		String username = req.getParameter("student_username");
 		String password = req.getParameter("password");

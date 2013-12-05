@@ -10,7 +10,25 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-class>edu.uwm.cs361.Attendance</servlet-class>
 	</servlet>
 	
+	<servlet>
+		<servlet-name>IssueAwardClassServlet</servlet-name>
+		<servlet-class>edu.uwm.cs361.IssueAwardClassServlet</servlet-class>
+	</servlet>
 	
+	<servlet-mapping>
+		<servlet-name>IssueAwardClassServlet</servlet-name>
+		<url-pattern>/issueAwardClass</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>IssueAwardServlet</servlet-name>
+		<servlet-class>edu.uwm.cs361.IssueAwardServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>IssueAwardServlet</servlet-name>
+		<url-pattern>/issueAward</url-pattern>
+	</servlet-mapping>
 	
 	<servlet>
 		<servlet-name>SpecificStudentPage</servlet-name>
@@ -108,20 +126,10 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>CreateCharge</servlet-name>
 		<servlet-class>edu.uwm.cs361.util.CreateChargeServlet</servlet-class>
 	</servlet>
-	
-    <servlet>
-		<servlet-name>feedback</servlet-name>
-		<servlet-class>edu.uwm.cs361.EmailTestServlet</servlet-class>
-	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>Attendance</servlet-name>
 		<url-pattern>/Attendance</url-pattern>
-	</servlet-mapping>
-
-	<servlet-mapping>
-		<servlet-name>feedback</servlet-name>
-		<url-pattern>/feedback</url-pattern>
 	</servlet-mapping>
 
 	<servlet-mapping>

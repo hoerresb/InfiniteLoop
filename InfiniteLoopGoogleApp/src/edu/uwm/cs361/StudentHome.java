@@ -12,13 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.uwm.cs361.entities.*;
-import edu.uwm.cs361.factories.PersistanceFactory;
+import edu.uwm.cs361.factories.PersistenceFactory;
 
 @SuppressWarnings("serial")
 public class StudentHome extends HttpServlet {
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException	{
-		PersistenceManager pm = PersistanceFactory.getPersistenceManager();
+		PersistenceManager pm = PersistenceFactory.getPersistenceManager();
 		
 		String username = null;
 

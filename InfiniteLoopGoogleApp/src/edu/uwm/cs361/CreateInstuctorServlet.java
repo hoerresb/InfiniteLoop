@@ -10,14 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.uwm.cs361.entities.Teacher;
 import edu.uwm.cs361.factories.CreateInstructorFactory;
-import edu.uwm.cs361.factories.PersistanceFactory;
+import edu.uwm.cs361.factories.PersistenceFactory;
 
 @SuppressWarnings("serial")
 public class CreateInstuctorServlet extends HttpServlet {
 
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException	{
-		PersistenceManager pm = PersistanceFactory.getPersistenceManager();
+		PersistenceManager pm = PersistenceFactory.getPersistenceManager();
 		
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");

@@ -11,7 +11,7 @@ import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import edu.uwm.cs361.entities.Admin;
 import edu.uwm.cs361.entities.Teacher;
 import edu.uwm.cs361.factories.CreateInstructorFactory;
-import edu.uwm.cs361.factories.PersistanceFactory;
+import edu.uwm.cs361.factories.PersistenceFactory;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -34,7 +34,7 @@ public class CreateInstructorFactoryTest {
 	@SuppressWarnings("unchecked")
 	public void setUp() {
 		helper.setUp();
-		pm = PersistanceFactory.getPersistenceManager();
+		pm = PersistenceFactory.getPersistenceManager();
 
 		List<Teacher> instructors = (List<Teacher>) pm.newQuery(Teacher.class).execute();
 

@@ -8,7 +8,7 @@ import javax.jdo.Query;
 import edu.uwm.cs361.entities.Admin;
 import edu.uwm.cs361.entities.Student;
 import edu.uwm.cs361.entities.Teacher;
-import edu.uwm.cs361.factories.PersistanceFactory;
+import edu.uwm.cs361.factories.PersistenceFactory;
 
 public class UsernameValidator {
 
@@ -26,7 +26,7 @@ public class UsernameValidator {
 
 	@SuppressWarnings("unchecked")
 	private static boolean isStudentWithUsername(String username) {
-		PersistenceManager pm = PersistanceFactory.getPersistenceManager();
+		PersistenceManager pm = PersistenceFactory.getPersistenceManager();
 		Query q = pm.newQuery(Student.class);
     	q.setFilter("username == nameParameter");
 		q.declareParameters("String nameParameter");
@@ -40,7 +40,7 @@ public class UsernameValidator {
 
 	@SuppressWarnings("unchecked")
 	private static boolean isTeacherWithUsername(String username) {
-		PersistenceManager pm = PersistanceFactory.getPersistenceManager();
+		PersistenceManager pm = PersistenceFactory.getPersistenceManager();
 		Query q = pm.newQuery(Teacher.class);
 	   	q.setFilter("username == nameParameter");
 		q.declareParameters("String nameParameter");
@@ -54,7 +54,7 @@ public class UsernameValidator {
 
 	@SuppressWarnings("unchecked")
 	private static boolean isAdminWithUsername(String username) {
-		PersistenceManager pm = PersistanceFactory.getPersistenceManager();
+		PersistenceManager pm = PersistenceFactory.getPersistenceManager();
 		Query q = pm.newQuery(Admin.class);
 	   	q.setFilter("username == nameParameter");
 		q.declareParameters("String nameParameter");

@@ -28,7 +28,7 @@ import edu.uwm.cs361.entities.Charge;
 import edu.uwm.cs361.entities.Course;
 import edu.uwm.cs361.entities.Student;
 import edu.uwm.cs361.entities.Teacher;
-import edu.uwm.cs361.factories.PersistanceFactory;
+import edu.uwm.cs361.factories.PersistenceFactory;
 
 public class EmailServiceTest {
 	private final LocalServiceTestHelper helper = new LocalServiceTestHelper(
@@ -40,7 +40,7 @@ public class EmailServiceTest {
 	@SuppressWarnings("unchecked")
 	public void setUp() {
 		helper.setUp();
-		pm = PersistanceFactory.getPersistenceManager();
+		pm = PersistenceFactory.getPersistenceManager();
 
 		List<Student> students = (List<Student>) pm.newQuery(Student.class).execute();
 

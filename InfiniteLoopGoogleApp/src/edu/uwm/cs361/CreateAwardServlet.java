@@ -19,7 +19,7 @@ import edu.uwm.cs361.entities.Award;
 import edu.uwm.cs361.entities.Course;
 import edu.uwm.cs361.entities.Teacher;
 import edu.uwm.cs361.factories.IssueAwardFactory;
-import edu.uwm.cs361.factories.PersistanceFactory;
+import edu.uwm.cs361.factories.PersistenceFactory;
 
 public class CreateAwardServlet {
 	private Teacher teacher;
@@ -52,7 +52,7 @@ public class CreateAwardServlet {
 		}
 
 		public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException	{
-			PersistenceManager pm = PersistanceFactory.getPersistenceManager();
+			PersistenceManager pm = PersistenceFactory.getPersistenceManager();
 			String awardName = req.getParameter("award_name");
 			String awardDescription = req.getParameter("award_description");
 			Course course = (Course) pm.getObjectById(Course.class,Long.parseLong(req.getParameter("courses")));

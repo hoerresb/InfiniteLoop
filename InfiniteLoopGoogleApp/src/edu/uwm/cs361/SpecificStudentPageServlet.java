@@ -9,14 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.uwm.cs361.entities.Student;
-import edu.uwm.cs361.factories.PersistanceFactory;
+import edu.uwm.cs361.factories.PersistenceFactory;
 import edu.uwm.cs361.factories.SpecificStudentPageFactory;
 
 @SuppressWarnings("serial")
 public class SpecificStudentPageServlet extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-		PersistenceManager pm = PersistanceFactory.getPersistenceManager();
+		PersistenceManager pm = PersistenceFactory.getPersistenceManager();
 		long id = Long.parseLong(req.getParameter("student_id"));
 		try {
 			SpecificStudentPageFactory specFact = new SpecificStudentPageFactory();

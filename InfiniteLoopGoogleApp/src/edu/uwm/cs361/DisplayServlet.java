@@ -15,7 +15,7 @@ import edu.uwm.cs361.entities.Charge;
 import edu.uwm.cs361.entities.Course;
 import edu.uwm.cs361.entities.Student;
 import edu.uwm.cs361.entities.Teacher;
-import edu.uwm.cs361.factories.PersistanceFactory;
+import edu.uwm.cs361.factories.PersistenceFactory;
 
 @SuppressWarnings("serial")
 public class DisplayServlet extends HttpServlet
@@ -26,7 +26,7 @@ public class DisplayServlet extends HttpServlet
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		resp.setContentType("text/html");
-		PersistenceManager pm = PersistanceFactory.getPersistenceManager();
+		PersistenceManager pm = PersistenceFactory.getPersistenceManager();
 		try {
 			//displayAdmins(req, resp, pm);
 			//displayTeachers(req, resp, pm);

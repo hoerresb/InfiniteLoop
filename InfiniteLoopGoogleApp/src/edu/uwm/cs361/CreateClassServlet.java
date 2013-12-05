@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import edu.uwm.cs361.entities.Course; 
 import edu.uwm.cs361.entities.Teacher;
 import edu.uwm.cs361.factories.CreateCourseFactory;
-import edu.uwm.cs361.factories.PersistanceFactory;
+import edu.uwm.cs361.factories.PersistenceFactory;
 
 
 @SuppressWarnings("serial")
@@ -28,7 +28,7 @@ public class CreateClassServlet extends HttpServlet {
 
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException	{
-		PersistenceManager pm = PersistanceFactory.getPersistenceManager();
+		PersistenceManager pm = PersistenceFactory.getPersistenceManager();
 		
 		String classname = req.getParameter("classname");
 		String startDate = req.getParameter("classstart");
@@ -47,7 +47,7 @@ public class CreateClassServlet extends HttpServlet {
 		String payment_option = payment_value + " per " + payment_duration;
 
 		
-		Teacher teacher = (Teacher) pm.getObjectById(Teacher.class,Long.parseLong(req.getParameter("instr_options"))); //update teacher
+		Teacher teacher = (Teacher) pm.getObjectById(Teacher.class,Long.parseLong(req.getParameter("instr_options")));
 
 		CreateCourseFactory course_fact = new CreateCourseFactory();
 		Course course = course_fact.createCourse(classname, startDate, endDate, meetingDays, time, place, payment_option, description,teacher);
@@ -82,7 +82,7 @@ public class CreateClassServlet extends HttpServlet {
 
 	@SuppressWarnings("unchecked")
 	private List<Teacher> getTeachers() {
-		PersistenceManager pm = PersistanceFactory.getPersistenceManager();
+		PersistenceManager pm = PersistenceFactory.getPersistenceManager();
 		try {
 			return (List<Teacher>) pm.newQuery(Teacher.class).execute();
 		} finally {

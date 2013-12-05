@@ -22,7 +22,7 @@ import edu.uwm.cs361.entities.Charge;
 import edu.uwm.cs361.entities.Course;
 import edu.uwm.cs361.entities.Student;
 import edu.uwm.cs361.entities.Teacher;
-import edu.uwm.cs361.factories.PersistanceFactory;
+import edu.uwm.cs361.factories.PersistenceFactory;
 import edu.uwm.cs361.factories.SpecificStudentPageFactory;
 
 public class SpecificStudentPageFactoryTest {
@@ -41,7 +41,7 @@ public class SpecificStudentPageFactoryTest {
 	@SuppressWarnings("unchecked")
 	public void setUp() {
 		helper.setUp();
-		pm = PersistanceFactory.getPersistenceManager();
+		pm = PersistenceFactory.getPersistenceManager();
 
 		List<Teacher> teachers = (List<Teacher>) pm.newQuery(Teacher.class).execute();
 		for (Teacher teacher : teachers) {
