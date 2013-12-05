@@ -29,6 +29,7 @@ public class RegisterStudentFactory {
 		} else {
 			Student student = new Student(username,password,firstname,lastname,email);
 			for(Course c : courses) {
+				c.getStudents().add(student);
 				student.getCourses().add(c);
 				Teacher teacher = c.getTeacher();
 				student.addTeacher(teacher);
