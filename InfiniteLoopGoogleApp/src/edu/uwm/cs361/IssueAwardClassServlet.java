@@ -31,12 +31,11 @@ public class IssueAwardClassServlet extends HttpServlet {
 		req.getRequestDispatcher("issueAwardClass.jsp").forward(req, resp);
 	}
 	
-//	@Override
-//	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException	{
-//		Long course_id = Long.parseLong(req.getParameter("course_options"));
-//		req.setAttribute("course_id", course_id);
-//		req.getRequestDispatcher("/issueAward").forward(req, resp);
-//	}
+	@Override
+	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException	{
+		Long course_id = Long.parseLong(req.getParameter("course_options"));
+		resp.sendRedirect("/issueAward?course_id=" + course_id);
+	}
 
 
 	@SuppressWarnings("unchecked")

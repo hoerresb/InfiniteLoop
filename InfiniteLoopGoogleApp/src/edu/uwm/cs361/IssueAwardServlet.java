@@ -17,12 +17,10 @@ public class IssueAwardServlet extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		PersistenceManager pm = PersistenceFactory.getPersistenceManager();
-		Course course = (Course) pm.getObjectId(Long.parseLong((String)req.getAttribute("course_id")));
-		System.out.println(course.getName());
+		Course course = (Course) pm.getObjectById(Course.class, Long.parseLong((String)req.getParameter("course_id")));
 	}
 	
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException	{
-		//resp.sendRedirect("/login.jsp");
 	}
 }

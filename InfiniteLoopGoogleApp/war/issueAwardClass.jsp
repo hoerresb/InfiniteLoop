@@ -4,13 +4,18 @@
 
 <%@include file='/templates/teacher_header.jsp'%>
 	<div id="content">
-		<label for="course_select">Select course to assign awards for:</label><br />
-        <select id="course_select" name="course_options">
-            <optgroup>
-               <c:forEach items="${courses}" var="course">
-		     	 <option value="${course.course_id.id}"><a href="/issueAward?course_id=${course.course_id.id}">${course.name}<a/></option>
-			   </c:forEach> 
-            </optgroup>
-        </select><br/><br/>
+		<form id='form-id' method='POST' action='issueAwardClass'>
+			<label for="course_select">Select course to assign awards for:</label><br />
+	        <select id="course_select" name="course_options">
+	            <optgroup>
+	               <c:forEach items="${courses}" var="course">
+			     	 <option value="${course.course_id.id}">${course.name}</option>
+				   </c:forEach> 
+	            </optgroup>
+	        </select><br/><br/>
+	    	<div id='button-area'>
+				<button id='submit-id' type='submit'>Go</button><br/><br/> 
+			</div>
+		</form>
 	</div>
 <%@include file='/templates/footer.html'%>
