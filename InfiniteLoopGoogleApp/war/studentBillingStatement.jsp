@@ -13,12 +13,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<%@include file='/templates/admin_header.jsp'%>	
+<%@include file='/templates/student_header.jsp'%>	
 
 <div class='chargesContainer'>
 	<table>
 		<tr>
-			<th class="title" colspan="4">${studentName}</th>
+			<th class="title" colspan="4">Billing Statement</th>
 		</tr>
 		<th>Date</th>
 		<th>Description</th>

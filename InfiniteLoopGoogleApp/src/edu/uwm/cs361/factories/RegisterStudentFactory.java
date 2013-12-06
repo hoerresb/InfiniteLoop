@@ -31,6 +31,7 @@ public class RegisterStudentFactory {
 			for(Course c : courses) {
 				c.getStudents().add(student);
 				student.getCourses().add(c);
+				student.getCharges().add(new Charge(c.getPayment_amount(),new Date(),c.getName()));//adds initial charge for course fee
 				Teacher teacher = c.getTeacher();
 				student.addTeacher(teacher);
 				teacher.getStudents().add(student);
