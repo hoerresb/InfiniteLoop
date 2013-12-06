@@ -6,6 +6,8 @@ import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestC
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
 import edu.uwm.cs361.entities.*;
+import edu.uwm.cs361.factories.PersistenceFactory;
+import edu.uwm.cs361.factories.StudentChargesFactory;
 
 import java.util.*;
 
@@ -18,53 +20,84 @@ public class StudentChargesFactoryTest {
 			new LocalDatastoreServiceTestConfig());
 
 	private PersistenceManager pm;
-	private List<Student> students = new ArrayList<Student>();
 
 	@Before
 	public void setUp() {
 		helper.setUp();
-		pm = getPersistenceManager();
+		pm = PersistenceFactory.getPersistenceManager();
 	}
 
 	@After
 	public void tearDown() {
 		helper.tearDown();
 	}
-
+	
 	@Test
-	public void testNoStudents() {
-		assertEquals(0, students.size());
+	public void testErrorOnBlankAmount() {
+		StudentChargesFactory charge_fact = new StudentChargesFactory();
+		double amount = 0;
+		Date deadline = new Date(2013,8,12);
+		String reason = "Because I said so.";
+		Student student = new Student("student", "student", "Student_fn", "Student_ln", "student@student.com");
+		
+		Charge c = charge_fact.createCharge(student, amount, deadline, reason);
+		
+		assertNull(c);
+		assertTrue(charge_fact.hasErrors());
+		assertEquals(1, charge_fact.getErrors().size());
+		assertTrue(charge_fact.getErrors().get(0).equals("Please enter an amount."));
 	}
 	
 	@Test
-	public void testOneStudents() {
-		Student user = new Student("student", "student", "Student_fn", "Student_ln", "student@student.com");
-		students.add(user);
-		assertEquals(1, students.size());
+	public void testErrorOnBlankDate() {
+		StudentChargesFactory charge_fact = new StudentChargesFactory();
+		double amount = 6;
+		Date deadline = null;
+		String reason = "Because I said so.";
+		Student student = new Student("student", "student", "Student_fn", "Student_ln", "student@student.com");
+		
+		Charge c = charge_fact.createCharge(student, amount, deadline, reason);
+		
+		assertNull(c);
+		assertTrue(charge_fact.hasErrors());
+		assertEquals(1, charge_fact.getErrors().size());
+		assertTrue(charge_fact.getErrors().get(0).equals("Please enter a date."));
+	}
+	
+	@Test
+	public void testErrorOnBlankReason() {
+		StudentChargesFactory charge_fact = new StudentChargesFactory();
+		double amount = 6;
+		Date deadline = new Date(2013,8,12);
+		String reason = "";
+		Student student = new Student("student", "student", "Student_fn", "Student_ln", "student@student.com");
+		
+		Charge c = charge_fact.createCharge(student, amount, deadline, reason);
+		
+		assertNull(c);
+		assertTrue(charge_fact.hasErrors());
+		assertEquals(1, charge_fact.getErrors().size());
+		assertTrue(charge_fact.getErrors().get(0).equals("Please enter a reason."));
 	}
 	
 	@SuppressWarnings("deprecation")
 	@Test
-	public void testAddCharges () {
-		double amount = 0;
-		Date deadline = new Date();
+	public void testSuccess () {
+		StudentChargesFactory charge_fact = new StudentChargesFactory();
+		double amount = 6;
+		Date deadline = new Date(2013,8,12);
+		String reason = "Because I said so.";
 		Student student = new Student("student", "student", "Student_fn", "Student_ln", "student@student.com");
-		students.add(student);
 		
-		student.getCharges().add(new Charge(6, new Date(2013,8,12), ""));
+		Charge c = charge_fact.createCharge(student, amount, deadline, reason);
 		
-		for(Student student1: students) {
-			for(Charge charge: student1.getCharges()) {
-				amount = charge.getAmount();
-				deadline = charge.getDeadline();
-			}
-		}
-		assertTrue(amount == 6);
-		assertTrue(deadline.equals(new Date(2013,8,12)));
-	}
-
-	private PersistenceManager getPersistenceManager() {
-		return JDOHelper.getPersistenceManagerFactory("transactions-optional")
-				.getPersistenceManager();
+		assertFalse(charge_fact.hasErrors());
+		assertEquals(0, charge_fact.getErrors().size());
+		assertEquals(c.getAmount(), 6, 0);
+		assertEquals(c.getDeadline(), new Date(2013,8,12));
+		assertEquals(c.getReason(), "Because I said so.");
+		
+		Set<Charge> charges = student.getCharges();
+		assertEquals(charges.size(),1);
 	}
 }

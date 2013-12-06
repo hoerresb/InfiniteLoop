@@ -4,17 +4,14 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import javax.jdo.JDOHelper;
-import javax.jdo.PersistenceManager;
-import javax.jdo.Query;
+import javax.jdo.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import edu.uwm.cs361.entities.Charge;
-import edu.uwm.cs361.entities.Course;
-import edu.uwm.cs361.entities.Student;
+import edu.uwm.cs361.entities.*;
+import edu.uwm.cs361.factories.*;
 
 @SuppressWarnings("serial")
 public class StudentChargesServlet extends HttpServlet {
@@ -34,42 +31,32 @@ public class StudentChargesServlet extends HttpServlet {
 			throws IOException, ServletException {
 		List<String> errors = new ArrayList<String>();
 		
-		PersistenceManager pm = getPersistenceManager();
+		PersistenceManager pm = PersistenceFactory.getPersistenceManager();
 		List<Student> students = getStudents();
 		double amount;
 		Date deadline, currentDate = new Date();
-		String reason;
-
+		String reason, s_amount;
+		StudentChargesFactory charge_fact = new StudentChargesFactory();
+		Charge c;
 		try {
-			for (Student student : students) {
-				String t_amount = req.getParameter(student.getUser_id() + "_add_charge_amount");
-				String t_reason = req.getParameter(student.getUser_id() + "_add_charge_reason");
-				System.out.println(student.getUser_id());
-				if (t_amount.isEmpty()) {
-					System.out.println("You must enter amount!");
-				}
-				if (t_reason.isEmpty()) {
-					System.out.println("You must enter a reason!");
-				}
-				if (errors.size() > 0) {
-					req.setAttribute(student.getUser_id() + "_add_charge_amount", t_amount);
-					req.setAttribute(student.getUser_id() + "_add_charge_reason", t_reason);
-					req.setAttribute("errors", errors);
-					req.getRequestDispatcher("studentCharges.jsp").forward(req, resp);
-				} else if (!t_amount.isEmpty() && !t_reason.isEmpty()) {
-					amount = Double.parseDouble(t_amount);
-					deadline = new Date(currentDate.getYear(),currentDate.getMonth()+1,1);
-					System.out.println(dateFormatter.format(deadline));
-					reason = t_reason;
-					Charge charge = new Charge(amount, deadline, reason);
-					student.getCharges().add(charge);
+			for (Student student: students) {
+				s_amount = req.getParameter(student.getUser_id() + "_add_charge_amount");
+				amount = Double.parseDouble(s_amount);
+				reason = req.getParameter(student.getUser_id() + "_add_charge_reason");
+				c = charge_fact.createCharge(student, amount, currentDate, reason);
+				pm.makePersistent(c);
+				student.getCharges().add(c);
+				if (charge_fact.hasErrors()) {
+					req.setAttribute(student.getUser_id() + "_add_charge_amount", s_amount);
+					req.setAttribute(student.getUser_id() + "_add_charge_reason", reason);
+					req.setAttribute("errors", charge_fact.getErrors());
+					req.getRequestDispatcher("StudentCharges.jsp").forward(req, resp);
+				} else {
 					pm.makePersistent(student);
-					System.out.println(student.getFullName() + " new charge: " + charge.getAmount() + " due " + charge.getDeadline() + " because of the reason " + charge.getReason());
+					req.setAttribute("success", "Charge added successfully.");
+					req.setAttribute("students", getStudents());
+					req.getRequestDispatcher("studentCharges.jsp").forward(req, resp);
 				}
-			}	
-			if (errors.size() == 0) {
-				req.setAttribute("students", getStudents());
-				req.getRequestDispatcher("/StudentChargesServlet").forward(req, resp);
 			}
 		} finally {
 			pm.close();
@@ -78,7 +65,7 @@ public class StudentChargesServlet extends HttpServlet {
 
 	@SuppressWarnings("unchecked")
 	private List<Student> getStudents() {
-		PersistenceManager pm = getPersistenceManager();
+		PersistenceManager pm = PersistenceFactory.getPersistenceManager();
 		List<Student> students = new ArrayList<Student>();
 		try {
 			students = (List<Student>) pm.newQuery(Student.class).execute();
@@ -91,10 +78,5 @@ public class StudentChargesServlet extends HttpServlet {
 		}
 		
 		return students;
-	}
-	
-	private PersistenceManager getPersistenceManager() {
-		return JDOHelper.getPersistenceManagerFactory("transactions-optional")
-				.getPersistenceManager();
 	}
 }
