@@ -33,7 +33,7 @@ public class DisplayServlet extends HttpServlet
 			displayStudents(req, resp, pm);
 		    //displayCourses(req, resp, pm);
 			//displayCharges(req, resp, pm);
-			//EmailService.SendDeadlineEmails();
+			EmailService.SendDeadlineEmails();
 		} catch(Exception e){
 			e.getStackTrace();
 		} finally {

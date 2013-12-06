@@ -15,6 +15,14 @@
 			<input type='text' id='deadline' name='deadline' placeholder="MM/dd/yyyy"/><br/><br/>
 			<label for='reason'>Reason: </label>
 			<input type='text' id='reason' name='reason'/><br/><br/>
+			<label for='student_list'>Students: </label>
+	        <select id="student_list" name="student_list" multiple>
+	            <optgroup>
+	               <c:forEach items="${student_list}" var="student">
+			     	 <option value="${student.user_id.id}">${student.fullName}</option>
+				   </c:forEach> 
+	            </optgroup>
+	        </select><br/><br/>
 			<input type='submit' value='Create Charge' />
 		</form>
 	</body>
