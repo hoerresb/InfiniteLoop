@@ -37,7 +37,12 @@ public class RegisterStudentServlet extends HttpServlet {
 		
 		RegisterStudentFactory stud_fact = new RegisterStudentFactory();
 		Student student = stud_fact.createStudent(username, password, password_repeat, firstname, lastname, email, courses);
-				
+		for (Course course : student.getCourses()) {
+			Charge charge = new Charge(course.getPayment_amount(),new Date(),course.getName());
+			pm.makePersistent(charge);
+			student.getCharges().add(charge);//adds initial charge for course fee
+		}
+		
 		try {
 			if (stud_fact.hasErrors()) {				
 				req.setAttribute("firstname", firstname);
