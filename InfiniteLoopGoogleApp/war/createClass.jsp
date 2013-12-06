@@ -23,13 +23,13 @@
 			<label for="meeting_times">Weekly Meeting Times:</label><br/>
 			<div id="meeting_times">
 				<label for="meeting_days">Days:</label><br/>
-				<label for="meeting_times_mon"><input class="meeting_time_op" type="checkbox" name="meeting_times" value="M" ${(type == "M") ? "selected" : ""}>M</label>
-				<label for="meeting_times_tue"><input class="meeting_time_op" type="checkbox" name="meeting_times" value="T" ${(type == "T") ? "selected" : ""}>T</label>
-				<label for="meeting_times_wed"><input class="meeting_time_op" type="checkbox" name="meeting_times" value="W" ${(type == "W") ? "selected" : ""}>W</label>
-				<label for="meeting_times_thur"><input class="meeting_time_op" type="checkbox" name="meeting_times" value="Th" ${(type == "Th") ? "selected" : ""}>Th</label>
-				<label for="meeting_times_fri"><input class="meeting_time_op" type="checkbox" name="meeting_times" value="F" ${(type == "F") ? "selected" : ""}>F</label>
-				<label for="meeting_times_sat"><input class="meeting_time_op" type="checkbox" name="meeting_times" value="S" ${(type == "S") ? "selected" : ""}>S</label>
-				<label for="meeting_times_sun"><input class="meeting_time_op" type="checkbox" name="meeting_times" value="Su" ${(type == "Su") ? "selected" : ""}>Su</label><br/><br/>
+				<label for="meeting_times_mon"><input class="meeting_time_op" type="checkbox" name="meeting_times" value="M" <c:if test="${days.M}">checked="checked"</c:if>>M</label>
+				<label for="meeting_times_tue"><input class="meeting_time_op" type="checkbox" name="meeting_times" value="T" <c:if test="${days.T}">checked="checked"</c:if>>T</label>
+				<label for="meeting_times_wed"><input class="meeting_time_op" type="checkbox" name="meeting_times" value="W" <c:if test="${days.W}">checked="checked"</c:if>>W</label>
+				<label for="meeting_times_thur"><input class="meeting_time_op" type="checkbox" name="meeting_times" value="Th" <c:if test="${days.Th}">checked="checked"</c:if>>Th</label>
+				<label for="meeting_times_fri"><input class="meeting_time_op" type="checkbox" name="meeting_times" value="F" <c:if test="${days.F}">checked="checked"</c:if>>F</label>
+				<label for="meeting_times_sat"><input class="meeting_time_op" type="checkbox" name="meeting_times" value="S" <c:if test="${days.S}">checked="checked"</c:if>>S</label>
+				<label for="meeting_times_sun"><input class="meeting_time_op" type="checkbox" name="meeting_times" value="Su" <c:if test="${days.Su}">checked="checked"</c:if>>Su</label><br/><br/>
 			
 				<label for="time">Time:</label>
 				<input id="time" class="text-input" type="time" name="time"  value='${time}'/><br/><br/>
@@ -40,7 +40,7 @@
 			
 			<label for="payment_value">Payment value:</label>
 			<span id="payment_value_span">
-			$<input id="payment_value" class="text-input" type="text" name="payment_value" value="${payment_value}"/> per 
+			$<input id="payment_value" class="text-input" type="number" name="payment_value" value="${payment_value}"/> per 
 				<select id="payment_duration" name="payment_duration">
 		            <optgroup>
 		            	<option value="session" ${(payment_duration == "session") ? "selected" : ""}>session</option>

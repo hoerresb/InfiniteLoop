@@ -2,8 +2,10 @@ package edu.uwm.cs361;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.jdo.PersistenceManager;
@@ -29,6 +31,7 @@ public class CreateClassServlet extends HttpServlet {
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException	{
 		PersistenceManager pm = PersistenceFactory.getPersistenceManager();
+		String[] daysOfWeek = new String[] {"M","T","W","Th","F","S","Su"};
 		
 		String classname = req.getParameter("classname");
 		String startDate = req.getParameter("classstart");
@@ -38,6 +41,9 @@ public class CreateClassServlet extends HttpServlet {
 		if(meeting_time_days != null) {
 			meetingDays = new HashSet<String>(Arrays.asList(meeting_time_days)); 
 		}
+		
+		Map<String, Boolean> days = populateSelectedDays(meetingDays, daysOfWeek);
+		
 		String time = req.getParameter("time");
 		String place = req.getParameter("place");
 		String description = req.getParameter("class_description");
@@ -64,11 +70,10 @@ public class CreateClassServlet extends HttpServlet {
 				req.setAttribute("payment_duration", payment_duration);
 				req.setAttribute("errors", course_fact.getErrors());
 				req.setAttribute("teachers", getTeachers());
+				req.setAttribute("days", days);
 				req.getRequestDispatcher("createClass.jsp").forward(req, resp);
 			} else {
 				pm.makePersistent(course);
-//				teacher.getCourses().add(course);
-//				pm.makePersistent(teacher);
 				req.setAttribute("success", "Class created successfully.");
 				req.setAttribute("teachers", getTeachers());
 				req.getRequestDispatcher("createClass.jsp").forward(req, resp);
@@ -78,6 +83,27 @@ public class CreateClassServlet extends HttpServlet {
 		} finally {
 			pm.close();
 		}
+	}
+
+	private Map<String, Boolean> populateSelectedDays(Set<String> meetingDays, String[] daysOfWeek) {
+		Map<String, Boolean> days = new HashMap<String, Boolean>();
+		for(String day : daysOfWeek) {
+			if(wasSelected(day,meetingDays)) {
+				days.put(day, true);
+			} else {
+				days.put(day, false);
+			}
+		}
+		return days;
+	}
+
+	private boolean wasSelected(String day, Set<String> meetingDays) {
+		for(String selectedDay : meetingDays) {
+			if(selectedDay.equals(day)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@SuppressWarnings("unchecked")
