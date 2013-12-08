@@ -9,30 +9,27 @@ import edu.uwm.cs361.entities.*;
 public class IssueAwardFactory {
 	private List<String> errors = new ArrayList<String>();
 	
-	public Award createAward(Course course, String name, String description) {
+	public boolean issueAward( Student student, Award award) {
 		
-		if (name.isEmpty()) {
-			errors.add("Please enter an award name.");
+		if (student == null) {
+			errors.add("No student selected.");
 		}
-		if(description.isEmpty()){
-			errors.add("Please enter an award description.");
-		}
-		if (course == null) {
-				errors.add("Please specify a course.");
+
+		if (award == null) {
+			errors.add("Please select an award.");
 		} 
 		
-		
 		if(hasErrors()) {
-			return null;
-		} else {
-			Award a = new Award(name, description);
-			course.getAwards().add(a);
-			return a;
+			return false;
+		} 
+		else {
+			student.getAwards().add(award);
+			return true;
 		}
 	}
 	
 	public List<String> getErrors() {
-		return new ArrayList<String>(errors);
+		return errors;
 	}
 	
 	public boolean hasErrors() {
