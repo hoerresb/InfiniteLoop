@@ -35,14 +35,7 @@ public class IssueAwardFactoryTest {
 	@SuppressWarnings("unchecked")
 	public void setUp() {
 		helper.setUp();
-		pm = PersistanceFactory.getPersistenceManager();
 
-		List<Award> awards = (List<Award>) pm.newQuery(Award.class).execute();
-
-		for (Award award : awards) {
-			pm.deletePersistent(user);
-		}
-		pm.flush();
 	}
 
 	@After
@@ -51,16 +44,12 @@ public class IssueAwardFactoryTest {
 	}
 
 	@Test
-	public void testErrorOnBlankAwardName() {
+	public void testErrorOnEmptyAward() {
 		IssueAwardFactory aFact = new IssueAwardFactory();
-		Teacher teacher = new Teacher("username","password1","fname","lname", "email",
-					      "8478478478", new String[] {"teacher1","teacher2"});
-		Set<String> meetingDays = new HashSet<String>(Arrays.asList(new String[] { "M", "T", "W" }));
-		Course c = new Course("cooking","10/14/2013", "10/15/2013", meetingDays,
-					"10:30", "EMS145", "Pay now", "its a class", teacher);
-		Award a = aFact.createAward(c, "", "congrats");
+		Student s = new Student("","p4ssword","p4ssword","firstName","lastName", "em4il", null);
+		boolean issued = aFact.issueAward(s, null);
 
-		assertNull(a);
+		assertFalse(issued);
 		assertTrue(aFact.hasErrors());
 		assertEquals(1, aFact.getErrors().size());
 		assertTrue(aFact.getErrors().get(0).equals("Please enter an award name."));
