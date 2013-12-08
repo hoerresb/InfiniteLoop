@@ -52,48 +52,29 @@ public class IssueAwardFactoryTest {
 		assertFalse(issued);
 		assertTrue(aFact.hasErrors());
 		assertEquals(1, aFact.getErrors().size());
-		assertTrue(aFact.getErrors().get(0).equals("Please enter an award name."));
+		assertTrue(aFact.getErrors().get(0).equals("Please select an award."));
 	}
 
 	@Test
-	public void testErrorOnBlankAwardDescription() {
+	public void testErrorOnEmptyStudent() {
 		IssueAwardFactory aFact = new IssueAwardFactory();
-		Teacher teacher = new Teacher("username","password1","fname","lname", "email",
-					      "8478478478", new String[] {"teacher1","teacher2"});
-		Set<String> meetingDays = new HashSet<String>(Arrays.asList(new String[] { "M", "T", "W" }));
-		Course c = new Course("cooking","10/14/2013", "10/15/2013", meetingDays,
-					"10:30", "EMS145", "Pay now", "its a class", teacher);
-		Award a = aFact.createAward(c, "award0", "");
+		Award a = new Award("award0", "congrats");
+		boolean issued = aFact.issueAward(null, a);
 
-		assertNull(a);
+		assertFalse(issued);
 		assertTrue(aFact.hasErrors());
 		assertEquals(1, aFact.getErrors().size());
-		assertTrue(aFact.getErrors().get(0).equals("Please enter an award description."));
+		assertTrue(aFact.getErrors().get(0).equals("No student selected."));
 	}
-
-	@Test
-	public void testErrorOnNullCourse() {
-		IssueAwardFactory aFact = new IssueAwardFactory();
-		Award a = aFact.createAward(null, "award0", "congrats");
-
-		assertNull(a);
-		assertTrue(aFact.hasErrors());
-		assertEquals(1, aFact.getErrors().size());
-		assertTrue(aFact.getErrors().get(0).equals("Please specify a course."));
-	}
-
 	@Test
 	public void testSuccess() {
 		IssueAwardFactory aFact = new IssueAwardFactory();
-		Teacher teacher = new Teacher("username","password1","fname","lname", "email",
-					      "8478478478", new String[] {"teacher1","teacher2"});
-		Set<String> meetingDays = new HashSet<String>(Arrays.asList(new String[] { "M", "T", "W" }));
-		Course c = new Course("cooking","10/14/2013", "10/15/2013", meetingDays,
-					"10:30", "EMS145", "Pay now", "its a class", teacher);
+		Student s = new Student("","p4ssword","p4ssword","firstName","lastName", "em4il", null);
 		Award a = aFact.createAward(c, "award0", "congrats");
+		boolean issued = aFact.issueAward(s,a);
 
 		assertFalse(aFact.hasErrors());
 		assertEquals(0, aFact.getErrors().size());
-		assertEquals(u.getAwardName(), "award0");
-		assertEquals(u.getAwardDescription(), "congrats");
+		assertEquals(s.getAwards().get(0).getAwardName(), "award0");
+		assertEquals(s.getAwards().get(0).getAwardDescription(), "congrats");
 	}
