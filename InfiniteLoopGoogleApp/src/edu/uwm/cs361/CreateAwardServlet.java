@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import edu.uwm.cs361.entities.Award;
 import edu.uwm.cs361.entities.Course;
 import edu.uwm.cs361.entities.Teacher;
-import edu.uwm.cs361.factories.IssueAwardFactory;
+import edu.uwm.cs361.factories.CreateAwardFactory;
 import edu.uwm.cs361.factories.PersistenceFactory;
 
 @SuppressWarnings("serial")
