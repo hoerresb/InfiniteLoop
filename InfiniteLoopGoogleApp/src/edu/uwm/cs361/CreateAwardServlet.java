@@ -57,7 +57,7 @@ public class CreateAwardServlet extends HttpServlet {
 			String awardName = req.getParameter("award_name");
 			String awardDescription = req.getParameter("award_description");
 			Course course = (Course) pm.getObjectById(Course.class,Long.parseLong(req.getParameter("courses")));
-			IssueAwardFactory fact = new IssueAwardFactory();
+			CreateAwardFactory fact = new CreateAwardFactory();
 			Award award = fact.createAward(course, awardName, awardDescription);
 			try {
 				if (fact.hasErrors()) {
