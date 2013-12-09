@@ -22,6 +22,8 @@
 
 
 <div class="attendanceContainer">
+<form id="form-id" method="POST" action='/AttendanceSheet'> 
+
 	<table>
 		<tr>
 			<th>Name</th>
@@ -33,7 +35,8 @@
 			 	<tr>
 			 		<th>${student.fullName}</th>
 			 	<c:forEach items="${meetingDays}" var="m">
-			 		<th class="center"><input type="checkbox" name="myTextEditBox"></th>
+			 		<th class="center"><input type="checkbox" name="${student.user_id}_attendance" value="1">
+			 		<input type="hidden" name="${student.user_id}_attendance" value="0"></th>
 			 		
 			    </c:forEach>
 			    </tr>
@@ -43,6 +46,9 @@
 		</tr>
 	
 	</table>
+	
+	<button id="submit-id" type="submit">Submit</button><br/><br/>
+	</form>
 
 
 

@@ -56,9 +56,6 @@ public class AttendanceSheet extends HttpServlet {
 		req.setAttribute("courses", getCourses(teacher));
 		req.setAttribute("students", getStudents(teacher));
 		
-		
-		
-		
 		req.getParameter("course_id");
 		Course course = (Course)pm.getObjectById(Course.class,Long.parseLong((String)req.getParameter("course_id")));
 		req.setAttribute("meetingDays", course.getMeetingDays());
@@ -66,6 +63,32 @@ public class AttendanceSheet extends HttpServlet {
 		req.getRequestDispatcher("AttendanceSheet.jsp").forward(req, resp);
 		
 	}
+	
+	@SuppressWarnings("unchecked")
+	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException	{
+		PersistenceManager pm = PersistenceFactory.getPersistenceManager();
+		List<Student> students = new ArrayList<Student>();
+		students = (List<Student>) pm.newQuery(Student.class).execute();
+		
+		for (Student student : students){
+		String [] s_attendance = req.getParameterValues(student.getUser_id() + "_attendance");
+		
+		for(int i = 0 ; i < s_attendance.length; i++){
+			student.getAttendance().add(s_attendance[i]);
+			System.out.println(s_attendance[i]);
+		}
+		
+		
+		}
+		//String [] student_attendance = req.getParameterValues("attendance");
+		
+	//	for(int i =0 ; i < student_attendance.length; i++){
+	//		System.out.println(student_attendance[i]);
+	//	}
+		
+	}
+	
+	
 	
 	@SuppressWarnings("unchecked")
 	private Teacher getTeacher(String username) {
