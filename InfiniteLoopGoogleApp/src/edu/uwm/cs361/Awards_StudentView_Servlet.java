@@ -20,8 +20,8 @@ import edu.uwm.cs361.entities.Student;
 import edu.uwm.cs361.factories.PersistenceFactory;
 
 @SuppressWarnings("serial")
-public class CreateAwardServlet extends HttpServlet {
-	private Teacher teacher;
+public class Awards_StudentView_Servlet extends HttpServlet {
+
 		@Override
 		public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 			String username = getUserName(req,resp);
