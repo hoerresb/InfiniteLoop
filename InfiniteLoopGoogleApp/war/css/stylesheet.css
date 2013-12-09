@@ -48,7 +48,7 @@ a:link{
 }
 #container {
 	width: 80%;
-	min-width: 907px;
+	min-width: 870px;
 	max-width: 1138px;
 	margin: auto;
 	background-color: #6876B3;
@@ -70,7 +70,7 @@ a:link{
 	height: 50px;
 	background-color: #542F0C;
 	box-shadow: 0px 0px 1px 0px #404040;
-	font-size: 24px;
+	font-size: 22px;
 }
 .nav {
 	height: 100%;
