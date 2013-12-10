@@ -86,7 +86,11 @@ public class StudentHome extends HttpServlet {
 		} else {
 			balance = 0;
 		}
-		return balance*-1;
+		if(balance == 0.0) {
+			return balance;
+		} else {
+			return balance*-1;
+		}
 	}
 	
 	private Set<Course> getCourses(PersistenceManager pm, Student student) {

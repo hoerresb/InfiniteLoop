@@ -22,7 +22,7 @@
 					<c:set value="green" var="balance_color"/>
 					<c:set value="You are owed money!" var="balance_note"/>
 				</c:if>
-				<c:if test="${balance == 0}">
+				<c:if test="${balance == 0.0}">
 					<c:set value="green" var="balance_color"/>
 					<c:set value="You have nothing due!" var="balance_note"/>
 				</c:if>

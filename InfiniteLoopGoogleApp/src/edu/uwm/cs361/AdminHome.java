@@ -36,7 +36,12 @@ public class AdminHome extends HttpServlet {
 		} finally {
 			pm.close();
 		}
-		return balance*-1;
+		
+		if(balance == 0.0) {
+			return balance;
+		} else {
+			return balance*-1;
+		}
 	}
 
 	private PersistenceManager getPersistenceManager() {
