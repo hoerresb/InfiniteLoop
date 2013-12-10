@@ -21,8 +21,8 @@
 			<div class="home_item">
 				<span><a href="/specificCourse?course_id=${course.course_id.id}">${course.name}</a></span>
 				<ul>
-					<li><b>Start Date:</b> <em>${course.startDate}</em></li>
-					<li><b>End Date:</b> <em>${course.endDate}</em></li>
+					<li><b>Start Date:</b> <em>${course.startDateFormatted}</em></li>
+					<li><b>End Date:</b> <em>${course.endDateFormatted}</em></li>
 					<li><b>Meeting Days:</b> <em>${course.meetingDays}</em></li>
 					<li><b>Time:</b> <em>${course.time}</em></li>
 					<li><b>Location:</b> <em>${course.place}</em></li>

@@ -74,7 +74,7 @@ public class SpecificStudentPageFactoryTest {
 		teacher = new Teacher("username","password1","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});		
 		
 		Set<String> meetingDays = new HashSet<String>(Arrays.asList(new String[] { "M", "T", "W" }));
-		course = new Course("Breathing", "10/14/2013", "10/15/2013", meetingDays, "10:30", "EMS145", "30 per session", "breathe in, breathe out", teacher);
+		course = new Course("Breathing", new Date(10/14/2013), new Date(10/15/2013), meetingDays, "10:30", "EMS145", "30 per session", "breathe in, breathe out", teacher);
 		teacher.getCourses().add(course);
 		
 		Set<Award> awardsList = new HashSet<Award>(Arrays.asList(new Award[] {award}));

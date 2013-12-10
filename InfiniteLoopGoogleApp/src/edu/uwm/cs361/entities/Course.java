@@ -1,5 +1,6 @@
 package edu.uwm.cs361.entities;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,10 +23,10 @@ public class Course {
 	private String name;
 	
 	@Persistent
-	private String startDate;
+	private Date startDate;
 
 	@Persistent
-	private String endDate;
+	private Date endDate;
 
 	@Persistent
 	private Set<String> meetingDays;
@@ -55,8 +56,10 @@ public class Course {
 	@Persistent
 	@Unowned
 	private Set<Student> students = new HashSet<Student>();
+	
+	private static SimpleDateFormat dateFormatter = new SimpleDateFormat ("MM/dd/yyyy");
 
-	public Course(String name, String startDate, String endDate,
+	public Course(String name, Date startDate, Date endDate,
 			Set<String> meetingDays, String time, String place,
 			String payment_options, String description, Teacher teacher) {
 		this.name = name;
@@ -78,11 +81,19 @@ public class Course {
 		return name;
 	}
 
-	public String getStartDate() {
-		return startDate;
+	public Date getStartDate() {
+		return  startDate;
+	}
+	
+	public String getStartDateFormatted() {
+		return dateFormatter.format(startDate);
 	}
 
-	public String getEndDate() {
+	public String getEndDateFormatted() {
+		return dateFormatter.format(endDate);
+	}
+	
+	public Date getEndDate() {
 		return endDate;
 	}
 

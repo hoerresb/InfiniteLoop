@@ -64,7 +64,7 @@ public class CreateCourseFactoryTest {
 		Teacher teacher = new Teacher("username","password1","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
 		Set<String> meetingDays = new HashSet<String>(Arrays.asList(new String[] { "M", "T", "W" }));
 		
-		Course c = course_fact.createCourse("", "10/14/2013", "10/15/2013", meetingDays, "10:30", "EMS145", "Pay now", "its a class", teacher);
+		Course c = course_fact.createCourse("", "2013-10-14", "2013-10-15", meetingDays, "10:30", "EMS145", "Pay now", "its a class", teacher);
 
 		assertNull(c);
 		assertTrue(course_fact.hasErrors());
@@ -78,7 +78,7 @@ public class CreateCourseFactoryTest {
 		Set<String> meetingDays = new HashSet<String>(Arrays.asList(new String[] { "M", "T", "W" }));
 		Teacher teacher = new Teacher("username","password1","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
 		
-		Course c = course_fact.createCourse("learning101", "", "10/15/2013", meetingDays, "10:30", "EMS145", "Pay now", "its a class", teacher);
+		Course c = course_fact.createCourse("learning101", "", "2013-10-15", meetingDays, "10:30", "EMS145", "Pay now", "its a class", teacher);
 
 		assertNull(c);
 		assertTrue(course_fact.hasErrors());
@@ -92,7 +92,7 @@ public class CreateCourseFactoryTest {
 		Set<String> meetingDays = new HashSet<String>(Arrays.asList(new String[] { "M", "T", "W" }));
 		Teacher teacher = new Teacher("username","password1","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
 		
-		Course c = course_fact.createCourse("learning101", "10/15/2013", "", meetingDays, "10:30", "EMS145", "Pay now", "its a class", teacher);
+		Course c = course_fact.createCourse("learning101", "2013-10-14", "", meetingDays, "10:30", "EMS145", "Pay now", "its a class", teacher);
 
 		assertNull(c);
 		assertTrue(course_fact.hasErrors());
@@ -101,12 +101,26 @@ public class CreateCourseFactoryTest {
 	}
 	
 	@Test
+	public void testErrorOnEndDateBeforeStartDate() {
+		CreateCourseFactory course_fact = new CreateCourseFactory();
+		Set<String> meetingDays = new HashSet<String>(Arrays.asList(new String[] { "M", "T", "W" }));
+		Teacher teacher = new Teacher("username","password1","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
+		
+		Course c = course_fact.createCourse("learning101", "2013-10-14", "1991-10-14", meetingDays, "10:30", "EMS145", "Pay now", "its a class", teacher);
+
+		assertNull(c);
+		assertTrue(course_fact.hasErrors());
+		assertEquals(1, course_fact.getErrors().size());
+		assertTrue(course_fact.getErrors().get(0).equals("Start date must be before end date."));
+	}
+	
+	@Test
 	public void testErrorOnNonSelectedMeetingDays() {
 		CreateCourseFactory course_fact = new CreateCourseFactory();
 		Set<String> meetingDays = null;
 		Teacher teacher = new Teacher("username","password1","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
 		
-		Course c = course_fact.createCourse("learning101", "10/15/2013", "10/16/2013", meetingDays, "10:30", "EMS145", "Pay now", "its a class", teacher);
+		Course c = course_fact.createCourse("learning101", "2013-10-14", "2013-10-15", meetingDays, "10:30", "EMS145", "Pay now", "its a class", teacher);
 
 		assertNull(c);
 		assertTrue(course_fact.hasErrors());
@@ -120,7 +134,7 @@ public class CreateCourseFactoryTest {
 		Set<String> meetingDays = new HashSet<String>(Arrays.asList(new String[] { "M", "T", "W" }));
 		Teacher teacher = new Teacher("username","password1","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
 		
-		Course c = course_fact.createCourse("learning101", "10/15/2013", "10/16/2013", meetingDays, "", "EMS145", "Pay now", "its a class", teacher);
+		Course c = course_fact.createCourse("learning101", "2013-10-14", "2013-10-15", meetingDays, "", "EMS145", "Pay now", "its a class", teacher);
 
 		assertNull(c);
 		assertTrue(course_fact.hasErrors());
@@ -134,7 +148,7 @@ public class CreateCourseFactoryTest {
 		Set<String> meetingDays = new HashSet<String>(Arrays.asList(new String[] { "M", "T", "W" }));
 		Teacher teacher = new Teacher("username","password1","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
 		
-		Course c = course_fact.createCourse("learning101", "10/15/2013", "10/16/2013", meetingDays, "10:45", "", "Pay now", "its a class", teacher);
+		Course c = course_fact.createCourse("learning101", "2013-10-14", "2013-10-15", meetingDays, "10:45", "", "Pay now", "its a class", teacher);
 
 		assertNull(c);
 		assertTrue(course_fact.hasErrors());
@@ -148,7 +162,7 @@ public class CreateCourseFactoryTest {
 		Set<String> meetingDays = new HashSet<String>(Arrays.asList(new String[] { "M", "T", "W" }));
 		Teacher teacher = new Teacher("username","password1","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
 		
-		Course c = course_fact.createCourse("learning101", "10/15/2013", "10/16/2013", meetingDays, "10:45", "EMS203", "", "its a class", teacher);
+		Course c = course_fact.createCourse("learning101", "2013-10-14", "2013-10-15", meetingDays, "10:45", "EMS203", "", "its a class", teacher);
 
 		assertNull(c);
 		assertTrue(course_fact.hasErrors());
@@ -162,7 +176,7 @@ public class CreateCourseFactoryTest {
 		Set<String> meetingDays = new HashSet<String>(Arrays.asList(new String[] { "M", "T", "W" }));
 		Teacher teacher = new Teacher("username","password1","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
 		
-		Course c = course_fact.createCourse("learning101", "10/15/2013", "10/16/2013", meetingDays, "10:45","EMS203", "Pay now", "", teacher);
+		Course c = course_fact.createCourse("learning101", "2013-10-14", "2013-10-15", meetingDays, "10:45","EMS203", "Pay now", "", teacher);
 
 		assertNull(c);
 		assertTrue(course_fact.hasErrors());
@@ -176,13 +190,13 @@ public class CreateCourseFactoryTest {
 		Set<String> meetingDays = new HashSet<String>(Arrays.asList(new String[] { "M", "T", "W" }));
 		Teacher teacher = new Teacher("username","password1","fname","lname", "email", "8478478478", new String[] {"teacher1","teacher2"});
 		
-		Course c = course_fact.createCourse("learning101", "10/15/2013", "10/16/2013", meetingDays, "10:45","EMS203", "Pay now","its a good class", teacher);
+		Course c = course_fact.createCourse("learning101", "2013-10-14", "2013-10-15", meetingDays, "10:45","EMS203", "Pay now","its a good class", teacher);
 
 		assertFalse(course_fact.hasErrors());
 		assertEquals(0, course_fact.getErrors().size());
 		assertEquals(c.getName(), "learning101");
-		assertEquals(c.getStartDate(), "10/15/2013");
-		assertEquals(c.getEndDate(), "10/16/2013");
+		assertEquals(c.getStartDateFormatted(), "10/14/2013");
+		assertEquals(c.getEndDateFormatted(), "10/15/2013");
 		assertEquals(c.getTime(), "10:45");
 		assertEquals(c.getPlace(), "EMS203");
 		assertEquals(c.getDescription(), "its a good class");
