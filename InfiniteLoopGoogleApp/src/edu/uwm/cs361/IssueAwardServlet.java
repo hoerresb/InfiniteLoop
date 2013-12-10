@@ -28,7 +28,7 @@ public class IssueAwardServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		PersistenceManager pm = PersistenceFactory.getPersistenceManager();
 		try {
-			course = (Course) pm.getObjectId(Long.parseLong((String)req.getAttribute("course_id")));
+			course = (Course) pm.getObjectById(Course.class, Long.parseLong((String)req.getParameter("course_id")));
 			System.out.println(course.getName());
 			req.setAttribute("student_options", course.getStudents());
 			req.setAttribute("award_options", course.getAwards());
