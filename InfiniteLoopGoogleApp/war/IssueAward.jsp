@@ -25,7 +25,7 @@
 	        
 			<label for="student_select">Students:</label><br />	        
 	        	<p class="centerME">
-		        <select id="student_options" name="student_options">
+		        <select multiple id="student_options" name="student_options">
 		            <optgroup>
 		               <c:forEach items="${students}" var="student">
 				     	 <option value="${student.user_id.id}">${student.username}</option>
