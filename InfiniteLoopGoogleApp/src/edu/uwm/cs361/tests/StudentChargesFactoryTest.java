@@ -35,7 +35,7 @@ public class StudentChargesFactoryTest {
 	@Test
 	public void testErrorOnBlankAmount() {
 		StudentChargesFactory charge_fact = new StudentChargesFactory();
-		double amount = 0;
+		String amount = "";
 		Date deadline = new Date(2013,8,12);
 		String reason = "Because I said so.";
 		Student student = new Student("student", "student", "Student_fn", "Student_ln", "student@student.com");
@@ -51,7 +51,7 @@ public class StudentChargesFactoryTest {
 	@Test
 	public void testErrorOnBlankDate() {
 		StudentChargesFactory charge_fact = new StudentChargesFactory();
-		double amount = 6;
+		String amount = "6";
 		Date deadline = null;
 		String reason = "Because I said so.";
 		Student student = new Student("student", "student", "Student_fn", "Student_ln", "student@student.com");
@@ -67,7 +67,7 @@ public class StudentChargesFactoryTest {
 	@Test
 	public void testErrorOnBlankReason() {
 		StudentChargesFactory charge_fact = new StudentChargesFactory();
-		double amount = 6;
+		String amount = "6";
 		Date deadline = new Date(2013,8,12);
 		String reason = "";
 		Student student = new Student("student", "student", "Student_fn", "Student_ln", "student@student.com");
@@ -84,13 +84,13 @@ public class StudentChargesFactoryTest {
 	@Test
 	public void testSuccess () {
 		StudentChargesFactory charge_fact = new StudentChargesFactory();
-		double amount = 6;
+		String amount = "6";
 		Date deadline = new Date(2013,8,12);
 		String reason = "Because I said so.";
 		Student student = new Student("student", "student", "Student_fn", "Student_ln", "student@student.com");
 		
 		Charge c = charge_fact.createCharge(student, amount, deadline, reason);
-		
+		student.getCharges().add(c);
 		assertFalse(charge_fact.hasErrors());
 		assertEquals(0, charge_fact.getErrors().size());
 		assertEquals(c.getAmount(), 6, 0);
@@ -98,6 +98,6 @@ public class StudentChargesFactoryTest {
 		assertEquals(c.getReason(), "Because I said so.");
 		
 		Set<Charge> charges = student.getCharges();
-		assertEquals(charges.size(),1);
+		assertEquals(1,charges.size());
 	}
 }

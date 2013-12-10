@@ -15,7 +15,6 @@
 <%@include file='/templates/admin_header.jsp'%>	
 	<%@include file='/templates/error.html'%>
 	<div class='chargesContainer'>
-		<form id='form-id' method='POST' action='/StudentChargesServlet'>
 			<table>
 				<tr>
 					<th>Student Name</th>
@@ -29,13 +28,17 @@
 						<a href='/billingStatement?student_id=${student.user_id.id}'>${student.fullName}</a>
 					</td>
 					<td>						
+					<form id='form-id-${student.user_id}' method='POST' action='/StudentChargesServlet'>
+					
 						<label for='${student.user_id}_add_charge_amount'>Amount:</label>
 						<input class='charge_input' name='${student.user_id}_add_charge_amount' type='text'><br/>
 
 						<label for='${student.user_id}_add_charge_reason'>Reason:</label>
 						<input class='charge_input' name='${student.user_id}_add_charge_reason' type='text'><br/>
-						<button id='add-id' type='submit'>Add</button>
 						
+						<input type="hidden" name="student_id" value="${student.user_id.id}" />
+						<button id='add-id' type='submit'>Add</button>
+				</form>			
 					</td>
 					<td>
 						<c:set value='${0.0}' var='total'/>								
@@ -54,6 +57,5 @@
 				</tr>
 			</c:forEach>					
 			</table>
-		</form>
 	</div>
 <%@include file='/templates/footer.html'%>

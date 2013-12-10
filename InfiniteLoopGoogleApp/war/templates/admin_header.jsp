@@ -71,6 +71,7 @@
 					<div class="nav"><a href="AdminHome">Home</a></div>
 					<div class="nav"><a href="/createClass">Create Class</a></div>
 					<div class="nav"><a href="createInstructor.jsp">Create Instructor</a></div>
+					<div class="nav"><a href="/RegisterStudentServlet">Register Student</a></div>
 					<div class="nav"><a href="StudentChargesServlet">Student Charges</a></div>
 					<div id="login" class='nav'><a href="/logout">${username}, Log Out</a></div>
 				</div>

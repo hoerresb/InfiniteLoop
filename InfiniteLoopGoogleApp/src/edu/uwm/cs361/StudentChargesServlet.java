@@ -15,13 +15,21 @@ import edu.uwm.cs361.factories.*;
 
 @SuppressWarnings("serial")
 public class StudentChargesServlet extends HttpServlet {
-	
-	private static SimpleDateFormat dateFormatter = new SimpleDateFormat ("MM/dd/yyyy");
-	
+
+	private static SimpleDateFormat dateFormatter = new SimpleDateFormat(
+			"MM/dd/yyyy");
+
 	@Override
-	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+	public void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException, ServletException {
+
+		PersistenceManager pm = PersistenceFactory.getPersistenceManager();
 		
-		req.setAttribute("students", getStudents());
+		try {
+			req.setAttribute("students", getStudents(pm));
+		} finally {
+			pm.close();
+		}
 		req.getRequestDispatcher("studentCharges.jsp").forward(req, resp);
 	}
 
@@ -30,20 +38,20 @@ public class StudentChargesServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
 		List<String> errors = new ArrayList<String>();
-		
+
 		PersistenceManager pm = PersistenceFactory.getPersistenceManager();
-		List<Student> students = getStudents();
-		double amount;
-		Date deadline, currentDate = new Date();
-		String reason, s_amount;
-		StudentChargesFactory charge_fact = new StudentChargesFactory();
-		Charge c;
-		try {
-			for (Student student: students) {
+		try{
+			List<Student> students = getStudents(pm);
+			Date currentDate = new Date();
+			String reason, s_amount;
+			StudentChargesFactory charge_fact = new StudentChargesFactory();
+			Charge c;
+
+				Student student = (Student) pm.getObjectById(Student.class,Long.parseLong(req.getParameter("student_id")));
 				s_amount = req.getParameter(student.getUser_id() + "_add_charge_amount");
-				amount = Double.parseDouble(s_amount);
 				reason = req.getParameter(student.getUser_id() + "_add_charge_reason");
-				c = charge_fact.createCharge(student, amount, currentDate, reason);
+				c = charge_fact.createCharge(student, s_amount, currentDate, reason);
+
 				if (charge_fact.hasErrors()) {
 					req.setAttribute(student.getUser_id() + "_add_charge_amount", s_amount);
 					req.setAttribute(student.getUser_id() + "_add_charge_reason", reason);
@@ -52,32 +60,27 @@ public class StudentChargesServlet extends HttpServlet {
 				} else {
 					pm.makePersistent(c);
 					student.getCharges().add(c);
+					pm.flush();
+
 					req.setAttribute("success", "Charge added successfully.");
-					req.setAttribute("students", getStudents());
+					req.setAttribute("students", getStudents(pm));
 					req.getRequestDispatcher("studentCharges.jsp").forward(req, resp);
 				}
-			}
-		} catch(Exception e) {
-			e.printStackTrace();
 		} finally {
 			pm.close();
 		}
 	}
 
 	@SuppressWarnings("unchecked")
-	private List<Student> getStudents() {
-		PersistenceManager pm = PersistenceFactory.getPersistenceManager();
+	private List<Student> getStudents(PersistenceManager pm) {
 		List<Student> students = new ArrayList<Student>();
-		try {
-			students = (List<Student>) pm.newQuery(Student.class).execute();
-			for (Student s : students) {
-				s.getCharges();
-				s.getCourses();
-			}
-		} finally {
-			pm.close();
+
+		students = (List<Student>) pm.newQuery(Student.class).execute();
+		for (Student s : students) {
+			s.getCharges();
+			s.getCourses();
 		}
-		
+
 		return students;
 	}
 }

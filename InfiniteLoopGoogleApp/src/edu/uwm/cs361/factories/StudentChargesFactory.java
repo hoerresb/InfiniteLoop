@@ -7,8 +7,11 @@ import edu.uwm.cs361.entities.*;
 public class StudentChargesFactory {
 	private List<String> errors = new ArrayList<String>();
 	
-	public Charge createCharge(Student student, double amount, Date deadline, String reason) {
-		if (amount == 0) {
+	public Charge createCharge(Student student, String s_amount, Date deadline, String reason) {
+		Double amount = 0.0;
+		if (s_amount != null && s_amount != "") {
+			amount = Double.parseDouble(s_amount);
+		} else {
 			errors.add("Please enter an amount.");
 		}
 		if (deadline == null) {
