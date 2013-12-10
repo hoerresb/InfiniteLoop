@@ -73,14 +73,15 @@ public class IssueAwardServlet extends HttpServlet {
 					
 			req.setAttribute("student_options", course.getStudents());
 			req.setAttribute("award_options", course.getAwards());
-			req.getRequestDispatcher("IssueAward.jsp").forward(req, resp);
-			resp.sendRedirect("/IssueAward.jsp");
+			
 			
 		} catch (ServletException e) {
 			e.printStackTrace();
 		} finally {
 			pm.close();
 		}
+		req.getRequestDispatcher("IssueAward.jsp").forward(req, resp);
+		resp.sendRedirect("/IssueAward.jsp");
 		
 	}
 }
