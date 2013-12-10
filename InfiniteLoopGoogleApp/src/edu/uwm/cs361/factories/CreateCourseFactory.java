@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import javax.jdo.PersistenceManager;
+
 import edu.uwm.cs361.entities.Course;
 import edu.uwm.cs361.entities.Teacher;
 
@@ -12,9 +14,16 @@ public class CreateCourseFactory {
 	private List<String> errors = new ArrayList<String>();
 	
 	@SuppressWarnings("deprecation")
-	public Course createCourse(String classname, String startDate, String endDate, 
-			Set<String> meetingDays, String time, String place, String payment_option, String description, Teacher teacher) {
+	public Course createCourse(PersistenceManager pm, String classname, String startDate, String endDate, 
+			Set<String> meetingDays, String time, String place, String payment_option, String description, String teacherID) {
 		
+		Teacher teacher = null;
+		
+		if(teacherID == null || teacherID.equals("")) {
+			errors.add("Must select an instructor.");
+		} else {
+			teacher = (Teacher) pm.getObjectById(Teacher.class,Long.parseLong(teacherID));
+		}
 		if (classname.isEmpty()) {
 			errors.add("Please enter a class name.");
 		}

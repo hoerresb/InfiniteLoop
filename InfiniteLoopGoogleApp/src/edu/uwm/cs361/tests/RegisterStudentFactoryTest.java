@@ -95,15 +95,15 @@ public class RegisterStudentFactoryTest {
 		assertTrue(stud_fact.getErrors().get(0).equals("Email is required."));
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testSuccess() {
 		RegisterStudentFactory stud_fact = new RegisterStudentFactory();
-		CreateCourseFactory course_fact = new CreateCourseFactory();
 		
 		Set<String> meetingDays = new HashSet<String>(Arrays.asList(new String[] { "M", "T", "W" }));
 		Teacher teacher = new Teacher("john", "pw", "john", "john", "email", "8478478474", new String[] {"teacher1","teacher2"});
 		
-		Course c = course_fact.createCourse("learning101", "10/15/2013", "10/16/2013", meetingDays, "10:45", "EMS203", "gimme money", "its a good class", teacher);
+		Course c = new Course("learning101", new Date("10/15/2013"), new Date("10/16/2013"), meetingDays, "10:45", "EMS203", "gimme money", "its a good class", teacher);
 
 		Set<Course> expectedStud_courses = new HashSet<Course>();
 		expectedStud_courses.add(c);

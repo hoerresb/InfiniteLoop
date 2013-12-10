@@ -51,13 +51,13 @@ public class CreateClassServlet extends HttpServlet {
 		String payment_value = req.getParameter("payment_value");
 		String payment_duration = req.getParameter("payment_duration");
 		String payment_option = payment_value + " per " + payment_duration;
-
-		
-		Teacher teacher = (Teacher) pm.getObjectById(Teacher.class,Long.parseLong(req.getParameter("instr_options")));
+		String teacher = req.getParameter("instr_options");
 
 		CreateCourseFactory course_fact = new CreateCourseFactory();
-		Course course = course_fact.createCourse(classname, startDate, endDate, meetingDays, time, place, payment_option, description,teacher);
 		try {
+			
+			Course course = course_fact.createCourse(pm, classname, startDate, endDate, meetingDays, time, place, payment_option, description,teacher);
+			
 			if (course_fact.hasErrors()) {
 				req.setAttribute("classname", classname);
 				req.setAttribute("classstart", startDate);
