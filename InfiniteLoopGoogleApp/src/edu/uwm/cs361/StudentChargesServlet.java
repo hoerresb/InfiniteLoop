@@ -44,20 +44,21 @@ public class StudentChargesServlet extends HttpServlet {
 				amount = Double.parseDouble(s_amount);
 				reason = req.getParameter(student.getUser_id() + "_add_charge_reason");
 				c = charge_fact.createCharge(student, amount, currentDate, reason);
-				pm.makePersistent(c);
-				student.getCharges().add(c);
 				if (charge_fact.hasErrors()) {
 					req.setAttribute(student.getUser_id() + "_add_charge_amount", s_amount);
 					req.setAttribute(student.getUser_id() + "_add_charge_reason", reason);
 					req.setAttribute("errors", charge_fact.getErrors());
 					req.getRequestDispatcher("StudentCharges.jsp").forward(req, resp);
 				} else {
-					pm.makePersistent(student);
+					pm.makePersistent(c);
+					student.getCharges().add(c);
 					req.setAttribute("success", "Charge added successfully.");
 					req.setAttribute("students", getStudents());
 					req.getRequestDispatcher("studentCharges.jsp").forward(req, resp);
 				}
 			}
+		} catch(Exception e) {
+			e.printStackTrace();
 		} finally {
 			pm.close();
 		}
