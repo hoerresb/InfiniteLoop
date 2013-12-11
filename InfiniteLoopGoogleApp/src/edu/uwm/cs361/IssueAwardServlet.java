@@ -51,16 +51,14 @@ public class IssueAwardServlet extends HttpServlet {
 				awards.add((Award) pm.getObjectById(Award.class,Long.parseLong(s)));
 			}
 
-			IssueAwardFactory fact;
+			IssueAwardFactory fact = new IssueAwardFactory();
 			boolean success = true;//overall success
 			boolean issued;        //success of individual attempts to give an award 
 			for(Student s : students){//loop through students and awards, giving each award to each student
 				for(Award a : awards){
-					fact = new IssueAwardFactory();
 					issued = fact.issueAward(s, a);
 					if(!issued){
 						success = false;
-						req.setAttribute("errors",  fact.getErrors());
 					}
 				}
 			}
@@ -68,8 +66,10 @@ public class IssueAwardServlet extends HttpServlet {
 			
 			if(success)
 				req.setAttribute("success", "Award(s) given successfully.");
-			else
+			else{
 				req.setAttribute("success",  "Sorry, one or more attempts to give an award failed");
+				req.setAttribute("errors",  fact.getErrors());
+			}
 					
 			req.setAttribute("student_options", course.getStudents());
 			req.setAttribute("award_options", course.getAwards());
