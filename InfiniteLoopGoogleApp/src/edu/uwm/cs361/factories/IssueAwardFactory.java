@@ -17,7 +17,13 @@ public class IssueAwardFactory {
 
 		if (award == null) {
 			errors.add("Please select an award.");
-		} 
+		}
+		if(student != null && award != null){
+			for(Award a : student.getAwards()){
+				if(a.getAward_id().getId() == award.getAward_id().getId())
+					errors.add(student.getFullName() + "already has the award: " + award.getAwardName());
+			}
+		}
 		
 		if(hasErrors()) {
 			return false;
