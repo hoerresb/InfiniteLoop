@@ -7,17 +7,17 @@
 <div id='content'>
 <%@include file='/templates/error.html'%>
 	<span class="success">${success}</span><br/>
-	<span class='title'>Create a Class:</span>
+	<span class='title'>Create a <%=class_txt%>:</span>
 	<form id='form-id' method='POST' action='/createClass'>
 		<h3>General Info:</h3>
 		<div id="general_info_div" class="subsection">
-			<label for="classname">Class name:</label>
+			<label for="classname"><%=class_txt%> name:</label>
 			<input id="classname" class="text-input" type="text" name="classname" autofocus="autofocus"  value='${classname}'/><br/><br/>
 		
-			<label for="classstart">Class Start Date:</label>
+			<label for="classstart"><%=class_txt%> Start Date:</label>
 			<input id="classstart" class="text-input" type="date" name="classstart" value='${classstart}'/><br/><br/>
 			
-			<label for="classend">Class End Date:</label>
+			<label for="classend"><%=class_txt%> End Date:</label>
 			<input id="classend" class="text-input" type="date" name="classend" value='${classend}'/><br/><br/>
 			
 			<label for="meeting_times">Weekly Meeting Times:</label><br/>
@@ -54,7 +54,7 @@
 	        </span><br/><br/>
 		</div>
 		
-		<label for="instr">Instructor:</label>
+		<label for="instr"><%=instructor_txt%>:</label>
         <select id="instr" name="instr_options">
             <optgroup>
                <c:forEach items="${teachers}" var="teacher">
@@ -63,7 +63,7 @@
             </optgroup>
         </select><br/><br/>
                  
-		<h3>Class Description:</h3>
+		<h3><%=class_txt%> Description:</h3>
 		<p>	
 			<textarea id="class_description" class="text-input" form="form-id" name="class_description" rows="5" cols="35">${class_description}</textarea><br/><br/><br/><br/>	
 		</p>

@@ -15,7 +15,7 @@
 <%@include file='/templates/student_header.jsp'%>	
 	<div id="content">
 		<h2> Welcome, ${username} </h2>
-		<h3>Charges</h3>
+		<h3><%=charge_txt%>s</h3>
 		<div class="home_item">
 			<p>
 				<c:if test="${balance > 0}">
@@ -34,12 +34,12 @@
 				${balance_note}
 			</p>
 		</div>
-		<h3>Classes</h3>
+		<h3><%=class_txt%>s</h3>
 		<c:forEach items="${courses}" var="course">
 			<div class="home_item">
 				<span>${course.name}</span>
 				<ul>
-					<li><b>Instructor:</b> <em>${course.teacher.fullName}</em></li>
+					<li><b><%=instructor_txt%>:</b> <em>${course.teacher.fullName}</em></li>
 					<li><b>Email:</b><em><a href="mailto:${course.teacher.email}">${course.teacher.email}</a></em></li>
 					<li><b>Start Date:</b> <em>${course.startDateFormatted}</em></li>
 					<li><b>End Date:</b> <em>${course.endDateFormatted}</em></li>
@@ -51,9 +51,9 @@
 				</ul>
 			</div>
 		</c:forEach>
-		<h3>Awards</h3>
+		<h3><%=award_txt%>s</h3>
 		<div class="home_item">
-			<span>And here is where awards would be...</span>
+			<span>And here is where <%=award_txt%>s would be...</span>
 			<ul>
 				<li>IF</li>
 				<li>I</li>

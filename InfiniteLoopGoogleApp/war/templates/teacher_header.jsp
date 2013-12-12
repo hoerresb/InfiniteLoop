@@ -13,6 +13,7 @@
 <%@ page import="javax.jdo.PersistenceManager" %>
 <%@ page import="javax.servlet.http.Cookie" %>
 
+<%@include file='../util/ParserText.jsp'%>
 
 <!DOCTYPE html>
 	<html>
@@ -73,7 +74,7 @@
 				<div id="navbar">
 					<div class="nav"><a href="/TeacherHome">Home</a></div>
 					<div class="nav"><a href="/Attendance">Attendance</a></div>	
-					<div class="nav"><a href="/CreateAward">Create Award</a></div>
-					<div class="nav"><a href="/issueAwardClass">Awards</a></div>
+					<div class="nav"><a href="/CreateAward">Create <%=award_txt%></a></div>
+					<div class="nav"><a href="/issueAwardClass"><%=award_txt%>s</a></div>
 					<div id="login" class='nav'><a href="/logout">Log Out</a></div>
 				</div>

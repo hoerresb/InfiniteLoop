@@ -16,7 +16,7 @@
 	<div id="content">
 		<h2> Welcome, ${username} </h2>
 		<div class="home_item">
-			<span>Charges:</span>
+			<span><%=charge_txt%>s:</span>
 			<p>
 				<c:if test="${balance > 0}">
 					<c:set value="green" var="balance_color"/>

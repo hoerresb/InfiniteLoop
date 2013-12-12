@@ -5,7 +5,7 @@
 <%@include file='/templates/teacher_header.jsp'%>
 	<div id="content">
 		<form id='form-id' method='POST' action='issueAwardClass'>
-			<label for="course_select">Select course to assign awards for:</label><br />
+			<label for="course_select">Select <%=class_txt%> to assign <%=award_txt%>s for:</label><br />
 	        <p class="centerME">
 		        <select id="course_select" name="course_options">
 		            <optgroup>

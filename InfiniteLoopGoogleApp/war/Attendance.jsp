@@ -22,7 +22,7 @@
 			<div class="classSelect">
 				<nav>
 				<ul>
-					<li><a href="">Select Class</a>
+					<li><a href="">Select <%=class_txt%></a>
 						<ul>
 						
 						<c:forEach items="${courses}" var="course">

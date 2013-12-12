@@ -16,13 +16,13 @@
 	<div id="content">
 		<%@include file='/templates/error.html'%>
 		<span class="success">${success}</span><br/>
-		<span class='title'>Student Charges:</span>
+		<span class='title'><%=student_txt%> <%=charge_txt%>s:</span>
 	</div>
 	<div class='chargesContainer'>
 			<table>
 				<tr>
-					<th>Student Name</th>
-					<th>Add Charges</th>
+					<th><%=student_txt%> Name</th>
+					<th>Add <%=charge_txt%>s</th>
 					<th>Current Due</th>
 					<th>E-mail</th>
 				</tr>					

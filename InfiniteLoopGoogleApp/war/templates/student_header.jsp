@@ -13,6 +13,7 @@
 <%@ page import="javax.jdo.PersistenceManager" %>
 <%@ page import="javax.servlet.http.Cookie" %>
 
+<%@include file='../util/ParserText.jsp'%>
 
 <!DOCTYPE html>
 	<html>

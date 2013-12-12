@@ -7,12 +7,12 @@
 <%@include file='/templates/teacher_header.jsp'%>
 	<div id="content">
 	
-		<p>Please select an award and a student to give it to.</p>
+		<p>Please select an <%=award_txt%> and a <%=student_txt%> to give it to.</p>
 	
 		<form id='form-id' method='POST' action='IssueAward'>
 		
 	        
-			<label for="award_select">Awards:</label><br />	        
+			<label for="award_select"><%=award_txt%>s:</label><br />	        
 			<p class="centerME">
 		        <select multiple id="award_options" name="award_options">
 		            <optgroup>
@@ -23,7 +23,7 @@
 		        </select><br/><br/>
 			</p>
 	        
-			<label for="student_select">Students:</label><br />	        
+			<label for="student_select"><%=student_txt%>s:</label><br />	        
 	        	<p class="centerME">
 		        <select multiple id="student_options" name="student_options">
 		            <optgroup>

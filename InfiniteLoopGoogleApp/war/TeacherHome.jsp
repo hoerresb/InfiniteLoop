@@ -16,7 +16,7 @@
 	<div id="content">
 		<h2> Welcome, ${username} </h2>
 		
-		<h3>Classes</h3>
+		<h3><%=class_txt%>s</h3>
 		<c:forEach items="${courses}" var="course">
 			<div class="home_item">
 				<span><a href="/specificCourse?course_id=${course.course_id.id}">${course.name}</a></span>

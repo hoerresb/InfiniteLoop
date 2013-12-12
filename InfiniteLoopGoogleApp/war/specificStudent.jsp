@@ -12,9 +12,9 @@
 			<li><b>Email:</b><em><a href="mailto:${student.email}">${student.email}</a></em></li>
 		<ul>
 	</div>
-	<h2 class="home_title">Account Charges:</h2>
+	<h2 class="home_title">Account <%=charge_txt%>s:</h2>
 	<div class="home_item subsection">
-		<p>Charges:</p>
+		<p><%=charge_txt%>s:</p>
 		<p class="subsection">
 			<c:if test="${balance > 0}">
 					<c:set value="green" var="balance_color"/>
@@ -32,16 +32,16 @@
 			${balance_note}
 		</p>
 	</div>
-	<h2 class="home_title">Classes:</h2>
+	<h2 class="home_title"><%=class_txt%>s:</h2>
 	<div class="home_item subsection">
 		<c:choose>
 		      <c:when test="${fn:length(courses) == 0}">
-		      		<p>This student is not enrolled in any courses.</p>
+		      		<p>This <%=student_txt%> is not enrolled in any <%=class_txt%>s.</p>
 		      </c:when>
 		      <c:otherwise>
 				<c:forEach items="${courses}" var="course">
 					<h3 class="home_title"><a href="/specificCourse?course_id=${course.course_id.id}">${course.name}</a></h3> 
-							<li><b>Instructor:</b> <em>${course.teacher.fullName}</em></li>
+							<li><b><%=instructor_txt%>:</b> <em>${course.teacher.fullName}</em></li>
 							<li><b>Email:</b><em><a href="mailto:${course.teacher.email}">${course.teacher.email}</a></em></li>
 							<li><b>Start Date:</b> <em>${course.startDateFormatted}</em></li>
 							<li><b>End Date:</b> <em>${course.endDateFormatted}</em></li>
@@ -55,12 +55,12 @@
 			 </c:otherwise>
 		</c:choose>
 	</div>
-	<h2 class="home_title">Awards:</h2>
+	<h2 class="home_title"><%=award_txt%>s:</h2>
 	<div class="home_item subsection">
 		<ul>
 		<c:choose>
 		      <c:when test="${fn:length(awards) == 0}">
-		      		<p>This student has not received any awards.</p>
+		      		<p>This <%=student_txt%> has not received any <%=award_txt%>s.</p>
 		      </c:when>
 		      <c:otherwise>
 				<c:forEach items="${awards}" var="award">

@@ -6,7 +6,7 @@
 	<div id='content'>
 		<%@include file='/templates/error.html'%>
 		<span class="success">${success}</span><br/>
-		<span class='title'>Create an Instructor:</span>
+		<span class='title'>Create <%=instructor_txt%>:</span>
 		<form id='form-id' method='POST' action='/createInstructor'>
 			<label for='firstname-id'>First Name:</label>
 			<input id='firstname-id' class='text-input' type='text' name='firstname' autofocus='autofocus' value='${firstname}'/><br/><br/>
@@ -16,7 +16,7 @@
 			<input id='email-id' class='text-input' type='email' name='email' value='${email}'/><br/><br/>
 			<label for='phone_num-id'>Phone number:</label>
 			<input id='phone_num-id' class='text-input' type='tel' name='phonenumber' value='${phonenumber}'/><br/><br/>
-			<label for='instructor_types'>Instructor Type:</label><br/>
+			<label for='instructor_types'><%=instructor_txt%> Type:</label><br/>
 			<input id='instructor_types' class='text-input' type='text' name='instructor_types'
 						 placeholder='Ex: Dog Trainer, Tutor ...' value='${instructor_types}'/><br/><br/>
 			<label for='username-id'>Username:</label>

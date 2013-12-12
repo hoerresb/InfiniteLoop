@@ -51,4 +51,5 @@ public class BillingStatementFactory {
 		}
 		return charges;
 	}
+
 }

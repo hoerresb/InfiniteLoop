@@ -13,9 +13,6 @@
 <%@ page import="javax.servlet.http.Cookie" %>
 <%@ page import="edu.uwm.cs361.entities.Admin" %>
 
-
-
-
 <%
 	String username = null;
 
@@ -50,13 +47,11 @@
 			}
 		}
 		
-		
-		
+				
 		request.setAttribute("username", username);
 %>
 
-
-
+<%@include file='../util/ParserText.jsp'%>
 
 <!DOCTYPE html>
 	<html>
@@ -69,9 +64,9 @@
 				<div id="banner"></div>
 				<div id="navbar">
 					<div class="nav"><a href="AdminHome">Home</a></div>
-					<div class="nav"><a href="/createClass">Create Class</a></div>
-					<div class="nav"><a href="createInstructor.jsp">Create Instructor</a></div>
-					<div class="nav"><a href="/RegisterStudentServlet">Register Student</a></div>
-					<div class="nav"><a href="StudentChargesServlet">Student Charges</a></div>
+					<div class="nav"><a href="/createClass">Create <%=class_txt%></a></div>
+					<div class="nav"><a href="createInstructor.jsp">Create <%=instructor_txt%></a></div>
+					<div class="nav"><a href="/RegisterStudentServlet">Register <%=student_txt%></a></div>
+					<div class="nav"><a href="StudentChargesServlet"><%=student_txt%> <%=charge_txt%>s</a></div>
 					<div id="login" class='nav'><a href="/logout">${username}, Log Out</a></div>
 				</div>

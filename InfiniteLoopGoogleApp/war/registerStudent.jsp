@@ -6,7 +6,7 @@
 	<div id='content'>
 		<%@include file='/templates/error.html'%>
 		<span class="success">${success}</span><br/>
-		<span class='title'>Register a Student:</span>
+		<span class='title'>Register <%=student_txt%>:</span>
 		<form id='form-id' method='POST' action='/RegisterStudentServlet'>
 			<label for='firstname-id'>First Name:</label>
 			<input id='firstname-id' class='text-input' type='text' name='firstname' autofocus='autofocus' value='${firstname}'/><br/><br/>
@@ -26,7 +26,7 @@
 	        <table class="register">
 	        	<tr>
 	        		<td class="register_left">
-						<label for='course_list'>Courses: </label>
+						<label for='course_list'><%=class_txt%>: </label>
 					</td>
 					<td class="register_right">
 				        <select id="course_opts" name="course_opts" multiple>

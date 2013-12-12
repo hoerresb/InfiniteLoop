@@ -9,11 +9,11 @@
 		<div id="content">
 		<%@include file='/templates/error.html'%>
 			<span class="success">${success}</span><br/>
-			<span class='title'>Create an Award:</span><br/>
+			<span class='title'>Create <%=award_txt%>:</span><br/>
 
 			<form action="/CreateAward" method="POST">
 
-				<label for="courses">Courses:</label>
+				<label for="courses"><%=class_txt%>s:</label>
 
 					<select id="courses" name="courses">
 		
@@ -23,14 +23,14 @@
 
 					</select><br/><br/>
 					
-				<label for="award_name">Award Name:</label>
+				<label for="award_name"><%=award_txt%> Name:</label>
 					<input id="award_name" type="text" name="award_name" value="${award_name}"/><br/><br/>
 				
-				<label for="award_description">Award Description:</label>
+				<label for="award_description"><%=award_txt%> Description:</label>
 					<p>
 						<textarea id="award_description" name="award_description" rows="5" cols="35">${award_description}</textarea><br/><br/>	
 					</p>
-				<input type="submit" value="Create Award" />
+				<input type="submit" value="Create <%=award_txt%>" />
 			</form>
 		</div>
 		
