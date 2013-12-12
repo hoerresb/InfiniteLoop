@@ -17,7 +17,7 @@ public class StudentChargesFactory {
 		if (deadline == null) {
 			errors.add("Please enter a date.");
 		}
-		if (reason.isEmpty()) {
+		if (reason.isEmpty() || reason == "") {
 			errors.add("Please enter a reason.");
 		}
 		if(hasErrors()) {

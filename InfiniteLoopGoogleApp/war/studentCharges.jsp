@@ -13,7 +13,11 @@
 			
 				
 <%@include file='/templates/admin_header.jsp'%>	
-	<%@include file='/templates/error.html'%>
+	<div id="content">
+		<%@include file='/templates/error.html'%>
+		<span class="success">${success}</span><br/>
+		<span class='title'>Student Charges:</span>
+	</div>
 	<div class='chargesContainer'>
 			<table>
 				<tr>

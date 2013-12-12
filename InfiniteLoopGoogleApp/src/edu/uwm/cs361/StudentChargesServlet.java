@@ -16,9 +16,6 @@ import edu.uwm.cs361.factories.*;
 @SuppressWarnings("serial")
 public class StudentChargesServlet extends HttpServlet {
 
-	private static SimpleDateFormat dateFormatter = new SimpleDateFormat(
-			"MM/dd/yyyy");
-
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
@@ -43,7 +40,7 @@ public class StudentChargesServlet extends HttpServlet {
 		try{
 			List<Student> students = getStudents(pm);
 			Date currentDate = new Date();
-			String reason, s_amount;
+			String reason, s_amount, s_date = currentDate.toGMTString();
 			StudentChargesFactory charge_fact = new StudentChargesFactory();
 			Charge c;
 
@@ -56,9 +53,11 @@ public class StudentChargesServlet extends HttpServlet {
 					req.setAttribute(student.getUser_id() + "_add_charge_amount", s_amount);
 					req.setAttribute(student.getUser_id() + "_add_charge_reason", reason);
 					req.setAttribute("errors", charge_fact.getErrors());
-					req.getRequestDispatcher("StudentCharges.jsp").forward(req, resp);
+					req.setAttribute("students", getStudents(pm));
+					req.getRequestDispatcher("studentCharges.jsp").forward(req, resp);
 				} else {
 					pm.makePersistent(c);
+					
 					student.getCharges().add(c);
 					pm.flush();
 
