@@ -16,7 +16,7 @@
 			<p class="centerME">
 		        <select multiple id="award_options" name="award_options">
 		            <optgroup>
-		               <c:forEach items="${awards}" var="award">
+		               <c:forEach items="${award_options}" var="award">
 				     	 <option value="${award.award_id.id}">${award.awardName}</option>
 					   </c:forEach> 
 		            </optgroup>
@@ -27,7 +27,7 @@
 	        	<p class="centerME">
 		        <select multiple id="student_options" name="student_options">
 		            <optgroup>
-		               <c:forEach items="${students}" var="student">
+		               <c:forEach items="${student_options}" var="student">
 				     	 <option value="${student.user_id.id}">${student.username}</option>
 					   </c:forEach> 
 		            </optgroup>
