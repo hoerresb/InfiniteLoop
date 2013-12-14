@@ -157,6 +157,12 @@ li {
 	color:red;
 }
 
+#navbar ul { padding: 0; margin: 0;  list-style: none; position: relative; z-index: 2; }
+#navbar ul ul { display: none; }
+#navbar ul li:hover > ul { display: block; box-shadow: 0px 0px 1px 0px #404040; }
+#navbar ul li { font-size: 22px; background-color: #542F0C; float: left; }
+#navbar ul ul li { clear: both; font-size: 18px; padding: 10px; }
+
 
 .attendanceContainer{width: 80%; height: auto; margin: auto; padding: 30px; color:#484E72;}
 .attendanceContainer table,td,th {border: 1px solid black; border-collapse: collapse; background-color: #F0F0F0;}

@@ -74,7 +74,13 @@
 				<div id="navbar">
 					<div class="nav"><a href="/TeacherHome">Home</a></div>
 					<div class="nav"><a href="/Attendance">Attendance</a></div>	
-					<div class="nav"><a href="/CreateAward">Create <%=award_txt%></a></div>
-					<div class="nav"><a href="/issueAwardClass"><%=award_txt%>s</a></div>
+					<ul>
+						<li><span class="nav"><a href=""><%=award_txt%>s</a></span>
+							<ul>
+								<li class="nav"><a href="/CreateAward">Create <%=award_txt%></a></li>
+								<li class="nav"><a href="/issueAwardClass"><%=award_txt%>s</a></li>
+							</ul>
+						</li>
+					</ul>
 					<div id="login" class='nav'><a href="/logout">Log Out</a></div>
 				</div>
