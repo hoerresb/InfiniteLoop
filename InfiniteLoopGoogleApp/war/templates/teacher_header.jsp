@@ -73,7 +73,13 @@
 				<div id="banner"></div>
 				<div id="navbar">
 					<div class="nav"><a href="/TeacherHome">Home</a></div>
-					<div class="nav"><a href="/Attendance">Attendance</a></div>	
+					<ul>
+						<li><span class="nav"><a href="">Attendance</a></span>
+							<ul>
+								<li class="nav"><a href="/Attendance">Set Attendance</a></li>
+							</ul>
+						</li>
+					</ul>
 					<ul>
 						<li><span class="nav"><a href=""><%=award_txt%>s</a></span>
 							<ul>

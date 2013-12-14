@@ -64,8 +64,20 @@
 				<div id="banner"></div>
 				<div id="navbar">
 					<div class="nav"><a href="AdminHome">Home</a></div>
-					<div class="nav"><a href="/createClass">Create <%=class_txt%></a></div>
-					<div class="nav"><a href="createInstructor.jsp">Create <%=instructor_txt%></a></div>
+					<ul>
+						<li><span class="nav"><a href=""><%=class_txt%></a></span>
+							<ul>
+								<li class="nav"><a href="/createClass">Create <%=class_txt%></a></li>
+							</ul>
+						</li>
+					</ul>
+					<ul>
+						<li><span class="nav"><a href=""><%=instructor_txt%></a></span>
+							<ul>
+								<li class="nav"><a href="createInstructor.jsp">Create <%=instructor_txt%></a></li>
+							</ul>
+						</li>
+					</ul>
 					<ul>
 						<li><span class="nav"><a href=""><%=student_txt%></a></span>
 							<ul>
