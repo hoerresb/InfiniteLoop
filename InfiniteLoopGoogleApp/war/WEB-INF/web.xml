@@ -11,6 +11,20 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet>
 	
 	<servlet>
+		<servlet-name>CourseAttendance</servlet-name>
+		<servlet-class>edu.uwm.cs361.CourseAttendance</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>AttendanceSheet</servlet-name>
+		<servlet-class>edu.uwm.cs361.AttendanceSheet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ViewAttendance</servlet-name>
+		<servlet-class>edu.uwm.cs361.ViewAttendance</servlet-class>
+	</servlet>
+	
+	<servlet>
 		<servlet-name>IssueAwardClassServlet</servlet-name>
 		<servlet-class>edu.uwm.cs361.IssueAwardClassServlet</servlet-class>
 	</servlet>
@@ -29,7 +43,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>IssueAwardServlet</servlet-name>
 		<url-pattern>/issueAward</url-pattern>
 	</servlet-mapping>
-	
+		
 	<servlet>
 		<servlet-name>CreateAward</servlet-name>
 		<servlet-class>edu.uwm.cs361.CreateAwardServlet</servlet-class>
@@ -39,8 +53,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>CreateAward</servlet-name>
 		<url-pattern>/CreateAward</url-pattern>
 	</servlet-mapping>
-	
-	<servlet>
+		<servlet>
 		<servlet-name>SpecificStudentPage</servlet-name>
 		<servlet-class>edu.uwm.cs361.SpecificStudentPageServlet</servlet-class>
 	</servlet>
@@ -79,7 +92,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>StudentBillingStatement</servlet-name>
 		<url-pattern>/studentBillingStatement</url-pattern>
 	</servlet-mapping>
-	
+		
 	<servlet>
 		<servlet-name>EmailJob</servlet-name>
 		<servlet-class>edu.uwm.cs361.EmailJobServlet</servlet-class>
@@ -170,6 +183,21 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<servlet-mapping>
 		<servlet-name>Attendance</servlet-name>
 		<url-pattern>/Attendance</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>CourseAttendance</servlet-name>
+		<url-pattern>/CourseAttendance</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>AttendanceSheet</servlet-name>
+		<url-pattern>/AttendanceSheet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ViewAttendance</servlet-name>
+		<url-pattern>/ViewAttendance</url-pattern>
 	</servlet-mapping>
 
 	<servlet-mapping>

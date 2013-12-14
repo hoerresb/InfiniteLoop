@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 
 <%@ page import="java.util.List" %>
@@ -17,7 +16,7 @@
 
 
 <div id="content">
-		<span class="title">Select to set Attendance</span>
+		<span class="title">Select to view Attendance</span>
 		<p></p>
 			<div class="classSelect">
 				<nav>
@@ -33,13 +32,7 @@
 									</c:if>
 								</c:forEach>
 							</c:forEach>
-							
-								<li><a href="">${course.name}</a>
-								<ul>
-									<li><a href="/AttendanceSheet?course_id=${course.course_id.id}"> <b>Start Date:</b> <em>${course.startDate}</em></a></li>
-									
-								</ul>
-								</li>
+								<li><a href="/CourseAttendance?course_id=${course.course_id.id}">${course.name}</a></li>
 						</c:forEach>
 							
 						</ul>

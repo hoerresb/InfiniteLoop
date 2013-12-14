@@ -16,7 +16,7 @@ import edu.uwm.cs361.factories.PersistenceFactory;
 import edu.uwm.cs361.factories.StudentChargesFactory;
 
 @SuppressWarnings("serial")
-public class AttendanceSheet extends HttpServlet {
+public class CourseAttendance extends HttpServlet {
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException	{
 		PersistenceManager pm = PersistenceFactory.getPersistenceManager();
@@ -69,103 +69,11 @@ public class AttendanceSheet extends HttpServlet {
 		
 		req.setAttribute("weeks", diffInDays);
 		req.setAttribute("students", course.getStudents());
-		req.getRequestDispatcher("AttendanceSheet.jsp").forward(req, resp);
+		req.getRequestDispatcher("CourseAttendance.jsp").forward(req, resp);
 		
 	}
 	
-	@SuppressWarnings("unchecked")
-	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException	{
-		PersistenceManager pm = PersistenceFactory.getPersistenceManager();
-		
-		
-		
-		
-		
-		try{
-			//List<Student> students = getStudents(pm);
-			//Date currentDate = new Date();
-			//String reason, s_amount;
-			//StudentChargesFactory charge_fact = new StudentChargesFactory();
-			
-			String w = req.getParameter("work_please");
-			
-			System.out.println(w);
-			
-			int day_of_week = Integer.parseInt(w);
-			
-		
-			
-			StudentAttendance c;
 
-				Course course = (Course) pm.getObjectById(Course.class,Long.parseLong(req.getParameter("course_id")));
-				
-				Set<Student> students = course.getStudents();
-				Set<String> meetDays = course.getMeetingDays();
-				
-				List <String> days = new ArrayList<String>();
-				Map<String,Boolean> attendance_map;
-				
-				
-				for (Student student : students){
-				String [] s_attendance = req.getParameterValues(student.getUser_id()+"_attendance");
-				
-				
-				
-				
-				//String [] student_attendance = req.getParameterValues("attendance");
-				if(s_attendance != null){
-				for(int i =0 ; i < s_attendance.length; i++){
-					
-					if(s_attendance[i].equals("1")){
-						days.add(s_attendance[i]);
-						i++;
-					}
-					else{
-						days.add(s_attendance[i]);
-					}
-				}
-				}
-				
-				c = new StudentAttendance(days, day_of_week, student);
-				pm.makePersistent(c);
-				course.getAttendance().add(c);
-				pm.flush();
-			
-				
-				}
-				
-				
-				//s_amount = req.getParameter(student.getUser_id() + "_add_charge_amount");
-				//reason = req.getParameter(student.getUser_id() + "_add_charge_reason");
-				//c = charge_fact.createCharge(student, s_amount, currentDate, reason);
-
-				/*if (charge_fact.hasErrors()) {
-					req.setAttribute(student.getUser_id() + "_add_charge_amount", s_amount);
-					req.setAttribute(student.getUser_id() + "_add_charge_reason", reason);
-					req.setAttribute("errors", charge_fact.getErrors());
-					req.getRequestDispatcher("StudentCharges.jsp").forward(req, resp);
-				} 
-			
-				
-				
-				else {
-					pm.makePersistent(c);
-					student.getCharges().add(c);
-					pm.flush();
-
-					req.setAttribute("success", "Charge added successfully.");
-					req.setAttribute("students", getStudents(pm));
-					req.getRequestDispatcher("studentCharges.jsp").forward(req, resp);
-				}*/
-		} finally {
-			pm.close();
-		}
-		
-		
-		
-		
-	}
-	
 	
 	
 	@SuppressWarnings("unchecked")
