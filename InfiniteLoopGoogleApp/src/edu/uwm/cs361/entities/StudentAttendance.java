@@ -7,17 +7,18 @@ import java.util.Map;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.PrimaryKey;
 
 import com.google.appengine.api.datastore.Key;
-
+@PersistenceCapable
 public class StudentAttendance {
 	
 	@Persistent
 	int WeekDate;
 	
 	@Persistent
-	Student student;
+	String student;
 	
 	@Persistent
 	List<String> present;
@@ -28,7 +29,7 @@ public class StudentAttendance {
 	
 	//precence.put("th", true)
 	
-	public StudentAttendance(List<String> p, int date, Student s){
+	public StudentAttendance(List<String> p, int date, String s){
 		this.present = p;
 		this.WeekDate = date;
 		this.student = s;
@@ -46,7 +47,7 @@ public class StudentAttendance {
 		return present;
 	}
 	
-	public Student get_a_Student(){
+	public String get_a_Student(){
 		return student;
 	}
 	

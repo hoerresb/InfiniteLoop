@@ -103,6 +103,8 @@ public class AttendanceSheet extends HttpServlet {
 				Set<String> meetDays = course.getMeetingDays();
 				
 				List <String> days = new ArrayList<String>();
+				String name; 
+				
 				Map<String,Boolean> attendance_map;
 				
 				
@@ -125,8 +127,8 @@ public class AttendanceSheet extends HttpServlet {
 					}
 				}
 				}
-				
-				c = new StudentAttendance(days, day_of_week, student);
+				name = student.getFullName();
+				c = new StudentAttendance(days, day_of_week, name);
 				pm.makePersistent(c);
 				course.getAttendance().add(c);
 				pm.flush();
@@ -134,29 +136,8 @@ public class AttendanceSheet extends HttpServlet {
 				
 				}
 				
+				req.getRequestDispatcher("Attendance.jsp").forward(req, resp);
 				
-				//s_amount = req.getParameter(student.getUser_id() + "_add_charge_amount");
-				//reason = req.getParameter(student.getUser_id() + "_add_charge_reason");
-				//c = charge_fact.createCharge(student, s_amount, currentDate, reason);
-
-				/*if (charge_fact.hasErrors()) {
-					req.setAttribute(student.getUser_id() + "_add_charge_amount", s_amount);
-					req.setAttribute(student.getUser_id() + "_add_charge_reason", reason);
-					req.setAttribute("errors", charge_fact.getErrors());
-					req.getRequestDispatcher("StudentCharges.jsp").forward(req, resp);
-				} 
-			
-				
-				
-				else {
-					pm.makePersistent(c);
-					student.getCharges().add(c);
-					pm.flush();
-
-					req.setAttribute("success", "Charge added successfully.");
-					req.setAttribute("students", getStudents(pm));
-					req.getRequestDispatcher("studentCharges.jsp").forward(req, resp);
-				}*/
 		} finally {
 			pm.close();
 		}
