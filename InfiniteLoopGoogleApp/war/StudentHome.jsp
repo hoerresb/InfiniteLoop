@@ -53,12 +53,30 @@
 		</c:forEach>
 		<h3><%=award_txt%>s</h3>
 		<div class="home_item">
-			<span>And here is where <%=award_txt%>s would be...</span>
+			<span><%=award_txt%>s</span>
 			<ul>
-				<li>IF</li>
-				<li>I</li>
-				<li>HAD</li>
-				<li>ANY</li>
+				<c:forEach items="${courses}" var="course">
+					<li>
+						<b>${course.name}</b>
+						<ul>
+							<c:forEach items="${course.awards}" var="course_award">
+								<c:if test="${num_awards > 0}">
+									<c:forEach items="${student.awards}" var="student_award">
+										<c:if test="${fn:contains(course_award.awardName, student_award.awardName)}">
+											<li><em style="color: green">${course_award.awardName}</em></li>
+										</c:if>
+										<c:if test="${!fn:contains(course_award.awardName, student_award.awardName)}">
+											<li><em style="color: red">${course_award.awardName}</em></li>
+										</c:if>
+									</c:forEach>
+								</c:if>
+								<c:if test="${num_awards == 0}">
+									<li><em style="color: red">${course_award.awardName}</em></li>
+								</c:if>
+							</c:forEach>
+						</ul>
+					</li>
+				</c:forEach>
 			</ul>
 		</div>
 	</div>

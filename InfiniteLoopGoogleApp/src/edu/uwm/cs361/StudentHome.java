@@ -53,7 +53,9 @@ public class StudentHome extends HttpServlet {
 		}
 		
 		req.setAttribute("username", username);
-		Student student = getStudent(pm, username);		
+		Student student = getStudent(pm, username);	
+		req.setAttribute("student", student);
+		req.setAttribute("num_awards", student.getAwards().size());
 		req.setAttribute("balance", getBalance(pm, student));
 		req.setAttribute("courses", getCourses(pm, student));
 	
