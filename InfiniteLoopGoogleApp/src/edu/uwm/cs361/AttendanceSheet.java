@@ -91,7 +91,7 @@ public class AttendanceSheet extends HttpServlet {
 			
 			System.out.println(w);
 			
-			int day_of_week = Integer.parseInt(w);
+			int number_of_week = Integer.parseInt(w);
 			
 		
 			
@@ -102,7 +102,10 @@ public class AttendanceSheet extends HttpServlet {
 				Set<Student> students = course.getStudents();
 				Set<String> meetDays = course.getMeetingDays();
 				
-				List <String> days = new ArrayList<String>();
+				
+				
+				
+				//List <String> days = new ArrayList<String>();
 				String name; 
 				
 				Map<String,Boolean> attendance_map;
@@ -111,12 +114,14 @@ public class AttendanceSheet extends HttpServlet {
 				for (Student student : students){
 				String [] s_attendance = req.getParameterValues(student.getUser_id()+"_attendance");
 				
-				
+				List <String> days = new ArrayList<String>();
 				
 				
 				//String [] student_attendance = req.getParameterValues("attendance");
 				if(s_attendance != null){
 				for(int i =0 ; i < s_attendance.length; i++){
+					
+					System.out.print(s_attendance[i]);
 					
 					if(s_attendance[i].equals("1")){
 						days.add(s_attendance[i]);
@@ -127,8 +132,12 @@ public class AttendanceSheet extends HttpServlet {
 					}
 				}
 				}
+				
+				
+				
 				name = student.getFullName();
-				c = new StudentAttendance(days, day_of_week, name);
+				System.out.println(name);
+				c = new StudentAttendance(days, number_of_week, name, meetDays);
 				pm.makePersistent(c);
 				course.getAttendance().add(c);
 				pm.flush();

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.Persistent;
@@ -23,16 +24,20 @@ public class StudentAttendance {
 	@Persistent
 	List<String> present;
 	
+	@Persistent
+	Set<String> meet;
+	
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private Key attendance_id;
 	
 	//precence.put("th", true)
 	
-	public StudentAttendance(List<String> p, int date, String s){
+	public StudentAttendance(List<String> p, int date, String s, Set<String> meet){
 		this.present = p;
 		this.WeekDate = date;
 		this.student = s;
+		this.meet = meet;
 	}
 	
 	public Key getAttendance_id(){
@@ -43,11 +48,15 @@ public class StudentAttendance {
 		return WeekDate;
 	}
 	
-	public List<String> getList(){
+	public Set<String> getDays(){
+		return meet;
+	}
+	
+	public List<String> getPresent(){
 		return present;
 	}
 	
-	public String get_a_Student(){
+	public String getStudentName(){
 		return student;
 	}
 	

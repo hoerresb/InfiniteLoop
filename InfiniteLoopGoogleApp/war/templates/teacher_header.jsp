@@ -77,6 +77,7 @@
 						<li><span class="nav"><a href="">Attendance</a></span>
 							<ul>
 								<li class="nav"><a href="/Attendance">Set Attendance</a></li>
+								<li class="nav"><a href="/ViewAttendance">View Attendace</a><li>
 							</ul>
 						</li>
 					</ul>

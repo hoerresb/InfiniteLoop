@@ -1,8 +1,10 @@
 package edu.uwm.cs361.entities;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
@@ -56,6 +58,11 @@ public class Course {
 	@Persistent
 	@Unowned
 	private Set<Student> students = new HashSet<Student>();
+	
+	@Persistent
+	@Unowned
+	private List<StudentAttendance> attendance = new ArrayList<StudentAttendance>();
+
 	
 	private static SimpleDateFormat dateFormatter = new SimpleDateFormat ("MM/dd/yyyy");
 
@@ -128,6 +135,10 @@ public class Course {
 	
 	public Set<Award> getAwards() {
 		return awards;
+	}
+	
+	public List<StudentAttendance> getAttendance(){
+		return attendance;
 	}
 	
 	public Set<Student> getStudents() {

@@ -14,56 +14,49 @@
 
 <%@include file='/templates/teacher_header.jsp'%>	
 
-<form id="form-id" style="text-align:center;" method="POST" action='/AttendanceSheet'> 
 
 <div id="content">
- 
-<label for="attendance_select">Select to set Attendance for:</label><br />
-<p class="centerME">
-    <select id="attendance_select" name="work_please">
- 
-        <c:forEach var="i" begin="1" end="${weeks}">  
-        	<option value="${i}">Week ${i} </option>  
-		</c:forEach>
-    </select><br/><br/>
-</p>
-
+<c:forEach items="${courses}" var="course">
+<h2>${course.name} Attendance</h2>
+</c:forEach>
 </div><!--content-->
 
 
+
+
 <div class="attendanceContainer">
+<c:forEach items="${course_select.attendance}" var="att" begin="1" end="1">
+<p style="color:#fff"><span>Week ${att.date} </span></p>
+</c:forEach>
 
-	<table>
-		<tr>
-			<th>Name</th>
-			    <c:forEach items="${course_select.meetingDays}" var="meet">
-					    <th>${meet}</th>
-			</c:forEach> 
+<table>
+<tr>
+	<th>Name</th>
+	    <c:forEach items="${course_select.meetingDays}" var="meet">
+			    <th>${meet}</th>
+	</c:forEach> 
+	</tr>
+<c:forEach items="${course_select.attendance}" var="att">
 
-			 <c:forEach items="${students}" var="student">
-			 	<tr>
-			 		<th>${student.fullName}</th>
-			 	<c:forEach items="${course_select.meetingDays}" var="m">
-			 		<th class="center"><input id="hiddenValues" type="checkbox" name="${student.user_id}_attendance" value="1">
-			 		<input type="hidden" name="${student.user_id}_attendance" value="0"></th>
+			<tr>
+			 <c:forEach items="${att.studentName}" var="student">
+			 	
+			 		<td>${student}</td>
+			 	
+			 	<c:forEach items="${att.present}" var="m">
+			 		<td class="center">${m}</td>
 			 		
 			    </c:forEach>
-			    </tr>
+			    
 			 </c:forEach>
 		</tr>
 	
-	</table>
+	</c:forEach>
 	
-	<input type="hidden" name="course_id" value="${course_select.course_id.id}" />
-	<p style="text-align:center;"><button id="submit-id" type="submit">Submit</button><br/><br/></p>
-	</form>
+	</table>
+	</div>
 
-
-</div>
-
-
-
-
+	
 
 
 
