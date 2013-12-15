@@ -36,7 +36,7 @@
 							
 								<li><a href="">${course.name}</a>
 								<ul>
-									<li><a href="/AttendanceSheet?course_id=${course.course_id.id}"> <b>Start Date:</b> <em>${course.startDate}</em></a></li>
+									<li><a href="/AttendanceSheet?course_id=${course.course_id.id}"> <b>Start Date:</b> <em>${course.startDateFormatted}</em></a></li>
 									
 								</ul>
 								</li>
