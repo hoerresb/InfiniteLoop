@@ -12,8 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.uwm.cs361.entities.*;
-import edu.uwm.cs361.factories.PersistenceFactory;
-import edu.uwm.cs361.factories.StudentChargesFactory;
+import edu.uwm.cs361.factories.*;
 
 @SuppressWarnings("serial")
 public class AttendanceSheet extends HttpServlet {
@@ -77,52 +76,35 @@ public class AttendanceSheet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException	{
 		PersistenceManager pm = PersistenceFactory.getPersistenceManager();
 		
-		
-		
-		
-		
 		try{
-			//List<Student> students = getStudents(pm);
-			//Date currentDate = new Date();
-			//String reason, s_amount;
-			//StudentChargesFactory charge_fact = new StudentChargesFactory();
-			
+		
 			String w = req.getParameter("work_please");
 			
 			System.out.println(w);
 			
 			int number_of_week = Integer.parseInt(w);
-			
 		
-			
-			StudentAttendance c;
-
 				Course course = (Course) pm.getObjectById(Course.class,Long.parseLong(req.getParameter("course_id")));
-				
+				Date date1 = course.getStartDate();
+				Date date2 = course.getEndDate();
+				int diffInDays = getDiffInDate(date1,date2);
 				Set<Student> students = course.getStudents();
 				Set<String> meetDays = course.getMeetingDays();
 				
+				StudentAttendance c;
 				
-				
-				
-				//List <String> days = new ArrayList<String>();
-				String name; 
-				
-				Map<String,Boolean> attendance_map;
-				
-				
+				String name; 				
+				int s = students.size();
+				int count = 0;
 				for (Student student : students){
 				String [] s_attendance = req.getParameterValues(student.getUser_id()+"_attendance");
 				
 				List <String> days = new ArrayList<String>();
 				
 				
-				//String [] student_attendance = req.getParameterValues("attendance");
+				
 				if(s_attendance != null){
 				for(int i =0 ; i < s_attendance.length; i++){
-					
-					System.out.print(s_attendance[i]);
-					
 					if(s_attendance[i].equals("1")){
 						days.add(s_attendance[i]);
 						i++;
@@ -132,21 +114,36 @@ public class AttendanceSheet extends HttpServlet {
 					}
 				}
 				}
-				
-				
-				
 				name = student.getFullName();
-				System.out.println(name);
-				c = new StudentAttendance(days, number_of_week, name, meetDays);
+				AttendanceSheetFactory att = new AttendanceSheetFactory();
+				c = att.createAttendanceSheet(days, number_of_week, name, meetDays, course);
+				
+				if(att.hasErrors()){
+					req.setAttribute("course_select", course);
+					req.setAttribute("weeks", diffInDays);
+					req.setAttribute("students", course.getStudents());
+					req.setAttribute("errors", att.getErrors());
+					req.setAttribute(student.getUser_id()+"_attendance", "0");
+					req.getRequestDispatcher("/AttendanceSheet.jsp").forward(req, resp);
+					break;
+				}
+				else{
+				
 				pm.makePersistent(c);
 				course.getAttendance().add(c);
-				pm.flush();
-			
-				
+				pm.flush();		
 				}
+				++count;
 				
-				req.getRequestDispatcher("Attendance.jsp").forward(req, resp);
-				
+				if(count == s && !(att.hasErrors())){
+					req.setAttribute("success", "Attendance successfully submitted.");
+					req.setAttribute("course_select", course);
+					req.setAttribute("weeks", diffInDays);
+					req.setAttribute("students", course.getStudents());
+					req.getRequestDispatcher("/AttendanceSheet.jsp").forward(req, resp);
+					
+				}
+				}
 		} finally {
 			pm.close();
 		}

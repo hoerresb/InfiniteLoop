@@ -10,14 +10,18 @@
 <%@ page import="javax.jdo.PersistenceManager" %>
 <%@ page import="edu.uwm.cs361.entities.Admin" %>
 <%@ page import="javax.servlet.http.Cookie" %>
+<%@ page import="edu.uwm.cs361.entities.*" %>
+<%@ page import="edu.uwm.cs361.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <%@include file='/templates/teacher_header.jsp'%>	
 
 <form id="form-id" style="text-align:center;" method="POST" action='/AttendanceSheet'> 
 
 <div id="content">
- 
+<%@include file='/templates/error.html'%>
+<span class="success">${success}</span><br/>
 <label for="attendance_select">Select to set Attendance for:</label><br />
 <p class="centerME">
     <select id="attendance_select" name="work_please">

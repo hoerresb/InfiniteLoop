@@ -16,18 +16,15 @@
 
 
 <div id="content">
-<c:forEach items="${courses}" var="course">
-<h2>${course.name} Attendance</h2>
-</c:forEach>
+
+<h2>${course_select.name} Attendance</h2>
+
 </div><!--content-->
 
 
 
 
 <div class="attendanceContainer">
-<c:forEach items="${course_select.attendance}" var="att" begin="1" end="1">
-<p style="color:#fff"><span>Week ${att.date} </span></p>
-</c:forEach>
 
 <table>
 <tr>
@@ -37,11 +34,11 @@
 	</c:forEach> 
 	</tr>
 <c:forEach items="${course_select.attendance}" var="att">
-
+	
 			<tr>
 			 <c:forEach items="${att.studentName}" var="student">
 			 	
-			 		<td>${student}</td>
+			 		<td>Week ${att.date} - ${student}</td>
 			 	
 			 	<c:forEach items="${att.present}" var="m">
 			 		<td class="center">${m}</td>

@@ -12,12 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.uwm.cs361.entities.*;
+import edu.uwm.cs361.factories.PersistenceFactory;
 
 @SuppressWarnings("serial")
 public class Attendance extends HttpServlet {
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException	{
-		
+		PersistenceManager pm = PersistenceFactory.getPersistenceManager();
 		String username = null;
 
 		Cookie[] cookies = req.getCookies();
@@ -51,9 +52,11 @@ public class Attendance extends HttpServlet {
 		
 		Teacher teacher = getTeacher(username);		
 		
+		req.getAttribute("course_id");
+		
 		req.setAttribute("courses", getCourses(teacher));
 		req.setAttribute("students", getStudents(teacher));
-	
+		
 		req.getRequestDispatcher("Attendance.jsp").forward(req, resp);
 		
 	}
