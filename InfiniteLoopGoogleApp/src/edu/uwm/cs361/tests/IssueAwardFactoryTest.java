@@ -70,7 +70,7 @@ public class IssueAwardFactoryTest {
 	public void testSuccess() {
 		IssueAwardFactory aFact = new IssueAwardFactory();
 		Student s = new Student("","p4ssword","p4ssword","firstName","lastName", "em4il", null);
-		Award a = aFact.createAward(c, "award0", "congrats");
+		Award a = new Award("award0", "congrats");
 		boolean issued = aFact.issueAward(s,a);
 
 		assertFalse(aFact.hasErrors());
