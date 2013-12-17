@@ -76,4 +76,12 @@ public class Student extends User
 	public Set<Charge> getCharges() {
 		return charges;
 	}
+	
+	public Double getBalance() {
+		Double balance = 0.0;
+		for(Charge c : charges) {
+			balance += c.getAmount();
+		}
+		return balance;
+	}
 }

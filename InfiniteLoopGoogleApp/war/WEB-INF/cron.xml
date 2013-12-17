@@ -2,8 +2,8 @@
 <cronentries>
   <cron>
     <url>/emailJob</url>
-    <description>Mail students with deadlines today</description>
-    <schedule>every day 22:26</schedule>
+    <description>Mail students their balance</description>
+    <schedule>first mon 01:00</schedule>
     <timezone>America/Chicago</timezone>
   </cron>
 </cronentries>

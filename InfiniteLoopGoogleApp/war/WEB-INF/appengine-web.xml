@@ -17,6 +17,7 @@
   	<include path="/css/**.css" />
   	<include path="/images/**.png" />
   	<include path="/util/**.jsp" />
+  	<include path="/util/**.txt" />
   	<include path="/templates/**.html" />
   </resource-files>
   <!--
