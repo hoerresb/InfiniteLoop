@@ -1,6 +1,8 @@
 package edu.uwm.cs361;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 import javax.jdo.PersistenceManager;
 import javax.servlet.ServletException;
@@ -26,6 +28,7 @@ public class IssueAwardServlet extends HttpServlet {
 		try {
 			course = (Course) pm.getObjectById(Course.class, Long.parseLong((String)req.getParameter("course_id")));
 			System.out.println(course.getName());
+			req.setAttribute("course_select", course);
 			req.setAttribute("student_options", course.getStudents());
 			req.setAttribute("award_options", course.getAwards());
 		} finally {
@@ -38,18 +41,46 @@ public class IssueAwardServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException	{
 		PersistenceManager pm = PersistenceFactory.getPersistenceManager();
 		try{
+			Course 	course = (Course) pm.getObjectById(Course.class, Long.parseLong((String)req.getParameter("course_id")));
+			System.out.println(course.getName());
+			Set<Award> aw = course.getAwards();
+			
 			//get student id's, parse id's, add students to array list
 			String[] studentIDs = req.getParameterValues("student_options");
+			
 			ArrayList<Student> students = new ArrayList<Student>();
 			for(String s : studentIDs){
 				students.add((Student) pm.getObjectById(Student.class,Long.parseLong(s)));
 			}
 			//get award id's, parse id's, add awards to array list
-			String[] awardIDs = req.getParameterValues("award_options");
-			ArrayList<Award> awards = new ArrayList<Award>();
-			for(String s : awardIDs){
-				awards.add((Award) pm.getObjectById(Award.class,Long.parseLong(s)));
+			String[] awardNames = req.getParameterValues("award_options");
+			for(int i = 0; i < awardNames.length; i++){
+				System.out.println(awardNames[i]);
 			}
+			for(int i = 0; i < students.size(); i ++){
+				System.out.println(students.get(i).getFullName());
+			}
+			List<Award> awards = new ArrayList<Award>();
+			
+			
+			for(Award s_award : aw){
+				
+				for(int i = 0; i < awardNames.length; i++){
+					
+					if(awardNames[i].equals(s_award.getAwardName())){
+						awards.add(s_award);
+					}
+				}
+			}
+			
+			for(int i = 0; i < awards.size(); i++){
+				System.out.println(awards.get(i).getAwardName());
+			}
+			
+			//for(String s : awardIDs){
+				//awards.add((Award) pm.getObjectById(Award.class,Long.parseLong(s)));
+			//}
+			
 
 			IssueAwardFactory fact = new IssueAwardFactory();
 			boolean success = true;//overall success
@@ -64,17 +95,20 @@ public class IssueAwardServlet extends HttpServlet {
 			}
 			
 			
-			if(success)
+			if(success){
 				req.setAttribute("success", "Award(s) given successfully.");
-			else{
-				req.setAttribute("success",  "Sorry, one or more attempts to give an award failed");
-				req.setAttribute("errors",  fact.getErrors());
-			}
-					
 			req.setAttribute("student_options", course.getStudents());
 			req.setAttribute("award_options", course.getAwards());
 			req.getRequestDispatcher("IssueAward.jsp").forward(req, resp);
-			resp.sendRedirect("/IssueAward.jsp");
+			}else{
+				//req.setAttribute("success",  "Sorry, one or more attempts to give an award failed");
+				req.setAttribute("errors",  fact.getErrors());
+				req.setAttribute("student_options", course.getStudents());
+				req.setAttribute("award_options", course.getAwards());
+				req.getRequestDispatcher("IssueAward.jsp").forward(req, resp);
+			}
+					
+	
 			
 		} catch (ServletException e) {
 			e.printStackTrace();

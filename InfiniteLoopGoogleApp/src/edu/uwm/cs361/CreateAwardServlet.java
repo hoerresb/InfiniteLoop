@@ -63,6 +63,7 @@ public class CreateAwardServlet extends HttpServlet {
 				if (fact.hasErrors()) {
 					req.setAttribute("award_name", awardName);
 					req.setAttribute("award_description", awardDescription);
+					req.setAttribute("courses",  getCourses(teacher));
 					req.setAttribute("errors", fact.getErrors());
 					req.getRequestDispatcher("CreateAward.jsp").forward(req, resp);
 				} 
