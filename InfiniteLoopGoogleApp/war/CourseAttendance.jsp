@@ -38,7 +38,7 @@
 			<tr>
 			 <c:forEach items="${att.studentName}" var="student">
 			 	
-			 		<td>Week ${att.date} - ${student}</td>
+			 		<td><b>Week ${att.date}</b> - <em>${student}</em></td>
 			 	
 			 	<c:forEach items="${att.present}" var="m">
 			 		<td class="center">${m}</td>

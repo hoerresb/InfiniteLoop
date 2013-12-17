@@ -98,9 +98,12 @@ public class CreateClassServlet extends HttpServlet {
 	}
 
 	private boolean wasSelected(String day, Set<String> meetingDays) {
+		if (meetingDays != null)
 		for(String selectedDay : meetingDays) {
-			if(selectedDay.equals(day)) {
-				return true;
+			if (selectedDay != null) {
+				if(selectedDay.equals(day)) {
+					return true;
+				}
 			}
 		}
 		return false;
