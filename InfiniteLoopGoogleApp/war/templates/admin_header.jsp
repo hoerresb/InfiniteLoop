@@ -68,6 +68,7 @@
 						<li><span class="nav"><a href=""><%=class_txt%></a></span>
 							<ul>
 								<li class="nav"><a href="/createClass">Create <%=class_txt%></a></li>
+								<li class="nav"><a href="/editClass">Edit <%=class_txt%></a></li>
 							</ul>
 						</li>
 					</ul>
