@@ -10,6 +10,16 @@ public class RegisterStudentFactory {
 	
 	public Student createStudent(String username, String password, String password_repeat,
 			String firstname, String lastname, String email, Set<Course> courses) {
+		
+		if (firstname.isEmpty()) {
+			errors.add("First Name is required.");
+		}
+		if (lastname.isEmpty()) {
+			errors.add("Last Name is required.");
+		}
+		if (email.isEmpty()) {
+			errors.add("Email is required.");
+		}
 		if (username.isEmpty()) {
 			errors.add("Username is required.");
 		} else if(UsernameValidator.usernameExists(username)) {
@@ -20,8 +30,10 @@ public class RegisterStudentFactory {
 		} else if (!password.equals(password_repeat)) {
 			errors.add("Passwords do not match.");
 		}
-		if (email.isEmpty()) {
-			errors.add("Email is required.");
+		if (courses == null) {
+			errors.add("Must select courses.");
+		} else if (courses.isEmpty()) {
+			errors.add("Must select courses.");
 		}
 		
 		if(hasErrors()) {

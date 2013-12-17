@@ -37,11 +37,7 @@ public class RegisterStudentServlet extends HttpServlet {
 		
 		RegisterStudentFactory stud_fact = new RegisterStudentFactory();
 		Student student = stud_fact.createStudent(username, password, password_repeat, firstname, lastname, email, courses);
-		for (Course course : student.getCourses()) {
-			Charge charge = new Charge(course.getPayment_amount(),new Date(),course.getName());
-			pm.makePersistent(charge);
-			student.getCharges().add(charge);//adds initial charge for course fee
-		}
+		
 		
 		try {
 			if (stud_fact.hasErrors()) {				
@@ -53,12 +49,17 @@ public class RegisterStudentServlet extends HttpServlet {
 				req.setAttribute("password", password);
 				req.setAttribute("password_repeat", password_repeat);
 				req.setAttribute("errors", stud_fact.getErrors());
-				req.setAttribute("course_list", courses);
+				req.setAttribute("course_list", getCourses(pm));
 				req.getRequestDispatcher("/registerStudent.jsp").forward(req, resp);
 			} else {
-				pm.makePersistent(student);
-				req.setAttribute("course_list", courses);
+				for (Course course : student.getCourses()) {
+					Charge charge = new Charge(course.getPayment_amount(),new Date(),course.getName());
+					pm.makePersistent(charge);
+					student.getCharges().add(charge);//adds initial charge for course fee
+				}
+				req.setAttribute("course_list", getCourses(pm));
 				req.setAttribute("success", "Student registered successfully.");
+				pm.makePersistent(student);
 				req.getRequestDispatcher("/registerStudent.jsp").forward(req, resp);
 			}
 		} finally {			

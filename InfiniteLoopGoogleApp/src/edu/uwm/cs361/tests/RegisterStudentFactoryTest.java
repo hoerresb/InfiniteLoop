@@ -28,6 +28,7 @@ public class RegisterStudentFactoryTest {
 			new LocalDatastoreServiceTestConfig());
 
 	private PersistenceManager pm;
+	private Set<Course> courses = new HashSet<Course>();
 
 	@Before
 	@SuppressWarnings("unchecked")
@@ -50,22 +51,90 @@ public class RegisterStudentFactoryTest {
 	public void tearDown() {
 		helper.tearDown();
 	}
+	
+	@Test
+	public void testErrorOnBlankFirstname() {
+		RegisterStudentFactory stud_fact = new RegisterStudentFactory();
+		
+		Set<String> meetingDays = new HashSet<String>(Arrays.asList(new String[] { "M", "T", "W" }));
+		Teacher teacher = new Teacher("john", "pw", "john", "john", "email", "8478478474", new String[] {"teacher1","teacher2"});
+		
+		Course c = new Course("learning101", new Date("10/15/2013"), new Date("10/16/2013"), meetingDays, "10:45", "EMS203", "gimme money", "its a good class", teacher);
+		courses.add(c);
+		
+		Student u = stud_fact.createStudent("username","password","password","","lname", "email", courses);
+
+		assertNull(u);
+		assertTrue(stud_fact.hasErrors());
+		assertEquals(1, stud_fact.getErrors().size());
+		assertTrue(stud_fact.getErrors().get(0).equals("First Name is required."));
+	}
+	
+	@Test
+	public void testErrorOnBlankLastname() {
+		RegisterStudentFactory stud_fact = new RegisterStudentFactory();
+		
+		Set<String> meetingDays = new HashSet<String>(Arrays.asList(new String[] { "M", "T", "W" }));
+		Teacher teacher = new Teacher("john", "pw", "john", "john", "email", "8478478474", new String[] {"teacher1","teacher2"});
+		
+		Course c = new Course("learning101", new Date("10/15/2013"), new Date("10/16/2013"), meetingDays, "10:45", "EMS203", "gimme money", "its a good class", teacher);
+		courses.add(c);
+		
+		Student u = stud_fact.createStudent("username","password","password","fname","", "email", courses);
+
+		assertNull(u);
+		assertTrue(stud_fact.hasErrors());
+		assertEquals(1, stud_fact.getErrors().size());
+		assertTrue(stud_fact.getErrors().get(0).equals("Last Name is required."));
+	}
+	
+	@Test
+	public void testErrorOnBlankEmail() {
+		RegisterStudentFactory stud_fact = new RegisterStudentFactory();
+		
+		Set<String> meetingDays = new HashSet<String>(Arrays.asList(new String[] { "M", "T", "W" }));
+		Teacher teacher = new Teacher("john", "pw", "john", "john", "email", "8478478474", new String[] {"teacher1","teacher2"});
+		
+		Course c = new Course("learning101", new Date("10/15/2013"), new Date("10/16/2013"), meetingDays, "10:45", "EMS203", "gimme money", "its a good class", teacher);
+		courses.add(c);
+		
+		Student u = stud_fact.createStudent("username","password1","password1","fname","lname", "", courses);
+	
+		assertNull(u);
+		assertTrue(stud_fact.hasErrors());
+		assertEquals(1, stud_fact.getErrors().size());
+		assertTrue(stud_fact.getErrors().get(0).equals("Email is required."));
+	}
 
 	@Test
 	public void testErrorOnBlankUsername() {
 		RegisterStudentFactory stud_fact = new RegisterStudentFactory();
-		Student u = stud_fact.createStudent("","password","password","fname","lname", "email", null);
+		
+		Set<String> meetingDays = new HashSet<String>(Arrays.asList(new String[] { "M", "T", "W" }));
+		Teacher teacher = new Teacher("john", "pw", "john", "john", "email", "8478478474", new String[] {"teacher1","teacher2"});
+		
+		Course c = new Course("learning101", new Date("10/15/2013"), new Date("10/16/2013"), meetingDays, "10:45", "EMS203", "gimme money", "its a good class", teacher);
+		courses.add(c);
+		
+		Student u = stud_fact.createStudent("","password","password","fname","lname", "email", courses);
 
 		assertNull(u);
 		assertTrue(stud_fact.hasErrors());
 		assertEquals(1, stud_fact.getErrors().size());
 		assertTrue(stud_fact.getErrors().get(0).equals("Username is required."));
 	}
-
+	
 	@Test
 	public void testErrorOnBlankPassword() {
 		RegisterStudentFactory stud_fact = new RegisterStudentFactory();
-		Student u = stud_fact.createStudent("username","","password","fname","lname", "email", null);
+		
+		Set<String> meetingDays = new HashSet<String>(Arrays.asList(new String[] { "M", "T", "W" }));
+		Teacher teacher = new Teacher("john", "pw", "john", "john", "email", "8478478474", new String[] {"teacher1","teacher2"});
+		
+		Course c = new Course("learning101", new Date("10/15/2013"), new Date("10/16/2013"), meetingDays, "10:45", "EMS203", "gimme money", "its a good class", teacher);
+		courses.add(c);
+		
+		Student u = stud_fact.createStudent("username","","password","fname","lname", "email", courses);
 	
 		assertNull(u);
 		assertTrue(stud_fact.hasErrors());
@@ -76,23 +145,31 @@ public class RegisterStudentFactoryTest {
 	@Test
 	public void testErrorOnNonMatchingPasswords() {
 		RegisterStudentFactory stud_fact = new RegisterStudentFactory();
-		Student u = stud_fact.createStudent("username","password1","password2","fname","lname", "email", null);
+		
+		Set<String> meetingDays = new HashSet<String>(Arrays.asList(new String[] { "M", "T", "W" }));
+		Teacher teacher = new Teacher("john", "pw", "john", "john", "email", "8478478474", new String[] {"teacher1","teacher2"});
+		
+		Course c = new Course("learning101", new Date("10/15/2013"), new Date("10/16/2013"), meetingDays, "10:45", "EMS203", "gimme money", "its a good class", teacher);
+		courses.add(c);
+		
+		Student u = stud_fact.createStudent("username","password1","password2","fname","lname", "email", courses);
 	
 		assertNull(u);
 		assertTrue(stud_fact.hasErrors());
 		assertEquals(1, stud_fact.getErrors().size());
 		assertTrue(stud_fact.getErrors().get(0).equals("Passwords do not match."));
 	}
-	
+
 	@Test
-	public void testErrorOnBlankEmail() {
+	public void testErrorOnNoCourse() {
 		RegisterStudentFactory stud_fact = new RegisterStudentFactory();
-		Student u = stud_fact.createStudent("username","password1","password1","fname","lname", "", null);
+		
+		Student u = stud_fact.createStudent("username","password1","password1","fname","lname", "email", courses);
 	
 		assertNull(u);
 		assertTrue(stud_fact.hasErrors());
 		assertEquals(1, stud_fact.getErrors().size());
-		assertTrue(stud_fact.getErrors().get(0).equals("Email is required."));
+		assertTrue(stud_fact.getErrors().get(0).equals("Must select courses."));
 	}
 	
 	@SuppressWarnings("deprecation")
