@@ -1,16 +1,12 @@
 package edu.uwm.cs361.tests;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import javax.jdo.PersistenceManager;
 
@@ -21,13 +17,9 @@ import org.junit.Test;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
-import edu.uwm.cs361.DeadlineEmailObject;
 import edu.uwm.cs361.EmailService;
-import edu.uwm.cs361.entities.Award;
 import edu.uwm.cs361.entities.Charge;
-import edu.uwm.cs361.entities.Course;
 import edu.uwm.cs361.entities.Student;
-import edu.uwm.cs361.entities.Teacher;
 import edu.uwm.cs361.factories.PersistenceFactory;
 
 public class EmailServiceTest {
@@ -55,7 +47,7 @@ public class EmailServiceTest {
 		helper.tearDown();
 	}
 
-	@SuppressWarnings({ "unchecked", "deprecation" })
+	@SuppressWarnings({ "deprecation" })
 	@Test
 	public void testPopulationOfEmailList() {
 		Date today = new Date();
@@ -92,7 +84,7 @@ public class EmailServiceTest {
 		Student s5 = new Student("E", "pw", "E", "E", "E@E.E", null, null, null, new HashSet<Charge>(Arrays.asList(new Charge[] {c5})));
 		Student s6 = new Student("F", "pw", "F", "F", "F@F.F", null, null, null, new HashSet<Charge>(Arrays.asList(new Charge[] {c6})));
 		
-		List<String> studentsThatHaveChargeWithinDeadline = Arrays.asList("A", "B", "C");
+		List<String> studentsThatHaveChargeWithinDeadline = Arrays.asList("A", "B", "C", "D", "E", "F");
 		
 		pm.makePersistent(s1);
 		pm.makePersistent(s2);
@@ -101,9 +93,9 @@ public class EmailServiceTest {
 		pm.makePersistent(s5);
 		pm.makePersistent(s6);
 		
-		List<DeadlineEmailObject> emailList = EmailService.populateEmailList(pm);
-		for(DeadlineEmailObject obj : emailList) {
-			assertTrue(studentsThatHaveChargeWithinDeadline.contains(obj.getStudent().getFirstName()));
+		List<Student> emailList = EmailService.getStudents(pm);
+		for(Student s : emailList) {
+			assertTrue(studentsThatHaveChargeWithinDeadline.contains(s.getFirstName()));
 			assertEquals(studentsThatHaveChargeWithinDeadline.size(), emailList.size());
 		}
 	}

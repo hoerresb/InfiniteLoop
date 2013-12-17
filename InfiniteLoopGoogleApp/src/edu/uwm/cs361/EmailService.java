@@ -28,7 +28,7 @@ public class EmailService {
 	}
 
 	@SuppressWarnings("unchecked")
-	private static List<Student> getStudents(PersistenceManager pm) {
+	public static List<Student> getStudents(PersistenceManager pm) { //needs to be public to test
 		return (List<Student>) pm.newQuery(Student.class).execute();
 	}
 	
