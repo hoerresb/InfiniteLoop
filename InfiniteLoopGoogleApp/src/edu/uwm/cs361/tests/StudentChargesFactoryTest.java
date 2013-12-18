@@ -33,6 +33,22 @@ public class StudentChargesFactoryTest {
 	}
 	
 	@Test
+	public void testErrorOnNonDigitAmount() {
+		StudentChargesFactory charge_fact = new StudentChargesFactory();
+		String amount = "a";
+		Date deadline = new Date(2013,8,12);
+		String reason = "Because I said so.";
+		Student student = new Student("student", "student", "Student_fn", "Student_ln", "student@student.com");
+		
+		Charge c = charge_fact.createCharge(student, amount, deadline, reason);
+		
+		assertNull(c);
+		assertTrue(charge_fact.hasErrors());
+		assertEquals(1, charge_fact.getErrors().size());
+		assertTrue(charge_fact.getErrors().get(0).equals("Please only enter digits for amount."));
+	}
+	
+	@Test
 	public void testErrorOnBlankAmount() {
 		StudentChargesFactory charge_fact = new StudentChargesFactory();
 		String amount = "";
