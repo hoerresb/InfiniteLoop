@@ -88,6 +88,48 @@ public class EditClassServlet extends HttpServlet {
                 PersistenceManager pm = PersistenceFactory.getPersistenceManager();
                 String selectedCourse = req.getParameter("editCourse");
                 
+                String[] daysOfWeek = new String[] {"M","T","W","Th","F","S","Su"};
+				
+				String classname = req.getParameter("classname");
+				
+				
+				String startDate = req.getParameter("classstart");
+				String endDate = req.getParameter("classend");	
+				Date start = null;
+				Date end = null;
+				if(!startDate.isEmpty() &&  !endDate.isEmpty()) {
+					String startStr = startDate.substring(5,7) +"/"+ startDate.substring(8,10) +"/"+ startDate.substring(0,4);
+					start = new Date(startStr);
+					String endStr = endDate.substring(5,7) +"/"+ endDate.substring(8,10) +"/"+ endDate.substring(0,4);
+					end = new Date(endStr);
+				
+				}
+				String[] meeting_time_days = req.getParameterValues("meeting_times");
+				Set<String> meetingDays = null;
+				if(meeting_time_days != null) {
+					meetingDays = new HashSet<String>(Arrays.asList(meeting_time_days)); 
+				
+				}
+				
+				Map<String, Boolean> days = populateSelectedDays(meetingDays, daysOfWeek);
+				
+				String time = req.getParameter("time");
+				
+				String place = req.getParameter("place");
+				
+				String description = req.getParameter("class_description");
+				
+				String payment_value = req.getParameter("payment_value");
+				String payment_duration = req.getParameter("payment_duration");
+				String payment_option = payment_value + " per " + payment_duration;
+				
+				String teacherID = req.getParameter("instr_options");
+				Teacher teacher = (Teacher) pm.getObjectById(Teacher.class,Long.parseLong(teacherID));
+				
+				
+				CreateCourseFactory course_fact = new CreateCourseFactory();
+				
+	
 
                 
                 try
@@ -95,50 +137,51 @@ public class EditClassServlet extends HttpServlet {
                 	
                 		Course c = pm.getObjectById(Course.class, Long.parseLong(selectedCourse));
                 		
-                		String[] daysOfWeek = new String[] {"M","T","W","Th","F","S","Su"};
+
+        				Course course = course_fact.createCourse(pm, classname, startDate, endDate, meetingDays, time, place, payment_option, description,teacherID);
         				
-        				String classname = req.getParameter("classname");
-        				c.setName(classname);
-        				
-        				String startDate = req.getParameter("classstart");      			
-        				String endDate = req.getParameter("classend");
-        				String startStr = startDate.substring(5,7) +"/"+ startDate.substring(8,10) +"/"+ startDate.substring(0,4);
-        				Date start = new Date(startStr);
-        				c.setStartDate(start);
-        				String endStr = endDate.substring(5,7) +"/"+ endDate.substring(8,10) +"/"+ endDate.substring(0,4);
-        				Date end = new Date(endStr);
-        				c.setEndDate(end);
-        				String[] meeting_time_days = req.getParameterValues("meeting_times");
-        				Set<String> meetingDays = null;
-        				if(meeting_time_days != null) {
-        					meetingDays = new HashSet<String>(Arrays.asList(meeting_time_days)); 
+        				if (course_fact.hasErrors()) {
+        					req.setAttribute("course_options", selectedCourse);
+        					req.setAttribute("editCourse", selectedCourse);
+        					req.setAttribute("classname", classname);
+        					req.setAttribute("classstart", startDate);
+        					req.setAttribute("classend", endDate);
+        					req.setAttribute("time", time);
+        					req.setAttribute("place", place);
+        					req.setAttribute("meeting_times", meetingDays);
+        					req.setAttribute("class_description", description);
+        					req.setAttribute("payment_value", payment_value);
+        					req.setAttribute("payment_duration", payment_duration);
+        					req.setAttribute("errors", course_fact.getErrors());
+        					req.setAttribute("teachers", getTeachers());
+        					req.setAttribute("days", days);
+        					req.setAttribute("courses", getCourses());
+                      		req.setAttribute("teachers", getTeachers());
+        					req.getRequestDispatcher("/editClass.jsp").forward(req, resp);
+        				} else {
+        			
+        					c.setName(classname);
+            				c.setStartDate(start);
+            				c.setMeetingDays(meetingDays);
+            				c.setEndDate(end);
+            				c.setTime(time);
+            				c.setPlace(course.getPlace());
+            				c.setDescription(course.getDescription());
+            				c.setTeacher(course.getTeacher());
+            				c.setPaymentOptions(course.getPaymentOption());
+            				
+            				
+            				
+            				
+            				req.setAttribute("success", "Class edited successfully.");
+            				req.setAttribute("courses", getCourses());
+                      		req.setAttribute("teachers", getTeachers());
+                      		pm.makePersistent(c);
+              				req.getRequestDispatcher("/editClass.jsp").forward(req, resp);
         				}
         				
-        			
         				
         				
-        				c.setMeetingDays(meetingDays);
-        	
-        				
-        				String time = req.getParameter("time");
-        				c.setTime(time);
-        				String place = req.getParameter("place");
-        				c.setPlace(place);
-        				String description = req.getParameter("class_description");
-        				c.setDescription(description);
-        				String payment_value = req.getParameter("payment_value");
-        				String payment_duration = req.getParameter("payment_duration");
-        				String payment_option = payment_value + " per " + payment_duration;
-        				c.setPaymentOptions(payment_option);
-        				String teacherID = req.getParameter("instr_options");
-        				Teacher teacher = (Teacher) pm.getObjectById(Teacher.class,Long.parseLong(teacherID));
-        				c.setTeacher(teacher);
-        				
-        				
-        				pm.makePersistent(c);
-        				
-        				req.setAttribute("success", "Class edited successfully.");
-          				req.getRequestDispatcher("/editClass.jsp").forward(req, resp);
 
         				
                 	
@@ -152,7 +195,26 @@ public class EditClassServlet extends HttpServlet {
 
 
 
-  
+    	private Map<String, Boolean> populateSelectedDays(Set<String> meetingDays, String[] daysOfWeek) {
+    		Map<String, Boolean> days = new HashMap<String, Boolean>();
+    		for(String day : daysOfWeek) {
+    			if(wasSelected(day,meetingDays)) {
+    				days.put(day, true);
+    			} else {
+    				days.put(day, false);
+    			}
+    		}
+    		return days;
+    	}
+
+    	private boolean wasSelected(String day, Set<String> meetingDays) {
+    		for(String selectedDay : meetingDays) {
+    			if(selectedDay.equals(day)) {
+    				return true;
+    			}
+    		}
+    		return false;
+    	}
         
         @SuppressWarnings("unchecked")
 		private List<Course> getCourses()
