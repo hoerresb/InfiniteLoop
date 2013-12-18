@@ -13,10 +13,7 @@
 			<label for='lastname-id'>Last Name:</label>
 			<input id='lastname-id' class='text-input' type='text' name='lastname' value='${lastname}'/><br/><br/>
 			<label for='email-id'>E-Mail:</label>
-			<input id='email-id' class='text-input' type='email' name='email' value='${email}'/><br/><br/>
-			<label for='phone_num-id'>Phone number:</label>
-			<input id='phone_num-id' class='text-input' type='text' name='phonenumber' value='${phonenumber}'/><br/><br/>
-			<label for='username-id'>Username:</label>
+			<input id='email-id' class='text-input' type='email' name='email' value='${email}'/><br/><br/><label for='username-id'>Username:</label>
 			<input id='username-id' class='text-input' type='text' name='student_username' value='${student_username}'/><br/><br/> 
 			<label for='password'>Password:</label>
 			<input id='password' class='text-input' type='password' name='password' value='${password}'/><br/><br/>

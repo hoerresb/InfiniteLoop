@@ -8,15 +8,10 @@ import static org.junit.Assert.assertTrue;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
-import edu.uwm.cs361.entities.Award;
-import edu.uwm.cs361.entities.Course;
-import edu.uwm.cs361.factories.IssueAwardFactory;
-import edu.uwm.cs361.factories.PersistanceFactory;
+import edu.uwm.cs361.entities.*;
+import edu.uwm.cs361.factories.*;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import javax.jdo.PersistenceManager;
 
@@ -46,7 +41,7 @@ public class IssueAwardFactoryTest {
 	@Test
 	public void testErrorOnEmptyAward() {
 		IssueAwardFactory aFact = new IssueAwardFactory();
-		Student s = new Student("","p4ssword","p4ssword","firstName","lastName", "em4il", null);
+		Student s = new Student("username","password","fname","lname", "email");
 		boolean issued = aFact.issueAward(s, null);
 
 		assertFalse(issued);
@@ -69,12 +64,12 @@ public class IssueAwardFactoryTest {
 	@Test
 	public void testSuccess() {
 		IssueAwardFactory aFact = new IssueAwardFactory();
-		Student s = new Student("","p4ssword","p4ssword","firstName","lastName", "em4il", null);
+		Student s = new Student("username","password","fname","lname", "email");
 		Award a = new Award("award0", "congrats");
 		boolean issued = aFact.issueAward(s,a);
 
 		assertFalse(aFact.hasErrors());
 		assertEquals(0, aFact.getErrors().size());
-		assertEquals(s.getAwards().get(0).getAwardName(), "award0");
-		assertEquals(s.getAwards().get(0).getAwardDescription(), "congrats");
+		assertEquals(s.getAwards().contains(a), true);
 	}
+}

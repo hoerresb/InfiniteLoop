@@ -27,7 +27,6 @@ public class IssueAwardServlet extends HttpServlet {
 		PersistenceManager pm = PersistenceFactory.getPersistenceManager();
 		try {
 			course = (Course) pm.getObjectById(Course.class, Long.parseLong((String)req.getParameter("course_id")));
-			System.out.println(course.getName());
 			req.setAttribute("course_select", course);
 			req.setAttribute("student_options", course.getStudents());
 			req.setAttribute("award_options", course.getAwards());
@@ -42,7 +41,6 @@ public class IssueAwardServlet extends HttpServlet {
 		PersistenceManager pm = PersistenceFactory.getPersistenceManager();
 		try{
 			Course 	course = (Course) pm.getObjectById(Course.class, Long.parseLong((String)req.getParameter("course_id")));
-			System.out.println(course.getName());
 			Set<Award> aw = course.getAwards();
 			
 			//get student id's, parse id's, add students to array list
@@ -54,12 +52,6 @@ public class IssueAwardServlet extends HttpServlet {
 			}
 			//get award id's, parse id's, add awards to array list
 			String[] awardNames = req.getParameterValues("award_options");
-			for(int i = 0; i < awardNames.length; i++){
-				System.out.println(awardNames[i]);
-			}
-			for(int i = 0; i < students.size(); i ++){
-				System.out.println(students.get(i).getFullName());
-			}
 			List<Award> awards = new ArrayList<Award>();
 			
 			
@@ -71,10 +63,6 @@ public class IssueAwardServlet extends HttpServlet {
 						awards.add(s_award);
 					}
 				}
-			}
-			
-			for(int i = 0; i < awards.size(); i++){
-				System.out.println(awards.get(i).getAwardName());
 			}
 			
 			//for(String s : awardIDs){

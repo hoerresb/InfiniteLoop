@@ -9,9 +9,16 @@ public class StudentChargesFactory {
 	
 	public Charge createCharge(Student student, String s_amount, Date deadline, String reason) {
 		Double amount = 0.0;
-		if (s_amount != null && s_amount != "") {
+		boolean bad_amount = false;
+		for (int i=0; i<s_amount.length(); i++) {
+			if (!Character.isDigit(s_amount.charAt(i))) {
+				errors.add("Please only enter digits for amount.");
+				bad_amount = true;
+			}
+		}
+		if (s_amount != null && s_amount != "" && bad_amount != true) {
 			amount = Double.parseDouble(s_amount);
-		} else {
+		} else if (bad_amount != true) {
 			errors.add("Please enter an amount.");
 		}
 		if (deadline == null) {

@@ -8,15 +8,10 @@ import static org.junit.Assert.assertTrue;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
-import edu.uwm.cs361.entities.Award;
-import edu.uwm.cs361.entities.Course;
-import edu.uwm.cs361.factories.CreateAwardFactory;
-import edu.uwm.cs361.factories.PersistanceFactory;
+import edu.uwm.cs361.entities.*;
+import edu.uwm.cs361.factories.*;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import javax.jdo.PersistenceManager;
 
@@ -35,7 +30,7 @@ public class CreateAwardFactoryTest {
         @SuppressWarnings("unchecked")
         public void setUp() {
                 helper.setUp();
-                pm = PersistanceFactory.getPersistenceManager();
+                pm = PersistenceFactory.getPersistenceManager();
 
                 List<Award> awards = (List<Award>) pm.newQuery(Award.class).execute();
 
@@ -53,11 +48,9 @@ public class CreateAwardFactoryTest {
         @Test
         public void testErrorOnBlankAwardName() {
                 CreateAwardFactory aFact = new CreateAwardFactory();
-                Teacher teacher = new Teacher("username","password1","fname","lname", "email",
-                                         "8478478478", new String[] {"teacher1","teacher2"});
+                Teacher teacher = new Teacher("john", "pw", "john", "john", "email", "8478478474", new String[] {"teacher1","teacher2"});
                 Set<String> meetingDays = new HashSet<String>(Arrays.asList(new String[] { "M", "T", "W" }));
-                Course c = new Course("cooking","10/14/2013", "10/15/2013", meetingDays,
-                                        "10:30", "EMS145", "Pay now", "its a class", teacher);
+                Course c = new Course("learning101", new Date("10/15/2013"), new Date("10/16/2013"), meetingDays, "10:45", "EMS203", "gimme money", "its a good class", teacher);
                 Award a = aFact.createAward(c, "", "congrats");
 
                 assertNull(a);
@@ -69,11 +62,9 @@ public class CreateAwardFactoryTest {
         @Test
         public void testErrorOnBlankAwardDescription() {
                 CreateAwardFactory aFact = new CreateAwardFactory();
-                Teacher teacher = new Teacher("username","password1","fname","lname", "email",
-                                         "8478478478", new String[] {"teacher1","teacher2"});
+                Teacher teacher = new Teacher("john", "pw", "john", "john", "email", "8478478474", new String[] {"teacher1","teacher2"});
                 Set<String> meetingDays = new HashSet<String>(Arrays.asList(new String[] { "M", "T", "W" }));
-                Course c = new Course("cooking","10/14/2013", "10/15/2013", meetingDays,
-                                        "10:30", "EMS145", "Pay now", "its a class", teacher);
+                Course c = new Course("learning101", new Date("10/15/2013"), new Date("10/16/2013"), meetingDays, "10:45", "EMS203", "gimme money", "its a good class", teacher);
                 Award a = aFact.createAward(c, "award0", "");
 
                 assertNull(a);
@@ -96,15 +87,14 @@ public class CreateAwardFactoryTest {
         @Test
         public void testSuccess() {
                 CreateAwardFactory aFact = new CreateAwardFactory();
-                Teacher teacher = new Teacher("username","password1","fname","lname", "email",
-                                         "8478478478", new String[] {"teacher1","teacher2"});
+                Teacher teacher = new Teacher("john", "pw", "john", "john", "email", "8478478474", new String[] {"teacher1","teacher2"});
                 Set<String> meetingDays = new HashSet<String>(Arrays.asList(new String[] { "M", "T", "W" }));
-                Course c = new Course("cooking","10/14/2013", "10/15/2013", meetingDays,
-                                        "10:30", "EMS145", "Pay now", "its a class", teacher);
+                Course c = new Course("learning101", new Date("10/15/2013"), new Date("10/16/2013"), meetingDays, "10:45", "EMS203", "gimme money", "its a good class", teacher);
                 Award a = aFact.createAward(c, "award0", "congrats");
 
                 assertFalse(aFact.hasErrors());
                 assertEquals(0, aFact.getErrors().size());
-                assertEquals(u.getAwardName(), "award0");
-                assertEquals(u.getAwardDescription(), "congrats");
+                assertEquals(a.getAwardName(), "award0");
+                assertEquals(a.getAwardDescription(), "congrats");
         }
+}

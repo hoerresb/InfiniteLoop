@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
+import edu.uwm.cs361.entities.Charge;
 import edu.uwm.cs361.entities.Course;
 import edu.uwm.cs361.entities.Student;
 import edu.uwm.cs361.entities.Teacher;
@@ -105,7 +106,7 @@ public class RegisterStudentFactoryTest {
 		assertEquals(1, stud_fact.getErrors().size());
 		assertTrue(stud_fact.getErrors().get(0).equals("Email is required."));
 	}
-
+	
 	@Test
 	public void testErrorOnBlankUsername() {
 		RegisterStudentFactory stud_fact = new RegisterStudentFactory();

@@ -1,10 +1,6 @@
 package edu.uwm.cs361.factories;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
-import java.util.Set;
+import java.util.*;
 
 import edu.uwm.cs361.entities.*;
 
@@ -31,7 +27,9 @@ public class CreateAwardFactory {
 			return null;
 		} else {
 			Award a = new Award(name, description);
-			course.getAwards().add(a);
+			if (course.getAwards() != null) {
+				course.getAwards().add(a);
+			}
 			return a;
 		}
 	}
@@ -45,10 +43,19 @@ public class CreateAwardFactory {
 	}
 	
 	public boolean sameCourseName(Course course, String name){
-		Set<Award> a = course.getAwards();
-		for(Award aw: a){
-			if(aw.getAwardName().equals(name)){
-				return false;
+		
+		Set<Award> a = new HashSet<Award>();
+		
+		if (course != null) {
+			a = course.getAwards();
+		}
+		if (a != null) {
+			for(Award aw: a){
+				if (aw != null) {
+					if(aw.getAwardName().equals(name)){
+						return false;
+					}
+				}
 			}
 		}
 		return true;

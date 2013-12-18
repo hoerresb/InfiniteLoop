@@ -31,8 +31,6 @@ public class RegisterStudentServlet extends HttpServlet {
 		String firstname = req.getParameter("firstname");
 		String lastname = req.getParameter("lastname");
 		String email = req.getParameter("email");
-		String phonenumber = (req.getParameter("phonenumber")).equals("null") ? null : req.getParameter("phonenumber");
-		
 		Set<Course> courses = getSelectedCourses(req, pm);
 		
 		RegisterStudentFactory stud_fact = new RegisterStudentFactory();
@@ -44,7 +42,6 @@ public class RegisterStudentServlet extends HttpServlet {
 				req.setAttribute("firstname", firstname);
 				req.setAttribute("lastname", lastname);
 				req.setAttribute("email", email);
-				req.setAttribute("phonenumber", phonenumber);
 				req.setAttribute("student_username", username);
 				req.setAttribute("password", password);
 				req.setAttribute("password_repeat", password_repeat);
