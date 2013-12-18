@@ -8,16 +8,16 @@ public class AttendanceSheetFactory {
 	private List<String> errors = new ArrayList<String>();
 	
 	public StudentAttendance createAttendanceSheet(List<String> daysPresent, int date, String studentName, Set<String> meetDays, Course course) {
-		if (daysPresent.isEmpty()) {
+		if (daysPresent.size() == 0) {
 			errors.add("Days present is required.");
 		}
-		if (date != (int)date) {
+		if (date != (int)date || date <= 0) {
 			errors.add("Date is required.");
 		}
 		if (studentName.isEmpty()) {
 			errors.add("Student's name is required.");
 		}
-		if(meetDays.isEmpty()){
+		if(meetDays.isEmpty() || meetDays.size() == 0){
 			errors.add("Meeting Days are required.");
 		}
 		if(course.getName().isEmpty()){
