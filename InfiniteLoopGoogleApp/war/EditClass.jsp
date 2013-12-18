@@ -7,7 +7,7 @@
 <div id='content'>
 <%@include file='/templates/error.html'%>
 		<span class="success">${success}</span><br/>
-    	<form id='form-id' method='GET' action='/editClass'>  
+    	<form id='form-id2' method='GET' action='/editClass'>  
         <span class='title'>Edit a Class:</span><br/>
         
         
@@ -24,13 +24,20 @@
                 <div id="button-area">
                         <button id="submit-id" type="submit">Submit for edit</button><br/><br/>
                 </div>
-                
+        </form>
+        
+       
        	<form id='form-id' method='POST' action='/editClass'>         
         <span class='title'>Edit Class:</span>
+       
+ 
         
 		<h3>General Info:</h3>
 		<div id="general_info_div" class="subsection">
 			
+			<label for="editCourse">Class Key:</label>
+			<input id="editCourse" class="text-input" readonly type="text" name="editCourse" value='${editCourse}'/><br/><br/>    
+			  
 			<label for="classname">Class name:</label>
 			<input id="classname" class="text-input" type="text" name="classname" autofocus="autofocus"  value='${classname}'/><br/><br/>
 		

@@ -33,6 +33,7 @@ public class EditClassServlet extends HttpServlet {
           		req.setAttribute("teachers", getTeachers());
           		PersistenceManager pm = PersistenceFactory.getPersistenceManager();
           		String selectedCourse = req.getParameter("course_options");
+          		String editCourse;
           		
           		try{
           		
@@ -40,7 +41,7 @@ public class EditClassServlet extends HttpServlet {
           			if(selectedCourse != null && !selectedCourse.equals("")) {
           				
                 		
-
+          				editCourse = selectedCourse;
                     	Course c = pm.getObjectById(Course.class, Long.parseLong(selectedCourse));
                 		
                            
@@ -66,6 +67,7 @@ public class EditClassServlet extends HttpServlet {
         				req.setAttribute("class_description", description);
         				req.setAttribute("payment_value", payment_val);
         				req.setAttribute("payment_duration", payment_option);
+        				req.setAttribute("editCourse", editCourse);
         				
         				req.getRequestDispatcher("/editClass.jsp").forward(req, resp);
           			} else {
@@ -81,16 +83,18 @@ public class EditClassServlet extends HttpServlet {
         }
 
         @Override
-        public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException        {
+        public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException        {
         		
                 PersistenceManager pm = PersistenceFactory.getPersistenceManager();
-                String editCourse =  req.getParameter("editCourse");      
+                String selectedCourse = req.getParameter("editCourse");
+                
 
                 
                 try
                 {
-                	if(editCourse != null && !editCourse.equals("")) {
-                		Course c = pm.getObjectById(Course.class, Long.parseLong(editCourse));
+                	
+                		Course c = pm.getObjectById(Course.class, Long.parseLong(selectedCourse));
+                		
                 		String[] daysOfWeek = new String[] {"M","T","W","Th","F","S","Su"};
         				
         				String classname = req.getParameter("classname");
@@ -109,6 +113,8 @@ public class EditClassServlet extends HttpServlet {
         				if(meeting_time_days != null) {
         					meetingDays = new HashSet<String>(Arrays.asList(meeting_time_days)); 
         				}
+        				
+        			
         				
         				
         				c.setMeetingDays(meetingDays);
@@ -130,15 +136,14 @@ public class EditClassServlet extends HttpServlet {
         				
         				
         				pm.makePersistent(c);
-        				req.setAttribute("success", "Class edited successfully.");
         				
-        				req.getRequestDispatcher("/editClass.jsp").forward(req, resp);
+        				req.setAttribute("success", "Class edited successfully.");
+          				req.getRequestDispatcher("/editClass.jsp").forward(req, resp);
+
+        				
                 	
-                	}
                 
-            	} catch (ServletException e) {
-        			e.printStackTrace();
-                } finally {
+            	} finally {
                 	pm.close();
                 }
                
