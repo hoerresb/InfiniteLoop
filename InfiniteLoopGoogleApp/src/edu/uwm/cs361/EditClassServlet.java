@@ -28,16 +28,61 @@ import com.google.appengine.api.datastore.PropertyContainer;
 public class EditClassServlet extends HttpServlet {
         @Override
         public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-         
-                req.setAttribute("courses", getCourses());
-            	req.setAttribute("teachers", getTeachers());
-            	
+        	
+        		req.setAttribute("courses", getCourses());
+          		req.setAttribute("teachers", getTeachers());
+          		PersistenceManager pm = PersistenceFactory.getPersistenceManager();
+          		String selectedCourse = req.getParameter("course_options");
+          		
+          		try{
+          		
+          			
+          			if(selectedCourse != null && !selectedCourse.equals("")) {
+          				
+                		
+
+                    	Course c = pm.getObjectById(Course.class, Long.parseLong(selectedCourse));
+                		
+                           
+                        String classname = c.getName();
+                        String startDate = c.getStartDateFormatted();
+                        String endDate = c.getEndDateFormatted();
+                          
+                        Set<String> meetingDays = c.getMeetingDays();
+                           
+                        String time = c.getTime();
+                        String place = c.getPlace();
+                        String description = c.getDescription();
+
+                        Double payment_val = c.getPayment_amount();
+                        String payment_option = c.getPaymentOption();
+                        Teacher teacher = c.getTeacher();
+        				req.setAttribute("classname", classname);
+        				req.setAttribute("classstart", startDate);
+        				req.setAttribute("classend", endDate);
+        				req.setAttribute("time", time);
+        				req.setAttribute("place", place);
+        				req.setAttribute("meeting_times", meetingDays);
+        				req.setAttribute("class_description", description);
+        				req.setAttribute("payment_value", payment_val);
+        				req.setAttribute("payment_duration", payment_option);
+        				
+        				req.getRequestDispatcher("/editClass.jsp").forward(req, resp);
+          			} else {
+          				req.getRequestDispatcher("/editClass.jsp").forward(req, resp);
+          			}
                 
-                req.getRequestDispatcher("/editClass.jsp").forward(req, resp);
+          		} finally {
+                	pm.close();
+                }
+        	 
+                
+                
         }
 
         @Override
         public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException        {
+        		
                 PersistenceManager pm = PersistenceFactory.getPersistenceManager();
                 String editCourse =  req.getParameter("editCourse");      
 
@@ -89,44 +134,6 @@ public class EditClassServlet extends HttpServlet {
         				
         				req.getRequestDispatcher("/editClass.jsp").forward(req, resp);
                 	
-                	}else {
-                		
-                		String selectedCourse = req.getParameter("course_options");
-                		editCourse = selectedCourse;
-        				req.setAttribute("editCourse", editCourse);
-  
-                    	Course c = pm.getObjectById(Course.class, Long.parseLong(selectedCourse));
-                		
-                           
-                        String classname = c.getName();
-                        String startDate = c.getStartDateFormatted();
-                        String endDate = c.getEndDateFormatted();
-                          
-                        Set<String> meetingDays = c.getMeetingDays();
-                           
-                        String time = c.getTime();
-                        String place = c.getPlace();
-                        String description = c.getDescription();
-
-                        Double payment_val = c.getPayment_amount();
-                        String payment_option = c.getPaymentOption();
-                        Teacher teacher = c.getTeacher();
-        				req.setAttribute("classname", classname);
-        				req.setAttribute("classstart", startDate);
-        				req.setAttribute("classend", endDate);
-        				req.setAttribute("time", time);
-        				req.setAttribute("place", place);
-        				req.setAttribute("meeting_times", meetingDays);
-        				req.setAttribute("class_description", description);
-        				req.setAttribute("payment_value", payment_val);
-        				req.setAttribute("payment_duration", payment_option);
-        		
-        				req.setAttribute("teachers", getTeachers());
-        				
-        				
-        				req.getRequestDispatcher("/editClass.jsp").forward(req, resp);
-                		
-                		
                 	}
                 
             	} catch (ServletException e) {
