@@ -1,0 +1,5 @@
+instructor = "Master"
+student = "Apprentice"
+class = "Program"
+award = "Belt"
+charge = "Cost"

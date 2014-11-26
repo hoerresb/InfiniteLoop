@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Monet Mall</title>
+		<link type="text/css" rel="stylesheet" href="stylesheet.css"/>
+	</head>
+	<body>
+		<div id="container">
+			<div id="banner"></div>
+			<div id="navbar">
+				<div class="nav"><a href="admin_home.html">Home</a></div>
+				<div class="nav"><a href="create_a_class.html">Create Class</a></div>
+				<div class="nav"><a href="create_instructor.html">Create Instructor</a></div>
+				<div class='nav'><a href="student_charges.html">Student Charges</a></div>
+				<div id="login" class="nav"><a href="login.html">Log Out</a></div>
+			</div>
+			<div class="content">
+				<div class="chargesContainer">
+					<form id="form-id" method="POST" action="http://webdevbasics.net/scripts/demo.php">
+					<table>
+						<tr>
+							<th>Student Name</th>
+							<th>Classes</th>
+							<th>Charges</th>
+							<th>E-mail</th>
+						</tr>
+						<tr>
+							<td><a href="">Student 1</a></td>
+							<td>
+								<label for="class1"><a href="">Class1</a></label><br/>
+								<label for="class2"><a href="">Class2</a></label><br/>
+								<label for="class3"><a href="">Class3</a></label><br/>
+							</td>
+							<td>
+								<input id="class1" name="s1class1charges" type="text" value="0"/><br/>
+								<input id="class2" name="s1class2charges" type="text" value="0"/><br/>
+								<input id="class3" name="s1class3charges" type="text" value="0"/><br/>
+							</td>
+							<td>
+								<a href="mailto:<email>">email</a>
+							</td>
+						</tr>
+						<tr>
+							<td><a href="">Student 2</a></td>
+							<td>
+								<label for="class1"><a href="">Class1</a></label><br/>
+								<label for="class2"><a href="">Class2</a></label><br/>
+							</td>
+							<td>
+								<input id="class1" name="s2class1charges" type="text" value="0"/><br/>
+								<input id="class2" name="s2class2charges" type="text" value="0"/><br/>
+							</td>
+							<td>
+								<a href="mailto:<email>">email</a>
+							</td>
+						</tr>
+					</table>
+					<div id="button-area">
+						<button id="submit-id" type="submit">Submit</button><br/><br/>
+					</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns="http://java.sun.com/xml/ns/javaee"
+xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+
+        <servlet>
+                <servlet-name>Attendance</servlet-name>
+                <servlet-class>edu.uwm.cs361.Attendance</servlet-class>
+        </servlet>
+        
+        <servlet>
+                <servlet-name>CourseAttendance</servlet-name>
+                <servlet-class>edu.uwm.cs361.CourseAttendance</servlet-class>
+        </servlet>
+        
+        <servlet>
+                <servlet-name>AttendanceSheet</servlet-name>
+                <servlet-class>edu.uwm.cs361.AttendanceSheet</servlet-class>
+        </servlet>
+        <servlet>
+                <servlet-name>ViewAttendance</servlet-name>
+                <servlet-class>edu.uwm.cs361.ViewAttendance</servlet-class>
+        </servlet>
+        
+        <servlet>
+                <servlet-name>IssueAwardClassServlet</servlet-name>
+                <servlet-class>edu.uwm.cs361.IssueAwardClassServlet</servlet-class>
+        </servlet>
+        
+        <servlet-mapping>
+                <servlet-name>IssueAwardClassServlet</servlet-name>
+                <url-pattern>/issueAwardClass</url-pattern>
+        </servlet-mapping>
+        
+        <servlet>
+                <servlet-name>IssueAwardServlet</servlet-name>
+                <servlet-class>edu.uwm.cs361.IssueAwardServlet</servlet-class>
+        </servlet>
+        
+        <servlet-mapping>
+                <servlet-name>IssueAwardServlet</servlet-name>
+                <url-pattern>/issueAward</url-pattern>
+        </servlet-mapping>
+                
+        <servlet>
+                <servlet-name>CreateAward</servlet-name>
+                <servlet-class>edu.uwm.cs361.CreateAwardServlet</servlet-class>
+        </servlet>
+        
+        <servlet-mapping>
+                <servlet-name>CreateAward</servlet-name>
+                <url-pattern>/CreateAward</url-pattern>
+        </servlet-mapping>
+                <servlet>
+                <servlet-name>SpecificStudentPage</servlet-name>
+                <servlet-class>edu.uwm.cs361.SpecificStudentPageServlet</servlet-class>
+        </servlet>
+        
+        <servlet-mapping>
+                <servlet-name>SpecificStudentPage</servlet-name>
+                <url-pattern>/specificStudent</url-pattern>
+        </servlet-mapping>
+        
+        <servlet>
+                <servlet-name>SpecificCoursePage</servlet-name>
+                <servlet-class>edu.uwm.cs361.SpecificCoursePageServlet</servlet-class>
+        </servlet>
+        
+        <servlet-mapping>
+                <servlet-name>SpecificCoursePage</servlet-name>
+                <url-pattern>/specificCourse</url-pattern>
+        </servlet-mapping>
+                
+        <servlet>
+                <servlet-name>BillingStatement</servlet-name>
+                <servlet-class>edu.uwm.cs361.BillingStatementServlet</servlet-class>
+        </servlet>
+        
+        <servlet-mapping>
+                <servlet-name>BillingStatement</servlet-name>
+                <url-pattern>/billingStatement</url-pattern>
+        </servlet-mapping>
+        
+        <servlet>
+                <servlet-name>StudentBillingStatement</servlet-name>
+                <servlet-class>edu.uwm.cs361.StudentBillingStatementServlet</servlet-class>
+        </servlet>
+        
+        <servlet-mapping>
+                <servlet-name>StudentBillingStatement</servlet-name>
+                <url-pattern>/studentBillingStatement</url-pattern>
+        </servlet-mapping>
+                
+        <servlet>
+                <servlet-name>EmailJob</servlet-name>
+                <servlet-class>edu.uwm.cs361.EmailJobServlet</servlet-class>
+        </servlet>
+
+        <servlet-mapping>
+                <servlet-name>EmailJob</servlet-name>
+                <url-pattern>/emailJob</url-pattern>
+        </servlet-mapping>
+        
+        
+        <servlet>
+                <servlet-name>Login</servlet-name>
+                <servlet-class>edu.uwm.cs361.LoginServlet</servlet-class>
+        </servlet>
+        
+        <servlet>
+                <servlet-name>createClass</servlet-name>
+                <servlet-class>edu.uwm.cs361.CreateClassServlet</servlet-class>
+        </servlet>
+        
+        <servlet>
+                <servlet-name>EditClassServlet</servlet-name>
+                <servlet-class>edu.uwm.cs361.EditClassServlet</servlet-class>
+        </servlet>
+        
+        <servlet>
+                <servlet-name>AdminHome</servlet-name>
+                <servlet-class>edu.uwm.cs361.AdminHome</servlet-class>
+        </servlet>
+        
+        <servlet>
+                <servlet-name>StudentHome</servlet-name>
+                <servlet-class>edu.uwm.cs361.StudentHome</servlet-class>
+        </servlet>
+        
+        <servlet>
+                <servlet-name>TeacherHome</servlet-name>
+                <servlet-class>edu.uwm.cs361.TeacherHome</servlet-class>
+        </servlet>
+        
+        
+        <servlet>
+                <servlet-name>Logout</servlet-name>
+                <servlet-class>edu.uwm.cs361.LogoutServlet</servlet-class>
+        </servlet>
+        
+        <servlet>
+                <servlet-name>CreateTeacher</servlet-name>
+                <servlet-class>edu.uwm.cs361.util.CreateTeacherServlet</servlet-class>
+        </servlet>
+        
+        <servlet>
+                <servlet-name>CreateAdmin</servlet-name>
+                <servlet-class>edu.uwm.cs361.util.CreateAdminServlet</servlet-class>
+        </servlet>
+        
+        <servlet>
+                <servlet-name>CreateStudent</servlet-name>
+                <servlet-class>edu.uwm.cs361.util.CreateStudentServlet</servlet-class>
+        </servlet>
+        
+        <servlet>
+                <servlet-name>Display</servlet-name>
+                <servlet-class>edu.uwm.cs361.DisplayServlet</servlet-class>
+        </servlet>
+        
+        <servlet>
+                <servlet-name>Clear</servlet-name>
+                <servlet-class>edu.uwm.cs361.ClearServlet</servlet-class>
+        </servlet>
+        
+        <servlet>
+                <servlet-name>CreateInstructor</servlet-name>
+                <servlet-class>edu.uwm.cs361.CreateInstuctorServlet</servlet-class>
+        </servlet>
+        
+        <servlet>
+                <servlet-name>RegisterStudent</servlet-name>
+                <servlet-class>edu.uwm.cs361.RegisterStudentServlet</servlet-class>
+        </servlet>
+        
+        <servlet>
+                <servlet-name>StudentCharges</servlet-name>
+                <servlet-class>edu.uwm.cs361.StudentChargesServlet</servlet-class>
+        </servlet>
+        
+        <servlet>
+                <servlet-name>CreateCharge</servlet-name>
+                <servlet-class>edu.uwm.cs361.util.CreateChargeServlet</servlet-class>
+        </servlet>
+
+        <servlet-mapping>
+                <servlet-name>Attendance</servlet-name>
+                <url-pattern>/Attendance</url-pattern>
+        </servlet-mapping>
+        
+        <servlet-mapping>
+                <servlet-name>CourseAttendance</servlet-name>
+                <url-pattern>/CourseAttendance</url-pattern>
+        </servlet-mapping>
+        
+        <servlet-mapping>
+                <servlet-name>AttendanceSheet</servlet-name>
+                <url-pattern>/AttendanceSheet</url-pattern>
+        </servlet-mapping>
+        
+        <servlet-mapping>
+                <servlet-name>ViewAttendance</servlet-name>
+                <url-pattern>/ViewAttendance</url-pattern>
+        </servlet-mapping>
+
+        <servlet-mapping>
+                <servlet-name>CreateCharge</servlet-name>
+                <url-pattern>/createCharge</url-pattern>
+        </servlet-mapping>
+
+        <servlet-mapping>
+                <servlet-name>Login</servlet-name>
+                <url-pattern>/login</url-pattern>
+        </servlet-mapping>
+        
+        <servlet-mapping>
+                <servlet-name>createClass</servlet-name>
+                <url-pattern>/createClass</url-pattern>
+        </servlet-mapping>
+        
+        <servlet-mapping>
+                <servlet-name>EditClassServlet</servlet-name>
+                <url-pattern>/editClass</url-pattern>
+        </servlet-mapping>
+        
+        
+        <servlet-mapping>
+                <servlet-name>Logout</servlet-name>
+                <url-pattern>/logout</url-pattern>
+        </servlet-mapping>
+        
+        <servlet-mapping>
+                <servlet-name>CreateTeacher</servlet-name>
+                <url-pattern>/createTeacher</url-pattern>
+        </servlet-mapping>
+        
+        <servlet-mapping>
+                <servlet-name>TeacherHome</servlet-name>
+                <url-pattern>/TeacherHome</url-pattern>
+        </servlet-mapping>
+        
+        <servlet-mapping>
+                <servlet-name>CreateAdmin</servlet-name>
+                <url-pattern>/createAdmin</url-pattern>
+        </servlet-mapping>
+        
+        <servlet-mapping>
+                <servlet-name>AdminHome</servlet-name>
+                <url-pattern>/AdminHome</url-pattern>
+        </servlet-mapping>
+                
+        <servlet-mapping>
+                <servlet-name>Display</servlet-name>
+                <url-pattern>/display</url-pattern>
+        </servlet-mapping>
+        
+        <servlet-mapping>
+                <servlet-name>Clear</servlet-name>
+                <url-pattern>/clear</url-pattern>
+        </servlet-mapping>
+        
+        <servlet-mapping>
+                <servlet-name>CreateInstructor</servlet-name>
+                <url-pattern>/createInstructor</url-pattern>
+        </servlet-mapping>
+        
+        <servlet-mapping>
+                <servlet-name>CreateStudent</servlet-name>
+                <url-pattern>/createStudent</url-pattern>
+        </servlet-mapping>
+        
+        <servlet-mapping>
+                <servlet-name>RegisterStudent</servlet-name>
+                <url-pattern>/RegisterStudentServlet</url-pattern>
+        </servlet-mapping>
+        
+        <servlet-mapping>
+                <servlet-name>StudentHome</servlet-name>
+                <url-pattern>/StudentHome</url-pattern>
+        </servlet-mapping>
+        
+        <servlet-mapping>
+                <servlet-name>StudentCharges</servlet-name>
+                <url-pattern>/StudentChargesServlet</url-pattern>
+        </servlet-mapping>
+
+        <welcome-file-list>
+                <welcome-file>login.jsp</welcome-file>
+        </welcome-file-list>
+</web-app>

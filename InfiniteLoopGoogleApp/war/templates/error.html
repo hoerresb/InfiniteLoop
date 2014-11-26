@@ -1,0 +1,10 @@
+<c:choose>
+	<c:when test="${fn:length(errors) == 0}">
+	</c:when>
+	<c:otherwise>
+		<c:forEach items="${errors}" var="error">
+			<span class="error"><c:out value="${error}" /></span>
+			<br />
+		</c:forEach>
+	</c:otherwise>
+</c:choose>
